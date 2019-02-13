@@ -17,7 +17,7 @@ knitr::opts_chunk$set(warning = FALSE)
 libs <- c("tidyverse", "knitr", "kableExtra", "fpp2", "glue")
 
 loadPkg <- function(x) {
-  if(!require(x, character.only = T)) install.packages(x, dependencies = T)
+  if(!require(x, character.only = T)) install.packages(x, dependencies = T, repos = "http://cran.us.r-project.org")
   require(x, character.only = T)
 }
 
