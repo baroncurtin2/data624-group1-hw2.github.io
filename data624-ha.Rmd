@@ -91,7 +91,7 @@ Conclusion:
 ![](./week1/2.7.png)
 
 ```{r}
-arrivals <- data("arrivals")
+#arrivals <- data("arrivals")
 ```
 
 ```{r}
