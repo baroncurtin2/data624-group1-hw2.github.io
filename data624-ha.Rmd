@@ -588,6 +588,76 @@ From the accuracy fucnction, it appears that the STL decomposition performs bett
 
 
 
+### 7.5
+![](./week4/7.5.png)
+
+
+
+
+
+### 7.6
+![](./week4/7.6.png)
+
+
+
+
+
+### 7.10
+![](./week4/7.10.png)
+
+
+#### 7.10a
+![](./week4/7.10a.png)
+
+
+
+
+
+#### 7.10b
+![](./week4/7.10b.png)
+
+
+
+
+
+#### 7.10c
+![](./week4/7.10c.png)
+
+
+
+
+
+### 7.10d
+![](./week4/7.10d.png)
+
+
+
+
+
+#### 7.10e
+![](./week4/7.10e.png)
+
+
+
+
+
+#### 7.10f
+![](./week4/7.10f.png)
+
+
+
+
+
+#### 7.10g
+![](./week4/7.10g.png)
+
+
+
+
+
+#### 7.10h
+![](./week4/7.10h.png)
+
 
 
 
