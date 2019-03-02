@@ -1,6 +1,6 @@
 --- 
 title: "Data 624 - HA Assignments (HW1)"
-author: "Group 1: Andrew Carson, Nathan Cooper, Baron Curtin, Heather Geiger, Alejandro Osborne"
+author: "Group 1: Andrew Carson, Nathan Cooper, Baron Curtin, Heather Geiger"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -18,3 +18,6 @@ knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
 ```
+
+# Introduction
+The work herein constitutes the work of Andrew Carson, Nathan Cooper, Baron Curtin, and Heather Geiger in the course Data 624 towards completion of the first set of homework assignments due for Professor Burk.
