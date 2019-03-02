@@ -1,32 +1,26 @@
----
-title: 'KJ #3'
-author: "Andrew Carson"
-date: "February 10, 2019"
-output: html_document
----
-
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-```
 
-## KJ #3: 3.1, 3.2
-```{r, message=FALSE}
 loadPkg <- function(x) {
   if(!require(x, character.only = T)) install.packages(x, dependencies = T, repos = "http://cran.us.r-project.org")
   require(x, character.only = T)
 }
-```
 
-### 3.1
-The UC Irvine Machine Learning Repository contains a data set related to glass identification. The data consist of 214 glass samples labeled as one of seven class categories. There are nine predictors, including the refractive index and percentages of eight elements: Na, Mg, Al, Si, K, Ca, Ba, and Fe.  The data can be accessed via:
-
-```{r, message=FALSE}
 loadPkg("mlbench")
 data(Glass)
 str(Glass)
 ```
 
-(a) Using visualizations, explore the predictor variables to understand their distributions as well as the relationships between predictors
+# HW3
+
+
+## 3.1
+![](./week3/3.1.png)
+
+![](./week3/3.1cont.png)
+
+### 3.1a
+![](./week3/3.1a.png)
 
   Answer:
   I use histograms to understand the distribution of each predictor variable.  The variables differ quite a bit.  Some are more normally distributed (e.g., Na, Al) while others do not look normal at all (e.g., Ba, Fe, K).
@@ -48,26 +42,38 @@ corrplot(correlations)
 
 ```
 
-(b) Do there appear to be any outliers in the data? Are any predictors skewed?
 
-  Answer: Yes, there do appear to be outliers.  "K" has a very obvious outlier with a value of 6. "Ba" also has outliers at above 2.0,and "Fe" has an outlier above 0.5.  Skew is also present in many predictors.  While some have only minor skew (e.g., Rl, Al), others are much more pronounced and obvious (e.g., Mg, Ba, Fe)
+### 3.1b
+![](./week3/3.1b.png)
 
-(c) Are there any relevant transformations of one or more predictors that might improve the classification model?
-
-  Answer: Yes, a log or Box Cox transformation could help remove the skew mentioned above.  Depending on what kind of classification model we are using, centering and scaling could be important for all variables.  For example, a logistic regression classification type model will be much more sensitive to variables on different scales than a decision tree.  Removing the outliers may still be required after addressing skew, so that may be needed as well to improve model performance.  Thankfully, there are no missing values in any columns, so we do not need to address those by imputation, removal, or other means.  
+Answer: Yes, there do appear to be outliers.  "K" has a very obvious outlier with a value of 6. "Ba" also has outliers at above 2.0,and "Fe" has an outlier above 0.5.  Skew is also present in many predictors.  While some have only minor skew (e.g., Rl, Al), others are much more pronounced and obvious (e.g., Mg, Ba, Fe)
 
 
-### 3.2
-The soybean data can also be found at the UC Irvine Machine Learning Repository. Data were collected to predict disease in 683 soybeans. The 35 predictors are mostly categorical and include information on the environmental conditions (e.g.,temperature, precipitation) and plant conditions (e.g.,left spots, mold growth). The outcome labels consist of 19 distinct classes.
+
+
+### 3.1c
+![](./week3/3.1c.png)
+
+Answer: Yes, a log or Box Cox transformation could help remove the skew mentioned above.  Depending on what kind of classification model we are using, centering and scaling could be important for all variables.  For example, a logistic regression classification type model will be much more sensitive to variables on different scales than a decision tree.  Removing the outliers may still be required after addressing skew, so that may be needed as well to improve model performance.  Thankfully, there are no missing values in any columns, so we do not need to address those by imputation, removal, or other means.  
+
+
+
+
+## 3.2
+![](./week3/3.2.png)
+
+![](./week3/3.2cont.png)
 
 ```{r}
 loadPkg("mlbench")
 data(Soybean)
 ```
 
-(a) Investigate the frequency distributions for the categorical predictors. Are any of the distributions degenerate in the ways discussed earlier in this chapter?
 
-  Answer: The frequency distributions for the categorical predictors are degenerate.  Most consist of two or three values, so the distributions are not normal.  This is not surprising as the values are categorical, not continuous.  Often the values in the variables are not evenly distributed by frequency, with one or more values having a much greater frequency than others (e.g., leaf.marg has many 0 and 2 but few 1).  
+### 3.2a
+![](./week3/3.2a.png)
+
+Answer: The frequency distributions for the categorical predictors are degenerate.  Most consist of two or three values, so the distributions are not normal.  This is not surprising as the values are categorical, not continuous.  Often the values in the variables are not evenly distributed by frequency, with one or more values having a much greater frequency than others (e.g., leaf.marg has many 0 and 2 but few 1).  
   
 ```{r, message=FALSE, warning=FALSE}
 #frequency distributions.  examples
@@ -99,7 +105,9 @@ corrplot(corr_soy)
   
 ```
 
-(b) Roughly 18% of the data are missing. Are there particular predictors that are more likely to be missing? Is the pattern of missing data related to the classes?
+
+### 3.2b
+![](./week3/3.2b.png)
 
   Answer:
   Yes, there are particular predictors that are more likely to be missing.  A count of NAs below shows that we have counts of NAs in each column ranging from 0 through 121.  A distribution of the NA counts shows that it not normally distributed, and that there are gaps in the middle of the range (40 to 80).
@@ -159,9 +167,11 @@ head(arrange(Soybean_NA_totals, desc(Totals)), n=10)
 ```
 
 
-(c) Develop a strategy for handling missing data, either by eliminating predictors or imputation.
 
-  Answer:  Since missing values are related to particular classes, we do not want to remove rows with missing values, as this would be to remove information that could predict the appropriate class.  Furthermore, if we did that, we might remove all or nearly all of the rows that have a particular class.  For example, there are 16 rows with a class of "2-4-d-injury".  And there are 16 rows that are missing values in the "plant stand" column that have a class of "2-4-d-injury".  So if we removed all of these, we would be removing every instance of "2-4-d-injury", which we certainly do not want to do.
+### 3.2c
+![](./week3/3.2c.png)
+
+Answer:  Since missing values are related to particular classes, we do not want to remove rows with missing values, as this would be to remove information that could predict the appropriate class.  Furthermore, if we did that, we might remove all or nearly all of the rows that have a particular class.  For example, there are 16 rows with a class of "2-4-d-injury".  And there are 16 rows that are missing values in the "plant stand" column that have a class of "2-4-d-injury".  So if we removed all of these, we would be removing every instance of "2-4-d-injury", which we certainly do not want to do.
  
 ```{r, message=FALSE, warning=FALSE}
 #counts of rows by class
@@ -200,4 +210,3 @@ Soybean_impute_Neg1[which(!complete.cases(Soybean))[0:5],]
 ```
 
 I would try all of these approaches and select the one that works the best for the chosen models.
-  
