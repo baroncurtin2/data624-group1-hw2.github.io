@@ -3,3 +3,158 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # HW5
+
+### 8.1
+Figure 8.31 shows the ACFs for 36 random numbers, 360 random numbers and 1,000 random numbers. 
+
+a. Explain the differences among these figures. Do they all indicate that the data are white noise?
+
+Answer: An ACF plot shows the correlations from linear relationships between lagged values of a time series for various lags.  The first plot has the largest magnitude of correlations amongst lagged values, with some getting to about 0.25 and -0.3.  It also has the largest critical values (the blue lines).  As we move to the right, the critical values decrease and the correlations also decrease in magnitude until in the third chart, one can hardly see the correlations.
+
+I think that the charts pretty well show that the data are white noise.  We don't see any correlations far over the critical value lines so that suggests there aren't correlations from one value to the next (meaning that it is in reasonable to assume that it is white noise).
+
+b. Why are the critical values at different distances from the mean of zero? Why are the autocorrelations different in each figure when they each refer to white noise?
+
+Answer: In the first chart, the sample  size is so small (36), and the chances of an accidental correlation from that small sample are so great, that the correlation would have to be very high in order to be significant.  This is why the critical values are pretty large in magnitude (around 0.3 and -0.3).  As the number of values in each sample increases and we move to the right, the likelihood of getting an accidental correlation due purely to random luck decreases, so the critical values showing the bar for significance also decrease as even a very modest correlation is likely to be significant and not due purely to random luck.  
+
+Furthermore, the autocorrelations also decrease in magnitude as we move from left to right, as there are more and more examples of the relationship between one value and the next.  When there are few values, it is very easy to find a correlation between subsequent values based solely on random luck coming from white noise.  However, as more values are added, it becomes more difficult to find a correlation that is due to luck.  Not finding a strong relationship, the correlation values decrease.
+
+
+
+### 8.2
+
+A classic example of a non-stationary series is the daily closing IBM stock price series (data set ibmclose). Use R to plot the daily closing prices for IBM stock and the ACF and PACF. Explain how each plot shows that the series is non-stationary and should be differenced.
+
+Answer: We plot the data below.  Just by looking at it we can tell that there are instances of trend and of decreasing variance.  Consequently, we know that it is not stationary.
+
+```{r, message=FALSE}
+library(fpp2)
+autoplot(ibmclose)
+```
+
+If we look at the ACF, we can see that each value is related to previous values.  At each increasing lag value, there is still great signficance in the relationship between a value and the related lag value.  This means that the time at which a value occurs is important to determining its value, so again, it is non-stationary.
+
+In terms of difference, every lag value is significant.  What we don't know if whether the significance of lag 2, for example, comes from its relationshop to lag 1, or if is is significant on its own.  Thats why we need to look at the PACF.
+
+
+```{r}
+#ACF
+acf(ibmclose)
+```
+
+The PACF removes the significance due to previous lags.  This chart clearly shows that the lag of 1 is the significant lag, and any subsequent lags are significant only because they had the relationship with the first lag.  So a difference of 1 is the correct difference to be applied here.
+
+```{r}
+#PACF
+pacf(ibmclose)
+
+```
+
+
+### 8.7
+Nate is doing this one.
+
+### 8.12
+
+For the mcopper data: 
+
+```{r}
+data(mcopper)
+autoplot(mcopper)
+```
+
+a. if necessary, find a suitable Box-Cox transformation for the data;
+
+Answer: given the huge spike in 2005-2010 in copper prices, a Box-Cox transformation to help with the increased variance would be useful.  A Box-Cox test finds a lambda of 0.191 to be optimal.
+
+```{r}
+lambda <-BoxCox.lambda(mcopper)
+mcopper_adj <- BoxCox(mcopper,lambda)
+autoplot(mcopper_adj)
+
+```
+
+
+b. fit a suitable ARIMA model to the transformed data using auto.arima();
+
+Answer: auto.arima() finds an ARIMA(0,1,1) model, meaning that we have a 0 autoregressive part, with a single first degree difference, and 1 for the moving average part.
+
+```{r}
+model <- auto.arima(mcopper_adj)
+summary(model)
+
+```
+
+c. try some other plausible models by experimenting with the orders chosen;
+
+Answer: I tried six other options with different orders.  All were either equal or less in log likelihood or had higher AIC and AICc.  They were also more complicated by adding, for example, an autoregressive part when the above model doesn't have one.
+
+```{r}
+
+option1 <-Arima(mcopper_adj, order=c(1,0,1))
+summary(option1)
+
+option2 <-Arima(mcopper_adj, order=c(1,1,0))
+summary(option2)
+
+option3 <-Arima(mcopper_adj, order=c(0,1,0))
+summary(option3)
+
+option4 <-Arima(mcopper_adj, order=c(1,0,0))
+summary(option4)
+
+option5 <-Arima(mcopper_adj, order=c(0,2,1))
+summary(option5)
+
+option6 <-Arima(mcopper_adj, order=c(1,1,1))
+summary(option6)
+
+```
+
+
+d. choose what you think is the best model and check the residual diagnostics;
+
+Answer: for the reasons given above, the original model is the best.  We can confirm this by also forcing auto.arima() to check more of the available options.  It still returns an ARIMA(0,1,1) model.
+
+The residuals look good.  A Ljung-Box test returns a p-value of 0.4659 which is not significant.  The residuals are normally distributed, are not autocorrelated, and have roughly stable variance over time.  So the model appears to pass the test.
+
+```{r}
+model2 <- auto.arima(mcopper_adj,  stepwise=FALSE, approximation=FALSE)
+summary(model2)
+
+#residuals
+checkresiduals(model)
+
+```
+
+e. produce forecasts of your fitted model. Do the forecasts look reasonable?
+
+Answer: a forecast of the fitted model looks reasonable.  The prediction interval seems to be wide enough to capture what, based on looking at the historical data, are the likely values to come.
+
+```{r}
+autoplot(forecast(model))
+
+```
+
+f. compare the results with what you would obtain using ets() (with no transformation).
+
+Answer: The ARIMA model appears to be a better model.  The prediction intervals are much smaller (the ETS intervals provide almost no real help in what the value could be).  Comparing summary statistics,  the ARIMA model has AIC of -86.1, AICc 0f -86.08, and BIC of -77.43.  Other measures are RMSE (0.223), MAE (0.159), MAPE (1.14), and MASE (0.199).
+
+In contrast, the ETS model has very high AIC (1919), AICc (1919), and BIC (1945).  Other measures are similar or higher: RMSE(0.233), MAE (0.166), MAPE(1.19), and MASE(0.208).  
+
+Also, the ETS model does not account for some autocorrelation, as shown by the ACF plot below and as given by the Ljung-Box test p-value of basically 0 (meaning that the results are significant and we can conclude that there is autocorrelation).
+
+So the ETS model in this instance does not do very well at all in comparison to the ARIMA model, which is much more useful in its predictions and much more accurate with respect to model measures.
+
+
+```{r}
+model_ets<-ets(mcopper_adj)
+autoplot(forecast(model_ets))
+
+summary(model_ets)
+
+checkresiduals(model_ets)
+
+```
+
+
