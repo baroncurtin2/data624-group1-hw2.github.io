@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+bookfiles/**.html
+bookfiles/**.png
+bookfiles/_book/*
+bookfiles/_bookfiles/*
