@@ -5,15 +5,19 @@ knitr::opts_chunk$set(echo = TRUE)
 # HW5
 
 ### 8.1
-Figure 8.31 shows the ACFs for 36 random numbers, 360 random numbers and 1,000 random numbers. 
+![](./week5/8.png)
 
-a. Explain the differences among these figures. Do they all indicate that the data are white noise?
+
+#### 8.1a
+![](./week5/8.1a.png)
 
 Answer: An ACF plot shows the correlations from linear relationships between lagged values of a time series for various lags.  The first plot has the largest magnitude of correlations amongst lagged values, with some getting to about 0.25 and -0.3.  It also has the largest critical values (the blue lines).  As we move to the right, the critical values decrease and the correlations also decrease in magnitude until in the third chart, one can hardly see the correlations.
 
 I think that the charts pretty well show that the data are white noise.  We don't see any correlations far over the critical value lines so that suggests there aren't correlations from one value to the next (meaning that it is in reasonable to assume that it is white noise).
 
-b. Why are the critical values at different distances from the mean of zero? Why are the autocorrelations different in each figure when they each refer to white noise?
+#### 8.1b
+![](./week5/8.1b.png)
+
 
 Answer: In the first chart, the sample  size is so small (36), and the chances of an accidental correlation from that small sample are so great, that the correlation would have to be very high in order to be significant.  This is why the critical values are pretty large in magnitude (around 0.3 and -0.3).  As the number of values in each sample increases and we move to the right, the likelihood of getting an accidental correlation due purely to random luck decreases, so the critical values showing the bar for significance also decrease as even a very modest correlation is likely to be significant and not due purely to random luck.  
 
@@ -22,8 +26,8 @@ Furthermore, the autocorrelations also decrease in magnitude as we move from lef
 
 
 ### 8.2
+![](./week5/8.2.png)
 
-A classic example of a non-stationary series is the daily closing IBM stock price series (data set ibmclose). Use R to plot the daily closing prices for IBM stock and the ACF and PACF. Explain how each plot shows that the series is non-stationary and should be differenced.
 
 Answer: We plot the data below.  Just by looking at it we can tell that there are instances of trend and of decreasing variance.  Consequently, we know that it is not stationary.
 
@@ -52,18 +56,76 @@ pacf(ibmclose)
 
 
 ### 8.7
-Nate is doing this one.
+![](./week5/8.7.png)
+
+
+#### 8.7a
+![](./week5/8.7a.png)
+
+
+
+#### 8.7b
+![](./week5/8.7b.png)
+
+
+
+
+
+
+#### 8.7c
+![](./week5/8.7c.png)
+
+
+
+
+
+#### 8.7d
+![](./week5/8.7d.png)
+
+
+
+
+
+
+
+#### 8.7e
+![](./week5/8.7e.png)
+
+
+
+
+
+
+
+#### 8.7f
+![](./week5/8.7f.png)
+
+
+
+
+
+
+
+#### 8.7g
+![](./week5/8.7g.png)
+
+
+
+
+
+
 
 ### 8.12
+![](./week5/8.12.png)
 
-For the mcopper data: 
 
 ```{r}
 data(mcopper)
 autoplot(mcopper)
 ```
 
-a. if necessary, find a suitable Box-Cox transformation for the data;
+#### 8.12a
+![](./week5/8.12a.png)
 
 Answer: given the huge spike in 2005-2010 in copper prices, a Box-Cox transformation to help with the increased variance would be useful.  A Box-Cox test finds a lambda of 0.191 to be optimal.
 
@@ -75,7 +137,8 @@ autoplot(mcopper_adj)
 ```
 
 
-b. fit a suitable ARIMA model to the transformed data using auto.arima();
+#### 8.12b
+![](./week5/8.12b.png)
 
 Answer: auto.arima() finds an ARIMA(0,1,1) model, meaning that we have a 0 autoregressive part, with a single first degree difference, and 1 for the moving average part.
 
@@ -85,7 +148,8 @@ summary(model)
 
 ```
 
-c. try some other plausible models by experimenting with the orders chosen;
+#### 8.12c
+![](./week5/8.12c.png)
 
 Answer: I tried six other options with different orders.  All were either equal or less in log likelihood or had higher AIC and AICc.  They were also more complicated by adding, for example, an autoregressive part when the above model doesn't have one.
 
@@ -112,7 +176,8 @@ summary(option6)
 ```
 
 
-d. choose what you think is the best model and check the residual diagnostics;
+#### 8.12d
+![](./week5/8.12d.png)
 
 Answer: for the reasons given above, the original model is the best.  We can confirm this by also forcing auto.arima() to check more of the available options.  It still returns an ARIMA(0,1,1) model.
 
@@ -127,7 +192,8 @@ checkresiduals(model)
 
 ```
 
-e. produce forecasts of your fitted model. Do the forecasts look reasonable?
+#### 8.12e
+![](./week5/8.12e.png)
 
 Answer: a forecast of the fitted model looks reasonable.  The prediction interval seems to be wide enough to capture what, based on looking at the historical data, are the likely values to come.
 
@@ -136,7 +202,8 @@ autoplot(forecast(model))
 
 ```
 
-f. compare the results with what you would obtain using ets() (with no transformation).
+#### 8.12f
+![](./week5/8.12f.png)
 
 Answer: The ARIMA model appears to be a better model.  The prediction intervals are much smaller (the ETS intervals provide almost no real help in what the value could be).  Comparing summary statistics,  the ARIMA model has AIC of -86.1, AICc 0f -86.08, and BIC of -77.43.  Other measures are RMSE (0.223), MAE (0.159), MAPE (1.14), and MASE (0.199).
 
