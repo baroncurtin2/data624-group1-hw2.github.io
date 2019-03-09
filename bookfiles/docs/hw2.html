@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 3 HW2 | Data 624 - HA Assignments (HW1)</title>
+  <meta name="description" content="Group 1’s HA Homework Assignments">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 3 HW2 | Data 624 - HA Assignments (HW1)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Group 1’s HA Homework Assignments" />
+  <meta name="github-repo" content="baroncurtin2/data624" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 HW2 | Data 624 - HA Assignments (HW1)" />
+  
+  <meta name="twitter:description" content="Group 1’s HA Homework Assignments" />
+  
+
+<meta name="author" content="Group 1: Andrew Carson, Nathan Cooper, Baron Curtin, Heather Geiger">
+
+
+<meta name="date" content="2019-03-09">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="hw1.html">
+<link rel="next" href="hw3.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="hw1.html"><a href="hw1.html"><i class="fa fa-check"></i><b>2</b> HW1</a><ul>
+<li class="chapter" data-level="2.1" data-path="hw1.html"><a href="hw1.html#section"><i class="fa fa-check"></i><b>2.1</b> 2.3</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="hw1.html"><a href="hw1.html#a"><i class="fa fa-check"></i><b>2.1.1</b> a</a></li>
+<li class="chapter" data-level="2.1.2" data-path="hw1.html"><a href="hw1.html#b"><i class="fa fa-check"></i><b>2.1.2</b> b</a></li>
+<li class="chapter" data-level="2.1.3" data-path="hw1.html"><a href="hw1.html#c"><i class="fa fa-check"></i><b>2.1.3</b> c</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="hw1.html"><a href="hw1.html#section-1"><i class="fa fa-check"></i><b>2.2</b> 2.7</a></li>
+<li class="chapter" data-level="2.3" data-path="hw1.html"><a href="hw1.html#section-2"><i class="fa fa-check"></i><b>2.3</b> 2.10</a></li>
+<li class="chapter" data-level="2.4" data-path="hw1.html"><a href="hw1.html#section-3"><i class="fa fa-check"></i><b>2.4</b> 3.1</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="hw1.html"><a href="hw1.html#usnetelec"><i class="fa fa-check"></i><b>2.4.1</b> usnetelec</a></li>
+<li class="chapter" data-level="2.4.2" data-path="hw1.html"><a href="hw1.html#usgdp"><i class="fa fa-check"></i><b>2.4.2</b> usgdp</a></li>
+<li class="chapter" data-level="2.4.3" data-path="hw1.html"><a href="hw1.html#mcopper"><i class="fa fa-check"></i><b>2.4.3</b> mcopper</a></li>
+<li class="chapter" data-level="2.4.4" data-path="hw1.html"><a href="hw1.html#enplanements"><i class="fa fa-check"></i><b>2.4.4</b> enplanements</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="hw1.html"><a href="hw1.html#section-4"><i class="fa fa-check"></i><b>2.5</b> 3.8</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="hw1.html"><a href="hw1.html#a-1"><i class="fa fa-check"></i><b>2.5.1</b> a</a></li>
+<li class="chapter" data-level="2.5.2" data-path="hw1.html"><a href="hw1.html#b-1"><i class="fa fa-check"></i><b>2.5.2</b> b</a></li>
+<li class="chapter" data-level="2.5.3" data-path="hw1.html"><a href="hw1.html#c-1"><i class="fa fa-check"></i><b>2.5.3</b> c</a></li>
+<li class="chapter" data-level="2.5.4" data-path="hw1.html"><a href="hw1.html#d"><i class="fa fa-check"></i><b>2.5.4</b> d</a></li>
+<li class="chapter" data-level="2.5.5" data-path="hw1.html"><a href="hw1.html#e"><i class="fa fa-check"></i><b>2.5.5</b> e</a></li>
+<li class="chapter" data-level="2.5.6" data-path="hw1.html"><a href="hw1.html#f"><i class="fa fa-check"></i><b>2.5.6</b> f</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="hw2.html"><a href="hw2.html"><i class="fa fa-check"></i><b>3</b> HW2</a><ul>
+<li class="chapter" data-level="3.1" data-path="hw2.html"><a href="hw2.html#section-5"><i class="fa fa-check"></i><b>3.1</b> 6.2</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="hw2.html"><a href="hw2.html#a-2"><i class="fa fa-check"></i><b>3.1.1</b> a</a></li>
+<li class="chapter" data-level="3.1.2" data-path="hw2.html"><a href="hw2.html#b-2"><i class="fa fa-check"></i><b>3.1.2</b> b</a></li>
+<li class="chapter" data-level="3.1.3" data-path="hw2.html"><a href="hw2.html#c-2"><i class="fa fa-check"></i><b>3.1.3</b> c</a></li>
+<li class="chapter" data-level="3.1.4" data-path="hw2.html"><a href="hw2.html#d-1"><i class="fa fa-check"></i><b>3.1.4</b> d</a></li>
+<li class="chapter" data-level="3.1.5" data-path="hw2.html"><a href="hw2.html#e-1"><i class="fa fa-check"></i><b>3.1.5</b> e</a></li>
+<li class="chapter" data-level="3.1.6" data-path="hw2.html"><a href="hw2.html#f-1"><i class="fa fa-check"></i><b>3.1.6</b> f</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="hw2.html"><a href="hw2.html#section-6"><i class="fa fa-check"></i><b>3.2</b> 6.6</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="hw2.html"><a href="hw2.html#a-3"><i class="fa fa-check"></i><b>3.2.1</b> a</a></li>
+<li class="chapter" data-level="3.2.2" data-path="hw2.html"><a href="hw2.html#b-3"><i class="fa fa-check"></i><b>3.2.2</b> b</a></li>
+<li class="chapter" data-level="3.2.3" data-path="hw2.html"><a href="hw2.html#c-3"><i class="fa fa-check"></i><b>3.2.3</b> c</a></li>
+<li class="chapter" data-level="3.2.4" data-path="hw2.html"><a href="hw2.html#d-2"><i class="fa fa-check"></i><b>3.2.4</b> d</a></li>
+<li class="chapter" data-level="3.2.5" data-path="hw2.html"><a href="hw2.html#e-2"><i class="fa fa-check"></i><b>3.2.5</b> e</a></li>
+<li class="chapter" data-level="3.2.6" data-path="hw2.html"><a href="hw2.html#f-2"><i class="fa fa-check"></i><b>3.2.6</b> f</a></li>
+<li class="chapter" data-level="3.2.7" data-path="hw2.html"><a href="hw2.html#g"><i class="fa fa-check"></i><b>3.2.7</b> g</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="hw3.html"><a href="hw3.html"><i class="fa fa-check"></i><b>4</b> HW3</a><ul>
+<li class="chapter" data-level="4.1" data-path="hw3.html"><a href="hw3.html#section-7"><i class="fa fa-check"></i><b>4.1</b> 3.1</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="hw3.html"><a href="hw3.html#a-4"><i class="fa fa-check"></i><b>4.1.1</b> 3.1a</a></li>
+<li class="chapter" data-level="4.1.2" data-path="hw3.html"><a href="hw3.html#b-4"><i class="fa fa-check"></i><b>4.1.2</b> 3.1b</a></li>
+<li class="chapter" data-level="4.1.3" data-path="hw3.html"><a href="hw3.html#c-4"><i class="fa fa-check"></i><b>4.1.3</b> 3.1c</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="hw3.html"><a href="hw3.html#section-8"><i class="fa fa-check"></i><b>4.2</b> 3.2</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="hw3.html"><a href="hw3.html#a-5"><i class="fa fa-check"></i><b>4.2.1</b> 3.2a</a></li>
+<li class="chapter" data-level="4.2.2" data-path="hw3.html"><a href="hw3.html#b-5"><i class="fa fa-check"></i><b>4.2.2</b> 3.2b</a></li>
+<li class="chapter" data-level="4.2.3" data-path="hw3.html"><a href="hw3.html#c-5"><i class="fa fa-check"></i><b>4.2.3</b> 3.2c</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="hw4.html"><a href="hw4.html"><i class="fa fa-check"></i><b>5</b> HW4</a><ul>
+<li class="chapter" data-level="5.1" data-path="hw4.html"><a href="hw4.html#section-9"><i class="fa fa-check"></i><b>5.1</b> 7.5</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="hw4.html"><a href="hw4.html#a---exploratory-analysis"><i class="fa fa-check"></i><b>5.1.1</b> 7.5a - Exploratory analysis</a></li>
+<li class="chapter" data-level="5.1.2" data-path="hw4.html"><a href="hw4.html#b---forecasting-with-ses"><i class="fa fa-check"></i><b>5.1.2</b> 7.5b - Forecasting with ses</a></li>
+<li class="chapter" data-level="5.1.3" data-path="hw4.html"><a href="hw4.html#c---compute-rmse-values-for-the-training-data-in-each-case."><i class="fa fa-check"></i><b>5.1.3</b> 7.5c - Compute RMSE values for the training data in each case.</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="hw4.html"><a href="hw4.html#section-10"><i class="fa fa-check"></i><b>5.2</b> 7.6</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="hw4.html"><a href="hw4.html#a---apply-holts-linear-method-to-both-series-and-compute-four-day-forecasts-in-each-case."><i class="fa fa-check"></i><b>5.2.1</b> 7.6a - Apply Holt’s linear method to both series and compute four-day forecasts in each case.</a></li>
+<li class="chapter" data-level="5.2.2" data-path="hw4.html"><a href="hw4.html#b---compare-rsme-measures-vs.-simple-exponential-smoothing."><i class="fa fa-check"></i><b>5.2.2</b> 7.6b - Compare RSME measures vs. simple exponential smoothing.</a></li>
+<li class="chapter" data-level="5.2.3" data-path="hw4.html"><a href="hw4.html#c---compare-the-forecasts-for-the-two-series-using-both-methods.-which-do-you-think-is-best"><i class="fa fa-check"></i><b>5.2.3</b> 7.6c - Compare the forecasts for the two series using both methods. Which do you think is best?</a></li>
+<li class="chapter" data-level="5.2.4" data-path="hw4.html"><a href="hw4.html#d---calculate-prediction-intervals-and-compare-to-intervals-from-ses-and-holt-functions."><i class="fa fa-check"></i><b>5.2.4</b> 7.6d - Calculate prediction intervals and compare to intervals from SES and Holt functions.</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="hw4.html"><a href="hw4.html#section-11"><i class="fa fa-check"></i><b>5.3</b> 7.10</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="hw4.html"><a href="hw4.html#a-6"><i class="fa fa-check"></i><b>5.3.1</b> 7.10a</a></li>
+<li class="chapter" data-level="5.3.2" data-path="hw4.html"><a href="hw4.html#b-6"><i class="fa fa-check"></i><b>5.3.2</b> 7.10b</a></li>
+<li class="chapter" data-level="5.3.3" data-path="hw4.html"><a href="hw4.html#c-6"><i class="fa fa-check"></i><b>5.3.3</b> 7.10c</a></li>
+<li class="chapter" data-level="5.3.4" data-path="hw4.html"><a href="hw4.html#d-3"><i class="fa fa-check"></i><b>5.3.4</b> 7.10d</a></li>
+<li class="chapter" data-level="5.3.5" data-path="hw4.html"><a href="hw4.html#e-3"><i class="fa fa-check"></i><b>5.3.5</b> 7.10e</a></li>
+<li class="chapter" data-level="5.3.6" data-path="hw4.html"><a href="hw4.html#f-3"><i class="fa fa-check"></i><b>5.3.6</b> 7.10f</a></li>
+<li class="chapter" data-level="5.3.7" data-path="hw4.html"><a href="hw4.html#g-1"><i class="fa fa-check"></i><b>5.3.7</b> 7.10g</a></li>
+<li class="chapter" data-level="5.3.8" data-path="hw4.html"><a href="hw4.html#h"><i class="fa fa-check"></i><b>5.3.8</b> 7.10h</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="hw5.html"><a href="hw5.html"><i class="fa fa-check"></i><b>6</b> HW5</a><ul>
+<li class="chapter" data-level="6.0.1" data-path="hw5.html"><a href="hw5.html#section-12"><i class="fa fa-check"></i><b>6.0.1</b> 8.1</a></li>
+<li class="chapter" data-level="6.0.2" data-path="hw5.html"><a href="hw5.html#section-13"><i class="fa fa-check"></i><b>6.0.2</b> 8.2</a></li>
+<li class="chapter" data-level="6.0.3" data-path="hw5.html"><a href="hw5.html#section-14"><i class="fa fa-check"></i><b>6.0.3</b> 8.7</a></li>
+<li class="chapter" data-level="6.0.4" data-path="hw5.html"><a href="hw5.html#section-15"><i class="fa fa-check"></i><b>6.0.4</b> 8.12</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data 624 - HA Assignments (HW1)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="hw2" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> HW2</h1>
+<div id="section-5" class="section level2">
+<h2><span class="header-section-number">3.1</span> 6.2</h2>
+<p><img src="week2/6.2.png" /></p>
+<div id="a-2" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> a</h3>
+<p><img src="week2/6.2a.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(plastics) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Month&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;1000 $&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Monthly Plastic Sales&quot;</span>)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>The data has approximately 1 month (peak to peak) seasonality and an apprearent upward trend, that may be cyclic behavior since this only covers 6 months of data.</p>
+</div>
+<div id="b-2" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> b</h3>
+<p><img src="week2/6.2b.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">plastics</code></pre>
+<pre><code>##    Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+## 1  742  697  776  898 1030 1107 1165 1216 1208 1131  971  783
+## 2  741  700  774  932 1099 1223 1290 1349 1341 1296 1066  901
+## 3  896  793  885 1055 1204 1326 1303 1436 1473 1453 1170 1023
+## 4  951  861  938 1109 1274 1422 1486 1555 1604 1600 1403 1209
+## 5 1030 1032 1126 1285 1468 1637 1611 1608 1528 1420 1119 1013</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(plastics)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">plas_trend &lt;-<span class="st"> </span><span class="kw">ma</span>(plastics, <span class="dt">order =</span> <span class="dv">12</span>, <span class="dt">centre =</span> <span class="ot">TRUE</span>)
+plas_trend</code></pre>
+<pre><code>##         Jan       Feb       Mar       Apr       May       Jun       Jul
+## 1        NA        NA        NA        NA        NA        NA  976.9583
+## 2 1000.4583 1011.2083 1022.2917 1034.7083 1045.5417 1054.4167 1065.7917
+## 3 1117.3750 1121.5417 1130.6667 1142.7083 1153.5833 1163.0000 1170.3750
+## 4 1208.7083 1221.2917 1231.7083 1243.2917 1259.1250 1276.5833 1287.6250
+## 5 1374.7917 1382.2083 1381.2500 1370.5833 1351.2500 1331.2500        NA
+##         Aug       Sep       Oct       Nov       Dec
+## 1  977.0417  977.0833  978.4167  982.7083  990.4167
+## 2 1076.1250 1084.6250 1094.3750 1103.8750 1112.5417
+## 3 1175.5000 1180.5417 1185.0000 1190.1667 1197.0833
+## 4 1298.0417 1313.0000 1328.1667 1343.5833 1360.6250
+## 5        NA        NA        NA        NA        NA</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(plas_trend)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">plas_detrend &lt;-<span class="st"> </span>plastics<span class="op">/</span>plas_trend
+plas_detrend</code></pre>
+<pre><code>##         Jan       Feb       Mar       Apr       May       Jun       Jul
+## 1        NA        NA        NA        NA        NA        NA 1.1924766
+## 2 0.7406605 0.6922411 0.7571225 0.9007369 1.0511298 1.1598830 1.2103679
+## 3 0.8018794 0.7070625 0.7827241 0.9232452 1.0437044 1.1401548 1.1133184
+## 4 0.7867903 0.7049913 0.7615439 0.8919870 1.0118138 1.1139108 1.1540627
+## 5 0.7492044 0.7466313 0.8152036 0.9375570 1.0864015 1.2296714        NA
+##         Aug       Sep       Oct       Nov       Dec
+## 1 1.2445733 1.2363326 1.1559492 0.9880856 0.7905764
+## 2 1.2535718 1.2363720 1.1842376 0.9656890 0.8098573
+## 3 1.2216078 1.2477323 1.2261603 0.9830556 0.8545771
+## 4 1.1979585 1.2216299 1.2046681 1.0442225 0.8885622
+## 5        NA        NA        NA        NA        NA</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">plas_seas &lt;-<span class="st"> </span><span class="kw">colMeans</span>(<span class="kw">t</span>(<span class="kw">matrix</span>(plas_detrend,<span class="dt">nrow =</span> <span class="dv">12</span>)), <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)
+plas_seas</code></pre>
+<pre><code>##  [1] 0.7696337 0.7127315 0.7791485 0.9133815 1.0482624 1.1609050 1.1675564
+##  [8] 1.2294279 1.2355167 1.1927538 0.9952632 0.8358933</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(<span class="kw">as.ts</span>(plas_seas))</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-26-3.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">random_plas =<span class="st"> </span>plastics<span class="op">/</span><span class="st"> </span>(plas_trend<span class="op">*</span><span class="st"> </span>plas_seas)
+(random_plas)</code></pre>
+<pre><code>##         Jan       Feb       Mar       Apr       May       Jun       Jul
+## 1        NA        NA        NA        NA        NA        NA 1.0213439
+## 2 0.9623546 0.9712509 0.9717306 0.9861563 1.0027354 0.9991197 1.0366676
+## 3 1.0418975 0.9920460 1.0045890 1.0107991 0.9956519 0.9821258 0.9535457
+## 4 1.0222920 0.9891400 0.9774053 0.9765766 0.9652295 0.9595194 0.9884428
+## 5 0.9734559 1.0475631 1.0462750 1.0264681 1.0363832 1.0592351        NA
+##         Aug       Sep       Oct       Nov       Dec
+## 1 1.0123191 1.0006604 0.9691432 0.9927883 0.9457863
+## 2 1.0196384 1.0006923 0.9928600 0.9702851 0.9688526
+## 3 0.9936393 1.0098871 1.0280079 0.9877343 1.0223520
+## 4 0.9744032 0.9887603 1.0099889 1.0491923 1.0630092
+## 5        NA        NA        NA        NA        NA</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">random_plas</code></pre>
+<pre><code>##         Jan       Feb       Mar       Apr       May       Jun       Jul
+## 1        NA        NA        NA        NA        NA        NA 1.0213439
+## 2 0.9623546 0.9712509 0.9717306 0.9861563 1.0027354 0.9991197 1.0366676
+## 3 1.0418975 0.9920460 1.0045890 1.0107991 0.9956519 0.9821258 0.9535457
+## 4 1.0222920 0.9891400 0.9774053 0.9765766 0.9652295 0.9595194 0.9884428
+## 5 0.9734559 1.0475631 1.0462750 1.0264681 1.0363832 1.0592351        NA
+##         Aug       Sep       Oct       Nov       Dec
+## 1 1.0123191 1.0006604 0.9691432 0.9927883 0.9457863
+## 2 1.0196384 1.0006923 0.9928600 0.9702851 0.9688526
+## 3 0.9936393 1.0098871 1.0280079 0.9877343 1.0223520
+## 4 0.9744032 0.9887603 1.0099889 1.0491923 1.0630092
+## 5        NA        NA        NA        NA        NA</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">plastics <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">decompose</span>(<span class="dt">type=</span><span class="st">&quot;multiplicative&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">autoplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Month&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Classical multiplicative decomposition</span>
+<span class="st">    of Plastic Sales&quot;</span>)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">plastics <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">decompose</span>(<span class="dt">type=</span><span class="st">&quot;multiplicative&quot;</span>)</code></pre>
+<pre><code>## $x
+##    Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
+## 1  742  697  776  898 1030 1107 1165 1216 1208 1131  971  783
+## 2  741  700  774  932 1099 1223 1290 1349 1341 1296 1066  901
+## 3  896  793  885 1055 1204 1326 1303 1436 1473 1453 1170 1023
+## 4  951  861  938 1109 1274 1422 1486 1555 1604 1600 1403 1209
+## 5 1030 1032 1126 1285 1468 1637 1611 1608 1528 1420 1119 1013
+## 
+## $seasonal
+##         Jan       Feb       Mar       Apr       May       Jun       Jul
+## 1 0.7670466 0.7103357 0.7765294 0.9103112 1.0447386 1.1570026 1.1636317
+## 2 0.7670466 0.7103357 0.7765294 0.9103112 1.0447386 1.1570026 1.1636317
+## 3 0.7670466 0.7103357 0.7765294 0.9103112 1.0447386 1.1570026 1.1636317
+## 4 0.7670466 0.7103357 0.7765294 0.9103112 1.0447386 1.1570026 1.1636317
+## 5 0.7670466 0.7103357 0.7765294 0.9103112 1.0447386 1.1570026 1.1636317
+##         Aug       Sep       Oct       Nov       Dec
+## 1 1.2252952 1.2313635 1.1887444 0.9919176 0.8330834
+## 2 1.2252952 1.2313635 1.1887444 0.9919176 0.8330834
+## 3 1.2252952 1.2313635 1.1887444 0.9919176 0.8330834
+## 4 1.2252952 1.2313635 1.1887444 0.9919176 0.8330834
+## 5 1.2252952 1.2313635 1.1887444 0.9919176 0.8330834
+## 
+## $trend
+##         Jan       Feb       Mar       Apr       May       Jun       Jul
+## 1        NA        NA        NA        NA        NA        NA  976.9583
+## 2 1000.4583 1011.2083 1022.2917 1034.7083 1045.5417 1054.4167 1065.7917
+## 3 1117.3750 1121.5417 1130.6667 1142.7083 1153.5833 1163.0000 1170.3750
+## 4 1208.7083 1221.2917 1231.7083 1243.2917 1259.1250 1276.5833 1287.6250
+## 5 1374.7917 1382.2083 1381.2500 1370.5833 1351.2500 1331.2500        NA
+##         Aug       Sep       Oct       Nov       Dec
+## 1  977.0417  977.0833  978.4167  982.7083  990.4167
+## 2 1076.1250 1084.6250 1094.3750 1103.8750 1112.5417
+## 3 1175.5000 1180.5417 1185.0000 1190.1667 1197.0833
+## 4 1298.0417 1313.0000 1328.1667 1343.5833 1360.6250
+## 5        NA        NA        NA        NA        NA
+## 
+## $random
+##         Jan       Feb       Mar       Apr       May       Jun       Jul
+## 1        NA        NA        NA        NA        NA        NA 1.0247887
+## 2 0.9656005 0.9745267 0.9750081 0.9894824 1.0061175 1.0024895 1.0401641
+## 3 1.0454117 0.9953920 1.0079773 1.0142083 0.9990100 0.9854384 0.9567618
+## 4 1.0257400 0.9924762 0.9807020 0.9798704 0.9684851 0.9627557 0.9917766
+## 5 0.9767392 1.0510964 1.0498039 1.0299302 1.0398787 1.0628077        NA
+##         Aug       Sep       Oct       Nov       Dec
+## 1 1.0157335 1.0040354 0.9724119 0.9961368 0.9489762
+## 2 1.0230774 1.0040674 0.9962088 0.9735577 0.9721203
+## 3 0.9969907 1.0132932 1.0314752 0.9910657 1.0258002
+## 4 0.9776897 0.9920952 1.0133954 1.0527311 1.0665946
+## 5        NA        NA        NA        NA        NA
+## 
+## $figure
+##  [1] 0.7670466 0.7103357 0.7765294 0.9103112 1.0447386 1.1570026 1.1636317
+##  [8] 1.2252952 1.2313635 1.1887444 0.9919176 0.8330834
+## 
+## $type
+## [1] &quot;multiplicative&quot;
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;decomposed.ts&quot;</code></pre>
+</div>
+<div id="c-2" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> c</h3>
+<p><img src="week2/6.2c.png" /></p>
+<p>Yes the trend is sloped upward and the seasonal trend reaches maximum once a month.</p>
+</div>
+<div id="d-1" class="section level3">
+<h3><span class="header-section-number">3.1.4</span> d</h3>
+<p><img src="week2/6.2d.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">plas_seas &lt;-<span class="st"> </span><span class="kw">decompose</span>(plastics, <span class="dt">type =</span> <span class="st">&#39;multiplicative&#39;</span>)<span class="op">$</span>seasonal
+plas_seas</code></pre>
+<pre><code>##         Jan       Feb       Mar       Apr       May       Jun       Jul
+## 1 0.7670466 0.7103357 0.7765294 0.9103112 1.0447386 1.1570026 1.1636317
+## 2 0.7670466 0.7103357 0.7765294 0.9103112 1.0447386 1.1570026 1.1636317
+## 3 0.7670466 0.7103357 0.7765294 0.9103112 1.0447386 1.1570026 1.1636317
+## 4 0.7670466 0.7103357 0.7765294 0.9103112 1.0447386 1.1570026 1.1636317
+## 5 0.7670466 0.7103357 0.7765294 0.9103112 1.0447386 1.1570026 1.1636317
+##         Aug       Sep       Oct       Nov       Dec
+## 1 1.2252952 1.2313635 1.1887444 0.9919176 0.8330834
+## 2 1.2252952 1.2313635 1.1887444 0.9919176 0.8330834
+## 3 1.2252952 1.2313635 1.1887444 0.9919176 0.8330834
+## 4 1.2252952 1.2313635 1.1887444 0.9919176 0.8330834
+## 5 1.2252952 1.2313635 1.1887444 0.9919176 0.8330834</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">plas_seas_adj =<span class="st"> </span>plastics<span class="op">/</span>plas_seas
+<span class="kw">autoplot</span>(plas_seas_adj)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+</div>
+<div id="e-1" class="section level3">
+<h3><span class="header-section-number">3.1.5</span> e</h3>
+<p><img src="week2/6.2e.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">plastics[<span class="dv">30</span>]</code></pre>
+<pre><code>## [1] 1326</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">new_val &lt;-<span class="st"> </span>plastics[<span class="dv">30</span>]<span class="op">+</span><span class="dv">500</span>
+plas_outlier &lt;-<span class="st"> </span><span class="kw">replace</span>(plastics,<span class="dv">30</span>, new_val)
+plas_outlier[<span class="dv">30</span>]</code></pre>
+<pre><code>## [1] 1826</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">plas_seas_outlier &lt;-<span class="st"> </span><span class="kw">decompose</span>(plas_outlier, <span class="dt">type =</span> <span class="st">&#39;multiplicative&#39;</span>)<span class="op">$</span>seasonal
+plas_seas_outlier</code></pre>
+<pre><code>##         Jan       Feb       Mar       Apr       May       Jun       Jul
+## 1 0.7598996 0.7040581 0.7696340 0.9022607 1.0357218 1.2506498 1.1541497
+## 2 0.7598996 0.7040581 0.7696340 0.9022607 1.0357218 1.2506498 1.1541497
+## 3 0.7598996 0.7040581 0.7696340 0.9022607 1.0357218 1.2506498 1.1541497
+## 4 0.7598996 0.7040581 0.7696340 0.9022607 1.0357218 1.2506498 1.1541497
+## 5 0.7598996 0.7040581 0.7696340 0.9022607 1.0357218 1.2506498 1.1541497
+##         Aug       Sep       Oct       Nov       Dec
+## 1 1.2149325 1.2208222 1.1784222 0.9836787 0.8257707
+## 2 1.2149325 1.2208222 1.1784222 0.9836787 0.8257707
+## 3 1.2149325 1.2208222 1.1784222 0.9836787 0.8257707
+## 4 1.2149325 1.2208222 1.1784222 0.9836787 0.8257707
+## 5 1.2149325 1.2208222 1.1784222 0.9836787 0.8257707</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">plas_seas_adj_outlier =<span class="st"> </span>plas_outlier<span class="op">/</span>plas_seas_outlier
+<span class="kw">autoplot</span>(plas_seas_adj_outlier)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p>It adds a spike to the seasonally adjusted data where the outlier is.</p>
+</div>
+<div id="f-1" class="section level3">
+<h3><span class="header-section-number">3.1.6</span> f</h3>
+<p><img src="week2/6.2f.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">plastics[<span class="dv">5</span>]</code></pre>
+<pre><code>## [1] 1030</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">new_val &lt;-<span class="st"> </span>plastics[<span class="dv">5</span>]<span class="op">+</span><span class="dv">500</span>
+plas_outlier &lt;-<span class="st"> </span><span class="kw">replace</span>(plastics,<span class="dv">5</span>, new_val)
+plas_outlier[<span class="dv">5</span>]</code></pre>
+<pre><code>## [1] 1530</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">plas_seas_outlier &lt;-<span class="st"> </span><span class="kw">decompose</span>(plas_outlier, <span class="dt">type =</span> <span class="st">&#39;multiplicative&#39;</span>)<span class="op">$</span>seasonal
+plas_seas_outlier</code></pre>
+<pre><code>##         Jan       Feb       Mar       Apr       May       Jun       Jul
+## 1 0.7705339 0.7135653 0.7800599 0.9144500 1.0494886 1.1622630 1.1567134
+## 2 0.7705339 0.7135653 0.7800599 0.9144500 1.0494886 1.1622630 1.1567134
+## 3 0.7705339 0.7135653 0.7800599 0.9144500 1.0494886 1.1622630 1.1567134
+## 4 0.7705339 0.7135653 0.7800599 0.9144500 1.0494886 1.1622630 1.1567134
+## 5 0.7705339 0.7135653 0.7800599 0.9144500 1.0494886 1.1622630 1.1567134
+##         Aug       Sep       Oct       Nov       Dec
+## 1 1.2181249 1.2243057 1.1823311 0.9912933 0.8368710
+## 2 1.2181249 1.2243057 1.1823311 0.9912933 0.8368710
+## 3 1.2181249 1.2243057 1.1823311 0.9912933 0.8368710
+## 4 1.2181249 1.2243057 1.1823311 0.9912933 0.8368710
+## 5 1.2181249 1.2243057 1.1823311 0.9912933 0.8368710</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">plas_seas_adj_outlier =<span class="st"> </span>plas_outlier<span class="op">/</span>plas_seas_outlier
+<span class="kw">autoplot</span>(plas_seas_adj_outlier)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">plastics[<span class="dv">55</span>]</code></pre>
+<pre><code>## [1] 1611</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">new_val &lt;-<span class="st"> </span>plastics[<span class="dv">55</span>]<span class="op">+</span><span class="dv">500</span>
+plas_outlier &lt;-<span class="st"> </span><span class="kw">replace</span>(plastics,<span class="dv">55</span>, new_val)
+plas_outlier[<span class="dv">55</span>]</code></pre>
+<pre><code>## [1] 2111</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">plas_seas_outlier &lt;-<span class="st"> </span><span class="kw">decompose</span>(plas_outlier, <span class="dt">type =</span> <span class="st">&#39;multiplicative&#39;</span>)<span class="op">$</span>seasonal
+plas_seas_outlier</code></pre>
+<pre><code>##         Jan       Feb       Mar       Apr       May       Jun       Jul
+## 1 0.7667177 0.7071587 0.7730597 0.9063243 1.0399751 1.1513949 1.1673737
+## 2 0.7667177 0.7071587 0.7730597 0.9063243 1.0399751 1.1513949 1.1673737
+## 3 0.7667177 0.7071587 0.7730597 0.9063243 1.0399751 1.1513949 1.1673737
+## 4 0.7667177 0.7071587 0.7730597 0.9063243 1.0399751 1.1513949 1.1673737
+## 5 0.7667177 0.7071587 0.7730597 0.9063243 1.0399751 1.1513949 1.1673737
+##         Aug       Sep       Oct       Nov       Dec
+## 1 1.2292355 1.2353233 1.1925671 0.9951074 0.8357624
+## 2 1.2292355 1.2353233 1.1925671 0.9951074 0.8357624
+## 3 1.2292355 1.2353233 1.1925671 0.9951074 0.8357624
+## 4 1.2292355 1.2353233 1.1925671 0.9951074 0.8357624
+## 5 1.2292355 1.2353233 1.1925671 0.9951074 0.8357624</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">plas_seas_adj_outlier =<span class="st"> </span>plas_outlier<span class="op">/</span>plas_seas_outlier
+<span class="kw">autoplot</span>(plas_seas_adj_outlier)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p>Yes, the spike occurs where the outlier is.</p>
+</div>
+</div>
+<div id="section-6" class="section level2">
+<h2><span class="header-section-number">3.2</span> 6.6</h2>
+<p><img src="week2/6.6.png" /></p>
+<div id="a-3" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> a</h3>
+<p><img src="week2/6.6a.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-33-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="dv">7</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-33-3.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="dv">25</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-33-4.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="dv">81</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-33-5.png" width="672" /></p>
+<p>We see that a high s.window yeilds the same as periodic.</p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-34-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">25</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-34-3.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">7</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-34-4.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">3</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-34-5.png" width="672" /></p>
+<p>The t.window parameter adjusts the goodness of fit of the trend, low values tend to under fit the trend, and high values tend to over fit the trend.</p>
+</div>
+<div id="b-3" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> b</h3>
+<p><img src="week2/6.6b.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">brick_seas &lt;-<span class="st"> </span><span class="kw">decompose</span>(bricksq, <span class="dt">type =</span> <span class="st">&#39;multiplicative&#39;</span>)<span class="op">$</span>seasonal
+brick_seas</code></pre>
+<pre><code>##          Qtr1     Qtr2     Qtr3     Qtr4
+## 1956 0.907788 1.027191 1.061155 1.003866
+## 1957 0.907788 1.027191 1.061155 1.003866
+## 1958 0.907788 1.027191 1.061155 1.003866
+## 1959 0.907788 1.027191 1.061155 1.003866
+## 1960 0.907788 1.027191 1.061155 1.003866
+## 1961 0.907788 1.027191 1.061155 1.003866
+## 1962 0.907788 1.027191 1.061155 1.003866
+## 1963 0.907788 1.027191 1.061155 1.003866
+## 1964 0.907788 1.027191 1.061155 1.003866
+## 1965 0.907788 1.027191 1.061155 1.003866
+## 1966 0.907788 1.027191 1.061155 1.003866
+## 1967 0.907788 1.027191 1.061155 1.003866
+## 1968 0.907788 1.027191 1.061155 1.003866
+## 1969 0.907788 1.027191 1.061155 1.003866
+## 1970 0.907788 1.027191 1.061155 1.003866
+## 1971 0.907788 1.027191 1.061155 1.003866
+## 1972 0.907788 1.027191 1.061155 1.003866
+## 1973 0.907788 1.027191 1.061155 1.003866
+## 1974 0.907788 1.027191 1.061155 1.003866
+## 1975 0.907788 1.027191 1.061155 1.003866
+## 1976 0.907788 1.027191 1.061155 1.003866
+## 1977 0.907788 1.027191 1.061155 1.003866
+## 1978 0.907788 1.027191 1.061155 1.003866
+## 1979 0.907788 1.027191 1.061155 1.003866
+## 1980 0.907788 1.027191 1.061155 1.003866
+## 1981 0.907788 1.027191 1.061155 1.003866
+## 1982 0.907788 1.027191 1.061155 1.003866
+## 1983 0.907788 1.027191 1.061155 1.003866
+## 1984 0.907788 1.027191 1.061155 1.003866
+## 1985 0.907788 1.027191 1.061155 1.003866
+## 1986 0.907788 1.027191 1.061155 1.003866
+## 1987 0.907788 1.027191 1.061155 1.003866
+## 1988 0.907788 1.027191 1.061155 1.003866
+## 1989 0.907788 1.027191 1.061155 1.003866
+## 1990 0.907788 1.027191 1.061155 1.003866
+## 1991 0.907788 1.027191 1.061155 1.003866
+## 1992 0.907788 1.027191 1.061155 1.003866
+## 1993 0.907788 1.027191 1.061155 1.003866
+## 1994 0.907788 1.027191 1.061155</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">brick_seas_adj =<span class="st"> </span>bricksq<span class="op">/</span>brick_seas
+<span class="kw">autoplot</span>(brick_seas_adj)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+</div>
+<div id="c-3" class="section level3">
+<h3><span class="header-section-number">3.2.3</span> c</h3>
+<p><img src="week2/6.6c.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">brick_naive &lt;-<span class="st"> </span><span class="kw">naive</span>(brick_seas_adj, <span class="dt">h=</span><span class="dv">12</span>)
+brick_naive</code></pre>
+<pre><code>##         Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+## 1994 Q4       465.5304 438.0189 493.0419 423.4551 507.6056
+## 1995 Q1       465.5304 426.6232 504.4375 406.0270 525.0337
+## 1995 Q2       465.5304 417.8790 513.1817 392.6539 538.4068
+## 1995 Q3       465.5304 410.5073 520.5534 381.3799 549.6808
+## 1995 Q4       465.5304 404.0128 527.0480 371.4473 559.6134
+## 1996 Q1       465.5304 398.1412 532.9195 362.4675 568.5932
+## 1996 Q2       465.5304 392.7417 538.3190 354.2098 576.8509
+## 1996 Q3       465.5304 387.7161 543.3447 346.5237 584.5371
+## 1996 Q4       465.5304 382.9958 548.0649 339.3047 591.7560
+## 1997 Q1       465.5304 378.5313 552.5294 332.4768 598.5839
+## 1997 Q2       465.5304 374.2850 556.7757 325.9826 605.0781
+## 1997 Q3       465.5304 370.2277 560.8330 319.7775 611.2832</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(brick_seas_adj) <span class="op">+</span>
+<span class="st">  </span><span class="kw">autolayer</span>(brick_naive,
+    <span class="dt">series=</span><span class="st">&quot;Naïve&quot;</span>, <span class="dt">PI=</span><span class="ot">TRUE</span>)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+</div>
+<div id="d-2" class="section level3">
+<h3><span class="header-section-number">3.2.4</span> d</h3>
+<p><img src="week2/6.6d.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">fcast &lt;-<span class="st"> </span><span class="kw">stlf</span>(brick_seas_adj, <span class="dt">method=</span><span class="st">&#39;naive&#39;</span>)
+<span class="kw">autoplot</span>(fcast)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+</div>
+<div id="e-2" class="section level3">
+<h3><span class="header-section-number">3.2.5</span> e</h3>
+<p><img src="week2/6.6f.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">res_brk &lt;-<span class="st"> </span><span class="kw">residuals</span>(brick_naive)
+<span class="kw">autoplot</span>(res_brk)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gghistogram</span>(res_brk) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of residuals&quot;</span>)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-38-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggAcf</span>(res_brk) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;ACF of residuals&quot;</span>)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-38-3.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">res_fcast &lt;-<span class="st"> </span><span class="kw">residuals</span>(fcast)
+<span class="kw">autoplot</span>(res_fcast)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-38-4.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gghistogram</span>(res_brk) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of residuals&quot;</span>)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-38-5.png" width="672" /></p>
+<p>They seem to increse as time increases, so no they do not look uncorrelated. Also a couple of the lags show significance, that may or may not be by chance.</p>
+</div>
+<div id="f-2" class="section level3">
+<h3><span class="header-section-number">3.2.6</span> f</h3>
+<p><img src="week2/6.6f.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">brick_stl &lt;-<span class="st"> </span>brick_seas_adj <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">stlf</span>(<span class="dt">t.window=</span><span class="dv">7</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">method =</span> <span class="st">&#39;naive&#39;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) 
+brick_stl <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>In this instance, it the residuals appear to behave similarly to a STL decompostion that is not robust.</p>
+<pre class="sourceCode r"><code class="sourceCode r">res_brk2 &lt;-<span class="st"> </span>brick_stl <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">residuals</span>()
+res_brk2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gghistogram</span>(res_brk2) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of residuals&quot;</span>)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-40-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggAcf</span>(res_brk2) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;ACF of residuals&quot;</span>)</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-40-3.png" width="672" /></p>
+</div>
+<div id="g" class="section level3">
+<h3><span class="header-section-number">3.2.7</span> g</h3>
+<p><img src="week2/6.6g.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">train &lt;-<span class="st"> </span>bricksq <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">window</span>(<span class="dv">1956</span>, <span class="kw">c</span>(<span class="dv">1992</span>, <span class="dv">3</span>))
+test &lt;-<span class="st"> </span>bricksq <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">window</span>(<span class="kw">c</span>(<span class="dv">1992</span>, <span class="dv">4</span>), <span class="kw">c</span>(<span class="dv">1994</span>, <span class="dv">4</span>))
+train_stlf &lt;-<span class="st"> </span>train <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">stlf</span>(<span class="dt">method=</span><span class="st">&#39;naive&#39;</span>, <span class="dt">h=</span><span class="dv">8</span>)
+train_snaiv &lt;-<span class="st"> </span>train <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">snaive</span>(<span class="dt">h=</span><span class="dv">8</span>)
+<span class="kw">autoplot</span>(bricksq) <span class="op">+</span>
+<span class="st">  </span><span class="kw">autolayer</span>(train_stlf, <span class="dt">series=</span><span class="st">&quot;STL&quot;</span>, <span class="dt">PI=</span><span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">autolayer</span>(train_snaiv, <span class="dt">series=</span><span class="st">&quot;Seasonal naïve&quot;</span>, <span class="dt">PI=</span><span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Quarter&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Bricks&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Forecasts for quarterly brick production&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">guides</span>(<span class="dt">colour=</span><span class="kw">guide_legend</span>(<span class="dt">title=</span><span class="st">&quot;Forecast&quot;</span>))</code></pre>
+<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>From the graphs, it is hard to tell.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">accuracy</span>(train_snaiv, test)</code></pre>
+<pre><code>##                     ME     RMSE      MAE      MPE     MAPE      MASE
+## Training set  6.174825 49.71281 36.41259 1.369661 8.903098 1.0000000
+## Test set     27.500000 35.05353 30.00000 5.933607 6.528845 0.8238909
+##                   ACF1 Theil&#39;s U
+## Training set 0.8105927        NA
+## Test set     0.2405423 0.9527794</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">accuracy</span>(train_stlf, test)</code></pre>
+<pre><code>##                     ME     RMSE      MAE       MPE     MAPE      MASE
+## Training set  1.457806 20.31551 14.65964 0.3594803 3.606373 0.4025982
+## Test set     23.795651 27.73302 24.77223 5.2310577 5.463576 0.6803205
+##                   ACF1 Theil&#39;s U
+## Training set 0.2005515        NA
+## Test set     0.2530477 0.7247275</code></pre>
+<p>From the accuracy fucnction, it appears that the STL decomposition performs better by yeilding less error in ME, RMSE, MAE, MPE, MAPE, and MASE.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="hw1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hw3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-Week2-HW.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["Data 624-Group 1-HW1.pdf", "Data 624-Group 1-HW1.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

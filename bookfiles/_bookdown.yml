@@ -1,0 +1,6 @@
+book_filename: "Data 624-Group 1-HW1"
+language:
+  ui:
+    chapter_name: "Chapter "
+delete_merged_file: true
+output_dir: "docs"
