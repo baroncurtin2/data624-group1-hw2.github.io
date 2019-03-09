@@ -127,7 +127,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
+<li><a href="./">Data 624-Group1-HW1</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
@@ -258,20 +258,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Time Series Plot A3349338X&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Value&quot;</span>)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>From the time series plot, we able to deduce:
 * Trend: there is a clear upward trend over the duration of the time series</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggseasonplot</span>(myts, <span class="dt">year.labels =</span> T) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Seasonal plot: A3349338X&quot;</span>)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsubseriesplot</span>(myts) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Seasonal subseries pllot: A3349338X&quot;</span>)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-6-2.png" width="672" /></p>
 <p>From the seasonal plot, we are able to deduce:
 * Seasonality: there is some clear seasonality that exists among different month, however it is not without minor variation/deviation between the years
 * December shows a clear uptick while February shows a clear downtick</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggAcf</span>(myts)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>From the Acf plot, we are able to confirm:
 * Trend: the autocorrelations are slowly decreasing as the lags are increasing</p>
 <p>Conclusion:
@@ -287,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(arrivals) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Arrivals Time Series&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>series)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p>Observations:
 * Japan seems to experience a an upward trend, reach an apex, and then experience a downward trend
 * NZ, UK, and US all experience upward trends in arrivals albeit to different degrees
@@ -303,16 +303,16 @@ countries &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="s
 countries <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="st"> </span><span class="kw">genSeasonPlot</span>(.x))</code></pre>
 <pre><code>## [[1]]</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-10-3.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-10-3.png" width="672" /></p>
 <pre><code>## 
 ## [[4]]</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-10-4.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-10-4.png" width="672" /></p>
 <p>Observations from Seasonal Plots:
 * Typically the countries will see their highest arrivals in Q3, however the UK appears to go against this seasonal pattern
 * Q2 appears to be a down quarter for all countries except NZ
@@ -324,16 +324,16 @@ countries <span class="op">%&gt;%</span>
 countries <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">map</span>(<span class="op">~</span><span class="st"> </span><span class="kw">genSubSeasonPlot</span>(.x))</code></pre>
 <pre><code>## [[1]]</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <pre><code>## 
 ## [[2]]</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
 <pre><code>## 
 ## [[3]]</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-11-3.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-11-3.png" width="672" /></p>
 <pre><code>## 
 ## [[4]]</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-11-4.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-11-4.png" width="672" /></p>
 <p>Observations:
 * Japan’s mean stays relatively flat across the quarters outside of Q2
 * US also remains relatively consistent and further backs up the lack of deviation point made earlier
@@ -345,10 +345,10 @@ countries <span class="op">%&gt;%</span>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;dj&quot;</span>)
 ddj &lt;-<span class="st"> </span><span class="kw">diff</span>(dj)</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(ddj)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p>The autoplot appears to show random variation with peaks and valleys</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggAcf</span>(ddj)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p>The changes in the Dow Jones Index do appear to be white noise as the the autocorrelations are very close to zero</p>
 </div>
 <div id="section-3" class="section level2">
@@ -361,7 +361,7 @@ lambda &lt;-<span class="st"> </span><span class="kw">BoxCox.lambda</span>(usnet
 <span class="st">  </span><span class="kw">print</span>()</code></pre>
 <pre><code>## [1] 0.5167714</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(<span class="kw">BoxCox</span>(usnetelec, lambda))</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 </div>
 <div id="usgdp" class="section level3">
 <h3><span class="header-section-number">2.4.2</span> usgdp</h3>
@@ -370,7 +370,7 @@ lambda &lt;-<span class="st"> </span><span class="kw">BoxCox.lambda</span>(usgdp
 <span class="st">  </span><span class="kw">print</span>()</code></pre>
 <pre><code>## [1] 0.366352</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(<span class="kw">BoxCox</span>(usgdp, lambda))</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 </div>
 <div id="mcopper" class="section level3">
 <h3><span class="header-section-number">2.4.3</span> mcopper</h3>
@@ -379,7 +379,7 @@ lambda &lt;-<span class="st"> </span><span class="kw">BoxCox.lambda</span>(mcopp
 <span class="st">  </span><span class="kw">print</span>()</code></pre>
 <pre><code>## [1] 0.1919047</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(<span class="kw">BoxCox</span>(mcopper, lambda))</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>
 <div id="enplanements" class="section level3">
 <h3><span class="header-section-number">2.4.4</span> enplanements</h3>
@@ -388,7 +388,7 @@ lambda &lt;-<span class="st"> </span><span class="kw">BoxCox.lambda</span>(enpla
 <span class="st">  </span><span class="kw">print</span>()</code></pre>
 <pre><code>## [1] -0.2269461</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(<span class="kw">BoxCox</span>(enplanements, lambda))</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 </div>
 </div>
 <div id="section-4" class="section level2">
@@ -406,7 +406,7 @@ myts.test &lt;-<span class="st"> </span><span class="kw">window</span>(myts, <sp
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(myts) <span class="op">+</span>
 <span class="st">  </span><span class="kw">autolayer</span>(myts.train, <span class="dt">series=</span><span class="st">&quot;Training&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">autolayer</span>(myts.test, <span class="dt">series=</span><span class="st">&quot;Test&quot;</span>)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
 <p>The autoplot shows that the data has been correctly split with the latter part of the data reservered for testing</p>
 </div>
 <div id="c-1" class="section level3">
@@ -459,7 +459,7 @@ myts.test &lt;-<span class="st"> </span><span class="kw">window</span>(myts, <sp
 <h3><span class="header-section-number">2.5.5</span> e</h3>
 <p><img src="week1/3.8e.png" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">checkresiduals</span>(fc)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -526,7 +526,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["Data 624-Group 1-HW1.pdf", "Data 624-Group 1-HW1.epub"],
+"download": ["HW1.pdf", "HW1.epub"],
 "toc": {
 "collapse": "subsection"
 }

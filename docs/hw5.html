@@ -127,7 +127,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
+<li><a href="./">Data 624-Group1-HW1</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
@@ -258,16 +258,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Answer: We plot the data below. Just by looking at it we can tell that there are instances of trend and of decreasing variance. Consequently, we know that it is not stationary.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(fpp2)
 <span class="kw">autoplot</span>(ibmclose)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
 <p>If we look at the ACF, we can see that each value is related to previous values. At each increasing lag value, there is still great signficance in the relationship between a value and the related lag value. This means that the time at which a value occurs is important to determining its value, so again, it is non-stationary.</p>
 <p>In terms of difference, every lag value is significant. What we don’t know if whether the significance of lag 2, for example, comes from its relationshop to lag 1, or if is is significant on its own. Thats why we need to look at the PACF.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">#ACF</span>
 <span class="kw">acf</span>(ibmclose)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
 <p>The PACF removes the significance due to previous lags. This chart clearly shows that the lag of 1 is the significant lag, and any subsequent lags are significant only because they had the relationship with the first lag. So a difference of 1 is the correct difference to be applied here.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">#PACF</span>
 <span class="kw">pacf</span>(ibmclose)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
 </div>
 <div id="section-14" class="section level3">
 <h3><span class="header-section-number">6.0.3</span> 8.7</h3>
@@ -306,7 +306,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="week5/8.12.png" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(mcopper)
 <span class="kw">autoplot</span>(mcopper)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
 <div id="a-9" class="section level4">
 <h4><span class="header-section-number">6.0.4.1</span> 8.12a</h4>
 <p><img src="week5/8.12a.png" /></p>
@@ -314,7 +314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre class="sourceCode r"><code class="sourceCode r">lambda &lt;-<span class="kw">BoxCox.lambda</span>(mcopper)
 mcopper_adj &lt;-<span class="st"> </span><span class="kw">BoxCox</span>(mcopper,lambda)
 <span class="kw">autoplot</span>(mcopper_adj)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
 </div>
 <div id="b-9" class="section level4">
 <h4><span class="header-section-number">6.0.4.2</span> 8.12b</h4>
@@ -472,7 +472,7 @@ mcopper_adj &lt;-<span class="st"> </span><span class="kw">BoxCox</span>(mcopper
 ## Training set -0.004184621</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">#residuals</span>
 <span class="kw">checkresiduals</span>(model)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -486,7 +486,7 @@ mcopper_adj &lt;-<span class="st"> </span><span class="kw">BoxCox</span>(mcopper
 <p><img src="week5/8.12e.png" /></p>
 <p>Answer: a forecast of the fitted model looks reasonable. The prediction interval seems to be wide enough to capture what, based on looking at the historical data, are the likely values to come.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(<span class="kw">forecast</span>(model))</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
 </div>
 <div id="f-5" class="section level4">
 <h4><span class="header-section-number">6.0.4.6</span> 8.12f</h4>
@@ -497,7 +497,7 @@ mcopper_adj &lt;-<span class="st"> </span><span class="kw">BoxCox</span>(mcopper
 <p>So the ETS model in this instance does not do very well at all in comparison to the ARIMA model, which is much more useful in its predictions and much more accurate with respect to model measures.</p>
 <pre class="sourceCode r"><code class="sourceCode r">model_ets&lt;-<span class="kw">ets</span>(mcopper_adj)
 <span class="kw">autoplot</span>(<span class="kw">forecast</span>(model_ets))</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(model_ets)</code></pre>
 <pre><code>## ETS(M,Ad,N) 
 ## 
@@ -524,7 +524,7 @@ mcopper_adj &lt;-<span class="st"> </span><span class="kw">BoxCox</span>(mcopper
 ##                   ACF1
 ## Training set 0.1508258</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">checkresiduals</span>(model_ets)</code></pre>
-<p><img src="Data_624-Group_1-HW1_files/figure-html/unnamed-chunk-113-2.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-113-2.png" width="672" /></p>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -579,7 +579,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["Data 624-Group 1-HW1.pdf", "Data 624-Group 1-HW1.epub"],
+"download": ["HW1.pdf", "HW1.epub"],
 "toc": {
 "collapse": "subsection"
 }
