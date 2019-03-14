@@ -13,7 +13,9 @@ library(dplyr)
 ## 7.5
 ![](./week4/7.5.png)
 
-### 7.5a - Exploratory analysis
+### 7.5a
+
+Exploratory analysis
 
 Start with a simple line plot.
 
@@ -53,7 +55,9 @@ Here, it really does not seem like there is any pattern within what day of the w
 
 As for trend, it seems like there could possibly be an increasing trend, though it's admittedly a bit hard to tell with such strong daily fluctuations. For our forecasting, we'll move forward based on the assumption that there is no trend and just run simple exponential smoothing.
 
-### 7.5b - Forecasting with ses
+### 7.5b
+
+Forecasting with ses
 
 Use the ses function to forecast.
 
@@ -86,7 +90,8 @@ print("Hardcover forecast:")
 hardcover_forecast
 ```
 
-### 7.5c - Compute RMSE values for the training data in each case.
+### 7.5c
+Compute RMSE values for the training data in each case.
 
 The MSE (mean squared error) is already included in "mse" within the "model" from the forecast object.
 
@@ -116,7 +121,8 @@ Here, both paperback and hardcover forecasts have relatively similar RSME values
 ## 7.6
 ![](./week4/7.6.png)
 
-### 7.6a - Apply Holt's linear method to both series and compute four-day forecasts in each case.
+### 7.6a
+Apply Holt's linear method to both series and compute four-day forecasts in each case.
 
 ```{r}
 paperback_holt <- holt(books[,1],h=4)
@@ -144,7 +150,8 @@ print("Hardcover forecast using Holt's linear trend:")
 hardcover_holt
 ```
 
-### 7.6b - Compare RSME measures vs. simple exponential smoothing.
+### 7.6b
+Compare RSME measures vs. simple exponential smoothing.
 
 First, calculate RSME for Holt's forecasts.
 
@@ -240,7 +247,8 @@ There does not seem to be any major bias across time for predictions to be in an
 
 Therefore with these other factors being equal and RSME being lower using Holt's linear trend, it seems that Holt's linear trend has the clear advantage if we consider only performance within the training data.
 
-### 7.6c - Compare the forecasts for the two series using both methods. Which do you think is best?
+### 7.6c
+Compare the forecasts for the two series using both methods. Which do you think is best?
 
 We decided in part 2 that Holt's linear trend would definitely be considered best if we looked only at performance within the training data.
 
@@ -280,7 +288,8 @@ We find that both SES and Holt's method predict future sales that are higher tha
 
 With this information combined with the better performance within the training data, I would continue to say that Holt's linear trend is the better choice over SES for forecasting from this data.
 
-### 7.6d - Calculate prediction intervals and compare to intervals from SES and Holt functions.
+### 7.6d
+Calculate prediction intervals and compare to intervals from SES and Holt functions.
 
 First, let's review the intervals from SES and Holt functions.
 
