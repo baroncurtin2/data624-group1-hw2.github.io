@@ -196,7 +196,7 @@ autoplot(fcast)
 
 
 ### e
-![](./week2/6.6f.png)
+![](./week2/6.6e.png)
 
 ```{r, include=TRUE}
 res_brk <- residuals(brick_naive)
