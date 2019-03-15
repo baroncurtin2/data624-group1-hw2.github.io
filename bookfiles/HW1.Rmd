@@ -272,6 +272,7 @@ The residual diagnostics show:
 
 Accuracy measures are very sensitive to the training/test split.  Forecasts by definition need historical data. The more information present to forecast on, the better the forecast
 
+
 <!--chapter:end:01-Week1-HW.Rmd-->
 
 ```{r, include=FALSE}
