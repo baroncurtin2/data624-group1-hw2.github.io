@@ -62,12 +62,58 @@ pacf(ibmclose)
 #### 8.7a
 ![](./week5/8.7a.png)
 
+```{r vis, eval=TRUE}
+wmurders %>% autoplot()
+wmurders %>% diff() %>%autoplot()
+wmurders %>% diff(differences = 2) %>%autoplot()
+```
+
+It looks like a random walk, though neither the difference nor the second order difference look like white noise.
+
+```{r vis2, eval=TRUE}
+wmurders %>% ggAcf()
+wmurders %>% diff() %>% ggAcf()
+wmurders %>% diff(differences = 2) %>% ggAcf()
+```
+
+The data ACF is decreasing linearly which indicates a non-stationary time series.
+
+There difference is one lag above significance, we can use the Box-Ljung test to see if it is indeed significant. However, is stationary as the lags radiply decrease under the significance thershold. Two differences give two significant lags, but again rapidly decreases to zero.
+
+
+
+```{r LB, eval=TRUE}
+wmurders %>% diff() %>% Box.test(lag=10, type="Ljung-Box")
+wmurders %>% diff(differences = 2) %>% Box.test(lag=10, type="Ljung-Box")
+```
+
+
+
+The  Box-Ljung test shows the first order difference is white noise to the 95% confidence level.
+
+```{r stat, eval=TRUE}
+library(urca)
+wmurders %>% ur.kpss() %>% summary()
+wmurders %>% diff() %>% ur.kpss() %>% summary()
+wmurders %>% diff(differences = 2) %>% ur.kpss() %>% summary()
+wmurders %>% ndiffs()
+```
+
+Both by the KPSS test and ndiff(), 2 differences seem to give the best result.
+
+The KPSS test for 1 difference is marginally stationary as the test statstic is 0.0067 above the 95% confidence level.
+
 
 
 #### 8.7b
 ![](./week5/8.7b.png)
 
+```{r mean ,eval=TRUE}
+wmurders %>% mean()
+wmurders %>% diff() %>% mean()
+```
 
+There does not seem to be drift to the Random walk, so c = 0. There should not be a consant added.
 
 
 
@@ -75,14 +121,35 @@ pacf(ibmclose)
 #### 8.7c
 ![](./week5/8.7c.png)
 
+$$
+(1 - \phi_1B)(1-B)^2y_t = c + (1 - \theta_1B)e_t
+$$
 
+However it appears that the constant is zero as is the moving average part so:
+
+$$
+(1 - \phi_1B)(1-B)^2y_t = (1 - \theta_1B)e_t
+$$
 
 
 
 #### 8.7d
 ![](./week5/8.7d.png)
 
+It seems like a 1,1,1 or 1,2,1 model may be the best, but we will test against some similar models to see how they perform.
 
+```{r models, eval=TRUE}
+orders <- matrix(c(c(1,0,0),c(0,1,0),c(0,0,1),c(1,1,0),c(1,0,1),c(0,1,1),c(1,1,1),c(2,1,1),c(1,2,1), c(1,1,2)), nrow = 10, byrow = TRUE)
+orders
+for(row in 1:nrow(orders)){
+  fit <- wmurders %>% Arima(order = orders[row,])
+  checkresiduals(fit)
+  print(fit$aicc)
+}
+  
+```
+
+It seems like an ARIMA(1,2,1) is best in terms of residual behavior and AICc. Some of the lower AICc values have worse residuals and ACF plots.
 
 
 
@@ -91,8 +158,16 @@ pacf(ibmclose)
 #### 8.7e
 ![](./week5/8.7e.png)
 
+```{r}
+three_ahead <- fit %>% forecast(h=3)
+three_ahead
+```
 
-
+```{r byhand, eval=TRUE}
+phi_1 = 0.8
+phi_2 = 0.2
+theta_1 = 
+```
 
 
 
@@ -100,7 +175,17 @@ pacf(ibmclose)
 #### 8.7f
 ![](./week5/8.7f.png)
 
+```{r}
+fit %>% forecast(h=3) %>% autoplot()
+```
 
+Does auto.arima() give the same model you have chosen? If not, which model do you think is better?
+
+```{r auto, eval=TRUE}
+auto.arima(wmurders)
+```
+
+It give the same answer.
 
 
 
