@@ -25,7 +25,7 @@
 <meta name="author" content="Group 1: Andrew Carson, Nathan Cooper, Baron Curtin, Heather Geiger">
 
 
-<meta name="date" content="2019-03-14">
+<meta name="date" content="2019-03-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -251,7 +251,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="kw">aes</span>(Day,Sales)) <span class="op">+</span>
 <span class="kw">geom_line</span>() <span class="op">+</span>
 <span class="kw">facet_wrap</span>(<span class="op">~</span>Type)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
 <p>It feels like there could potentially be a day of the week pattern here, but it’s a bit hard to tell from this plot.</p>
 <p>Let’s plot each set of 7 days in its own panel.</p>
 <pre class="sourceCode r"><code class="sourceCode r">books_dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(books_dat,
@@ -264,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="kw">facet_grid</span>(Type <span class="op">~</span><span class="st"> </span>Week) <span class="op">+</span>
 <span class="kw">xlab</span>(<span class="st">&quot;Day of the week&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
 <p>We don’t know here which actual day of the week from Sunday to Saturday each day of the week is, but we could infer if there were a weekday vs. weekend pattern if we saw two consecutive days consistently high/low.</p>
 <p>Or if there were one particular day of the week with higher sales for whatever reason, we would be able to see it from this plot.</p>
 <p>Here, it really does not seem like there is any pattern within what day of the week it is.</p>
@@ -279,11 +279,11 @@ hardcover_forecast &lt;-<span class="st"> </span><span class="kw">ses</span>(boo
 <span class="kw">autoplot</span>(paperback_forecast) <span class="op">+</span><span class="st"> </span>
 <span class="kw">xlab</span>(<span class="st">&quot;Day&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Sales&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="kw">ggtitle</span>(<span class="st">&quot;Paperback sales from past 30 days</span><span class="ch">\n</span><span class="st">+ forecast through next 4 days (with confidence intervals)&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(hardcover_forecast) <span class="op">+</span>
 <span class="kw">xlab</span>(<span class="st">&quot;Day&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Sales&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="kw">ggtitle</span>(<span class="st">&quot;Hardcover sales from past 30 days</span><span class="ch">\n</span><span class="st">+ forecast through next 4 days (with confidence intervals)&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-59-2.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-60-2.png" width="672" /></p>
 <p>Print the numbers for each.</p>
 <pre><code>## [1] &quot;Paperback forecast:&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">paperback_forecast</code></pre>
@@ -326,11 +326,11 @@ hardcover_holt &lt;-<span class="st"> </span><span class="kw">holt</span>(books[
 <span class="kw">autoplot</span>(paperback_holt) <span class="op">+</span>
 <span class="kw">xlab</span>(<span class="st">&quot;Day&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Sales&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="kw">ggtitle</span>(<span class="st">&quot;Paperback sales from past 30 days</span><span class="ch">\n</span><span class="st">+ Holt&#39;s linear trend forecast through next 4 days&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(hardcover_holt) <span class="op">+</span>
 <span class="kw">xlab</span>(<span class="st">&quot;Day&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Sales&quot;</span>) <span class="op">+</span><span class="st"> </span>
 <span class="kw">ggtitle</span>(<span class="st">&quot;Hardcover sales from past 30 days</span><span class="ch">\n</span><span class="st">+ Holt&#39;s linear trend forecast through next 4 days&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-68-2.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-69-2.png" width="672" /></p>
 <pre><code>## [1] &quot;Paperback forecast using Holt&#39;s linear trend:&quot;</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">paperback_holt</code></pre>
 <pre><code>##    Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
@@ -388,7 +388,7 @@ hist_residuals &lt;-<span class="st"> </span><span class="cf">function</span>(re
     <span class="st">&quot;Hardcover, SES&quot;</span>)
 <span class="kw">hist_residuals</span>(hardcover_holt<span class="op">$</span>residuals,
     <span class="st">&quot;Hardcover, Holt&#39;s linear&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">residuals_vs_time &lt;-<span class="st"> </span><span class="cf">function</span>(residuals,title){
     <span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>,
         residuals,
@@ -408,7 +408,7 @@ hist_residuals &lt;-<span class="st"> </span><span class="cf">function</span>(re
     <span class="st">&quot;Hardcover, SES&quot;</span>)
 <span class="kw">residuals_vs_time</span>(hardcover_holt<span class="op">$</span>residuals,
     <span class="st">&quot;Hardcover, Holt&#39;s linear&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
 <p>The distributions of residuals look pretty similar. It’s hard to tell with only 30 data points, but they all seem relatively close to normal.</p>
 <p>There does not seem to be any major bias across time for predictions to be in any one direction.</p>
 <p>Therefore with these other factors being equal and RSME being lower using Holt’s linear trend, it seems that Holt’s linear trend has the clear advantage if we consider only performance within the training data.</p>
@@ -481,10 +481,10 @@ hist_residuals &lt;-<span class="st"> </span><span class="cf">function</span>(re
 <p><img src="week4/7.10a.png" /></p>
 <p>Start with a simple line plot.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(ukcars) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;1977 to Q1 2005&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
 <p>Also look at each quarter separately.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsubseriesplot</span>(ukcars) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Yearly performance from 1977 to 2004/2005, separated by quarter&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
 <p>There is a clear seasonal component to the data, with lower sales on average in Q3.</p>
 <p>There also appears to be an increasing trend, at least from around 1981-2000 or so.</p>
 </div>
@@ -494,7 +494,7 @@ hist_residuals &lt;-<span class="st"> </span><span class="cf">function</span>(re
 <p>Let’s use the <strong>stl</strong> function to do this, and plot the result.</p>
 <pre class="sourceCode r"><code class="sourceCode r">stl_decomp &lt;-<span class="st"> </span><span class="kw">stl</span>(ukcars,<span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>)
 <span class="kw">autoplot</span>(stl_decomp) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;STL decomposition of ukcars&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
 <p>These results look pretty sensible. We can clearly see the dips in Q3 in the seasonal component, and the increasing trend throughout most of the time span in the trend component.</p>
 </div>
 <div id="c-8" class="section level3">
@@ -507,7 +507,7 @@ hist_residuals &lt;-<span class="st"> </span><span class="cf">function</span>(re
 <span class="kw">autoplot</span>(damped_forecast_after_stl) <span class="op">+</span><span class="st"> </span>
 <span class="kw">xlab</span>(<span class="st">&quot;Time&quot;</span>) <span class="op">+</span>
 <span class="kw">ylab</span>(<span class="st">&quot;Seasonally adjusted production&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
 </div>
 <div id="d-4" class="section level3">
 <h3><span class="header-section-number">5.3.4</span> 7.10d</h3>
@@ -517,7 +517,7 @@ hist_residuals &lt;-<span class="st"> </span><span class="cf">function</span>(re
 <span class="kw">autoplot</span>(non_damped_forecast_after_stl) <span class="op">+</span><span class="st"> </span>
 <span class="kw">xlab</span>(<span class="st">&quot;Time&quot;</span>) <span class="op">+</span>
 <span class="kw">ylab</span>(<span class="st">&quot;Seasonally adjusted production&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
 </div>
 <div id="e-3" class="section level3">
 <h3><span class="header-section-number">5.3.5</span> 7.10e</h3>
@@ -583,7 +583,7 @@ ets_model<span class="op">$</span>residuals,
 <span class="dt">legend=</span><span class="kw">paste0</span>(<span class="st">&quot;Q&quot;</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>),
 <span class="dt">col=</span>mycol,
 <span class="dt">lwd=</span><span class="dv">3</span>,<span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
 <p>Residuals appear to be normally distributed and unbiased over time and season.</p>
 
 </div>
@@ -640,6 +640,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

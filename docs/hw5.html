@@ -25,7 +25,7 @@
 <meta name="author" content="Group 1: Andrew Carson, Nathan Cooper, Baron Curtin, Heather Geiger">
 
 
-<meta name="date" content="2019-03-14">
+<meta name="date" content="2019-03-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -258,16 +258,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Answer: We plot the data below. Just by looking at it we can tell that there are instances of trend and of decreasing variance. Consequently, we know that it is not stationary.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(fpp2)
 <span class="kw">autoplot</span>(ibmclose)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
 <p>If we look at the ACF, we can see that each value is related to previous values. At each increasing lag value, there is still great signficance in the relationship between a value and the related lag value. This means that the time at which a value occurs is important to determining its value, so again, it is non-stationary.</p>
 <p>In terms of difference, every lag value is significant. What we don’t know if whether the significance of lag 2, for example, comes from its relationshop to lag 1, or if is is significant on its own. Thats why we need to look at the PACF.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">#ACF</span>
 <span class="kw">acf</span>(ibmclose)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
 <p>The PACF removes the significance due to previous lags. This chart clearly shows that the lag of 1 is the significant lag, and any subsequent lags are significant only because they had the relationship with the first lag. So a difference of 1 is the correct difference to be applied here.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">#PACF</span>
 <span class="kw">pacf</span>(ibmclose)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
 </div>
 <div id="section-14" class="section level3">
 <h3><span class="header-section-number">6.0.3</span> 8.7</h3>
@@ -275,26 +275,318 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="a-10" class="section level4">
 <h4><span class="header-section-number">6.0.3.1</span> 8.7a</h4>
 <p><img src="week5/8.7a.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="HW1_files/figure-html/vis-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">diff</span>() <span class="op">%&gt;%</span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="HW1_files/figure-html/vis-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">diff</span>(<span class="dt">differences =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="HW1_files/figure-html/vis-3.png" width="672" /></p>
+<p>It looks like a random walk, though neither the difference nor the second order difference look like white noise.</p>
+<pre class="sourceCode r"><code class="sourceCode r">wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggAcf</span>()</code></pre>
+<p><img src="HW1_files/figure-html/vis2-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">diff</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggAcf</span>()</code></pre>
+<p><img src="HW1_files/figure-html/vis2-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">diff</span>(<span class="dt">differences =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ggAcf</span>()</code></pre>
+<p><img src="HW1_files/figure-html/vis2-3.png" width="672" /></p>
+<p>The data ACF is decreasing linearly which indicates a non-stationary time series.</p>
+<p>There difference is one lag above significance, we can use the Box-Ljung test to see if it is indeed significant. However, is stationary as the lags radiply decrease under the significance thershold. Two differences give two significant lags, but again rapidly decreases to zero.</p>
+<pre class="sourceCode r"><code class="sourceCode r">wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">diff</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">Box.test</span>(<span class="dt">lag=</span><span class="dv">10</span>, <span class="dt">type=</span><span class="st">&quot;Ljung-Box&quot;</span>)</code></pre>
+<pre><code>## 
+##  Box-Ljung test
+## 
+## data:  .
+## X-squared = 12.958, df = 10, p-value = 0.226</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">diff</span>(<span class="dt">differences =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">Box.test</span>(<span class="dt">lag=</span><span class="dv">10</span>, <span class="dt">type=</span><span class="st">&quot;Ljung-Box&quot;</span>)</code></pre>
+<pre><code>## 
+##  Box-Ljung test
+## 
+## data:  .
+## X-squared = 40.778, df = 10, p-value = 1.235e-05</code></pre>
+<p>The Box-Ljung test shows the first order difference is white noise to the 95% confidence level.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(urca)
+wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ur.kpss</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>()</code></pre>
+<pre><code>## 
+## ####################### 
+## # KPSS Unit Root Test # 
+## ####################### 
+## 
+## Test is of type: mu with 3 lags. 
+## 
+## Value of test-statistic is: 0.6331 
+## 
+## Critical value for a significance level of: 
+##                 10pct  5pct 2.5pct  1pct
+## critical values 0.347 0.463  0.574 0.739</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">diff</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ur.kpss</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>()</code></pre>
+<pre><code>## 
+## ####################### 
+## # KPSS Unit Root Test # 
+## ####################### 
+## 
+## Test is of type: mu with 3 lags. 
+## 
+## Value of test-statistic is: 0.4697 
+## 
+## Critical value for a significance level of: 
+##                 10pct  5pct 2.5pct  1pct
+## critical values 0.347 0.463  0.574 0.739</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">diff</span>(<span class="dt">differences =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ur.kpss</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>()</code></pre>
+<pre><code>## 
+## ####################### 
+## # KPSS Unit Root Test # 
+## ####################### 
+## 
+## Test is of type: mu with 3 lags. 
+## 
+## Value of test-statistic is: 0.0458 
+## 
+## Critical value for a significance level of: 
+##                 10pct  5pct 2.5pct  1pct
+## critical values 0.347 0.463  0.574 0.739</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">ndiffs</span>()</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>Both by the KPSS test and ndiff(), 2 differences seem to give the best result.</p>
+<p>The KPSS test for 1 difference is marginally stationary as the test statstic is 0.0067 above the 95% confidence level.</p>
 </div>
 <div id="b-10" class="section level4">
 <h4><span class="header-section-number">6.0.3.2</span> 8.7b</h4>
 <p><img src="week5/8.7b.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</code></pre>
+<pre><code>## [1] 3.392687</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">diff</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</code></pre>
+<pre><code>## [1] 0.00296237</code></pre>
+<p>There does not seem to be drift to the Random walk, so c = 0. There should not be a consant added.</p>
 </div>
 <div id="c-9" class="section level4">
 <h4><span class="header-section-number">6.0.3.3</span> 8.7c</h4>
 <p><img src="week5/8.7c.png" /></p>
+<p><span class="math display">\[
+(1 - \phi_1B)(1-B)^2y_t = c + (1 - \theta_1B)e_t
+\]</span></p>
+<p>However it appears that the constant is zero as is the moving average part so:</p>
+<p><span class="math display">\[
+(1 - \phi_1B)(1-B)^2y_t = (1 - \theta_1B)e_t
+\]</span></p>
 </div>
 <div id="d-5" class="section level4">
 <h4><span class="header-section-number">6.0.3.4</span> 8.7d</h4>
 <p><img src="week5/8.7d.png" /></p>
+<p>It seems like a 1,1,1 or 1,2,1 model may be the best, but we will test against some similar models to see how they perform.</p>
+<pre class="sourceCode r"><code class="sourceCode r">orders &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>),<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>),<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>), <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>)), <span class="dt">nrow =</span> <span class="dv">10</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
+orders</code></pre>
+<pre><code>##       [,1] [,2] [,3]
+##  [1,]    1    0    0
+##  [2,]    0    1    0
+##  [3,]    0    0    1
+##  [4,]    1    1    0
+##  [5,]    1    0    1
+##  [6,]    0    1    1
+##  [7,]    1    1    1
+##  [8,]    2    1    1
+##  [9,]    1    2    1
+## [10,]    1    1    2</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(row <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(orders)){
+  fit &lt;-<span class="st"> </span>wmurders <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">Arima</span>(<span class="dt">order =</span> orders[row,])
+  <span class="kw">checkresiduals</span>(fit)
+  <span class="kw">print</span>(fit<span class="op">$</span>aicc)
+}</code></pre>
+<p><img src="HW1_files/figure-html/models-1.png" width="672" /></p>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(1,0,0) with non-zero mean
+## Q* = 12.887, df = 8, p-value = 0.1158
+## 
+## Model df: 2.   Total lags used: 10
+## 
+## [1] -6.095071</code></pre>
+<p><img src="HW1_files/figure-html/models-2.png" width="672" /></p>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(0,1,0)
+## Q* = 13.165, df = 10, p-value = 0.2146
+## 
+## Model df: 0.   Total lags used: 10
+## 
+## [1] -11.38057</code></pre>
+<p><img src="HW1_files/figure-html/models-3.png" width="672" /></p>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(0,0,1) with non-zero mean
+## Q* = 153.81, df = 8, p-value &lt; 2.2e-16
+## 
+## Model df: 2.   Total lags used: 10
+## 
+## [1] 81.0769</code></pre>
+<p><img src="HW1_files/figure-html/models-4.png" width="672" /></p>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(1,1,0)
+## Q* = 13.281, df = 9, p-value = 0.1503
+## 
+## Model df: 1.   Total lags used: 10
+## 
+## [1] -9.610749</code></pre>
+<p><img src="HW1_files/figure-html/models-5.png" width="672" /></p>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(1,0,1) with non-zero mean
+## Q* = 12.918, df = 7, p-value = 0.07414
+## 
+## Model df: 3.   Total lags used: 10
+## 
+## [1] -3.93281</code></pre>
+<p><img src="HW1_files/figure-html/models-6.png" width="672" /></p>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(0,1,1)
+## Q* = 13.122, df = 9, p-value = 0.1572
+## 
+## Model df: 1.   Total lags used: 10
+## 
+## [1] -9.46505</code></pre>
+<p><img src="HW1_files/figure-html/models-7.png" width="672" /></p>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(1,1,1)
+## Q* = 11.266, df = 8, p-value = 0.1871
+## 
+## Model df: 2.   Total lags used: 10
+## 
+## [1] -9.876999</code></pre>
+<p><img src="HW1_files/figure-html/models-8.png" width="672" /></p>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(2,1,1)
+## Q* = 9.4234, df = 7, p-value = 0.2237
+## 
+## Model df: 3.   Total lags used: 10
+## 
+## [1] -10.16966</code></pre>
+<p><img src="HW1_files/figure-html/models-9.png" width="672" /></p>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(1,2,1)
+## Q* = 12.419, df = 8, p-value = 0.1335
+## 
+## Model df: 2.   Total lags used: 10
+## 
+## [1] -6.389972</code></pre>
+<p><img src="HW1_files/figure-html/models-10.png" width="672" /></p>
+<pre><code>## 
+##  Ljung-Box test
+## 
+## data:  Residuals from ARIMA(1,1,2)
+## Q* = 9.9439, df = 7, p-value = 0.1918
+## 
+## Model df: 3.   Total lags used: 10
+## 
+## [1] -10.62525</code></pre>
+<p>It seems like an ARIMA(1,2,1) is best in terms of residual behavior and AICc. Some of the lower AICc values have worse residuals and ACF plots.</p>
 </div>
 <div id="e-4" class="section level4">
 <h4><span class="header-section-number">6.0.3.5</span> 8.7e</h4>
 <p><img src="week5/8.7e.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">three_ahead &lt;-<span class="st"> </span>fit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">forecast</span>(<span class="dt">h=</span><span class="dv">3</span>)
+three_ahead</code></pre>
+<pre><code>##      Point Forecast    Lo 80    Hi 80    Lo 95    Hi 95
+## 2005       2.450027 2.184288 2.715766 2.043615 2.856439
+## 2006       2.463104 2.098363 2.827846 1.905280 3.020928
+## 2007       2.463646 1.957435 2.969857 1.689463 3.237828</code></pre>
+<p><span class="math display">\[
+(1 - \phi B)(1-B)^2y_t = (1 - \theta B)e_t\\
+\phi_1 = 0.395 \\
+\phi_2 = -0.65 \\
+\phi_2 = 0.05 \\
+\theta_1 = 1  \\
+y_t = \phi_1y_{t-1} - \phi_2 y_{t-2} + \phi_3 y_{t-3} +\epsilon_t + \theta_1\epsilon_{t-1} \\
+y_t = 0.395y_{t-1} + 0.65y_{t-2} + 0.05 y_{t-3} +\epsilon_t + \epsilon_{t-1}
+\]</span></p>
+<pre class="sourceCode r"><code class="sourceCode r">phi_<span class="dv">1</span> =<span class="st"> </span><span class="fl">0.395</span>
+phi_<span class="dv">2</span> =<span class="st"> </span><span class="fl">0.65</span>
+phi_<span class="dv">3</span> =<span class="st"> </span><span class="fl">0.005</span>
+theta_<span class="dv">1</span> =<span class="st"> </span><span class="dv">1</span>
+y_t_<span class="dv">1</span> =<span class="st"> </span>wmurders[<span class="dv">1</span>]
+y_t_<span class="dv">2</span> =<span class="st"> </span>wmurders[<span class="dv">2</span>]
+y_t_<span class="dv">3</span> =<span class="st"> </span>wmurders[<span class="dv">3</span>]
+e_t =<span class="st"> </span>fit<span class="op">$</span>residuals[<span class="dv">1</span>]
+e_t_<span class="dv">1</span> =fit<span class="op">$</span>residuals[<span class="dv">2</span>]
+y_<span class="dv">2005</span> =<span class="st"> </span>phi_<span class="dv">1</span><span class="op">*</span>y_t_<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>phi_<span class="dv">2</span><span class="op">*</span>y_t_<span class="dv">2</span> <span class="op">+</span><span class="st"> </span>phi_<span class="dv">3</span><span class="op">*</span>y_t_<span class="dv">3</span> <span class="op">+</span><span class="st"> </span>e_t <span class="op">+</span>theta_<span class="dv">1</span><span class="op">*</span>e_t_<span class="dv">1</span>
+y_<span class="dv">2005</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()</code></pre>
+<pre><code>## [1] 2.448481</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">y_t_<span class="dv">1</span> =<span class="st"> </span>y_<span class="dv">2005</span>
+y_t_<span class="dv">2</span> =<span class="st"> </span>wmurders[<span class="dv">1</span>]
+y_t_<span class="dv">3</span> =<span class="st"> </span>wmurders[<span class="dv">2</span>]
+e_t =<span class="st"> </span>y_<span class="dv">2005</span> <span class="op">-</span><span class="st">  </span>wmurders[<span class="dv">1</span>] <span class="co">#error from naive model estimate</span>
+e_t_<span class="dv">1</span> =<span class="st"> </span>fit<span class="op">$</span>residuals[<span class="dv">1</span>]
+y_<span class="dv">2006</span> =<span class="st"> </span>phi_<span class="dv">1</span><span class="op">*</span>y_t_<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>phi_<span class="dv">2</span><span class="op">*</span>y_t_<span class="dv">2</span> <span class="op">+</span><span class="st"> </span>phi_<span class="dv">3</span><span class="op">*</span>y_t_<span class="dv">3</span> <span class="op">+</span><span class="st"> </span>e_t <span class="op">+</span>theta_<span class="dv">1</span><span class="op">*</span>e_t_<span class="dv">1</span>
+y_<span class="dv">2006</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()</code></pre>
+<pre><code>## [1] 2.579583</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">y_t_<span class="dv">1</span> =<span class="st"> </span>y_<span class="dv">2006</span>
+y_t_<span class="dv">2</span> =<span class="st"> </span>y_<span class="dv">2005</span>
+y_t_<span class="dv">3</span> =<span class="st"> </span>wmurders[<span class="dv">1</span>]
+e_t =<span class="st"> </span>y_<span class="dv">2006</span> <span class="op">-</span><span class="st">  </span>y_<span class="dv">2005</span> <span class="co">#error from naive model estimate</span>
+e_t_<span class="dv">1</span> =<span class="st"> </span>y_<span class="dv">2005</span> <span class="op">-</span><span class="st">  </span>wmurders[<span class="dv">1</span>]
+y_<span class="dv">2007</span> =<span class="st"> </span>phi_<span class="dv">1</span><span class="op">*</span>y_t_<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>phi_<span class="dv">2</span><span class="op">*</span>y_t_<span class="dv">2</span> <span class="op">+</span><span class="st"> </span>phi_<span class="dv">3</span><span class="op">*</span>y_t_<span class="dv">3</span> <span class="op">+</span><span class="st"> </span>e_t <span class="op">+</span>theta_<span class="dv">1</span><span class="op">*</span>e_t_<span class="dv">1</span>
+y_<span class="dv">2007</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()</code></pre>
+<pre><code>## [1] 2.772763</code></pre>
+<p>Our by-hand method of the (1,2,1) model gives a steeper upward trend than the included method. The challenge for matching the by-hand model to the R fucntion is balancing the parameters of <span class="math inline">\(\phi_{1,2,3}\)</span> and <span class="math inline">\(\theta_1\)</span>. This was done emptically and it became appearant that small changes to the paramters made big changes in the predictions as given below:</p>
+<pre class="sourceCode r"><code class="sourceCode r">phi_<span class="dv">1</span> =<span class="st"> </span><span class="fl">0.5</span>
+phi_<span class="dv">2</span> =<span class="st"> </span><span class="fl">0.495</span>
+phi_<span class="dv">3</span> =<span class="st"> </span><span class="fl">0.005</span>
+theta_<span class="dv">1</span> =<span class="st"> </span><span class="dv">1</span>
+y_t_<span class="dv">1</span> =<span class="st"> </span>wmurders[<span class="dv">1</span>]
+y_t_<span class="dv">2</span> =<span class="st"> </span>wmurders[<span class="dv">2</span>]
+y_t_<span class="dv">3</span> =<span class="st"> </span>wmurders[<span class="dv">3</span>]
+e_t =<span class="st"> </span>fit<span class="op">$</span>residuals[<span class="dv">1</span>]
+e_t_<span class="dv">1</span> =fit<span class="op">$</span>residuals[<span class="dv">2</span>]
+y_<span class="dv">2005</span> =<span class="st"> </span>phi_<span class="dv">1</span><span class="op">*</span>y_t_<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>phi_<span class="dv">2</span><span class="op">*</span>y_t_<span class="dv">2</span> <span class="op">+</span><span class="st"> </span>phi_<span class="dv">3</span><span class="op">*</span>y_t_<span class="dv">3</span> <span class="op">+</span><span class="st"> </span>e_t <span class="op">+</span>theta_<span class="dv">1</span><span class="op">*</span>e_t_<span class="dv">1</span>
+y_<span class="dv">2005</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()</code></pre>
+<pre><code>## [1] 2.337249</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">y_t_<span class="dv">1</span> =<span class="st"> </span>y_<span class="dv">2005</span>
+y_t_<span class="dv">2</span> =<span class="st"> </span>wmurders[<span class="dv">1</span>]
+y_t_<span class="dv">3</span> =<span class="st"> </span>wmurders[<span class="dv">2</span>]
+e_t =<span class="st"> </span>y_<span class="dv">2005</span> <span class="op">-</span><span class="st">  </span>wmurders[<span class="dv">1</span>] <span class="co">#error from naive model estimate</span>
+e_t_<span class="dv">1</span> =<span class="st"> </span>fit<span class="op">$</span>residuals[<span class="dv">1</span>]
+y_<span class="dv">2006</span> =<span class="st"> </span>phi_<span class="dv">1</span><span class="op">*</span>y_t_<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>phi_<span class="dv">2</span><span class="op">*</span>y_t_<span class="dv">2</span> <span class="op">+</span><span class="st"> </span>phi_<span class="dv">3</span><span class="op">*</span>y_t_<span class="dv">3</span> <span class="op">+</span><span class="st"> </span>e_t <span class="op">+</span>theta_<span class="dv">1</span><span class="op">*</span>e_t_<span class="dv">1</span>
+y_<span class="dv">2006</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()</code></pre>
+<pre><code>## [1] 2.293265</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">y_t_<span class="dv">1</span> =<span class="st"> </span>y_<span class="dv">2006</span>
+y_t_<span class="dv">2</span> =<span class="st"> </span>y_<span class="dv">2005</span>
+y_t_<span class="dv">3</span> =<span class="st"> </span>wmurders[<span class="dv">1</span>]
+e_t =<span class="st"> </span>y_<span class="dv">2006</span> <span class="op">-</span><span class="st">  </span>y_<span class="dv">2005</span> <span class="co">#error from naive model estimate</span>
+e_t_<span class="dv">1</span> =<span class="st"> </span>y_<span class="dv">2005</span> <span class="op">-</span><span class="st">  </span>wmurders[<span class="dv">1</span>]
+y_<span class="dv">2007</span> =<span class="st"> </span>phi_<span class="dv">1</span><span class="op">*</span>y_t_<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>phi_<span class="dv">2</span><span class="op">*</span>y_t_<span class="dv">2</span> <span class="op">+</span><span class="st"> </span>phi_<span class="dv">3</span><span class="op">*</span>y_t_<span class="dv">3</span> <span class="op">+</span><span class="st"> </span>e_t <span class="op">+</span>theta_<span class="dv">1</span><span class="op">*</span>e_t_<span class="dv">1</span>
+y_<span class="dv">2007</span> <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()</code></pre>
+<pre><code>## [1] 2.179567</code></pre>
+<p>Here shift the weight from <span class="math inline">\(\phi_2\)</span> to <span class="math inline">\(\phi_1\)</span> by 0.105 and instead of getting an increasing trend we get a decreasing trend. The first example respresents our best attempt to constrain the <span class="math inline">\(\phi\)</span> parameters empirically.</p>
 </div>
 <div id="f-4" class="section level4">
 <h4><span class="header-section-number">6.0.3.6</span> 8.7f</h4>
 <p><img src="week5/8.7f.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">fit <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">forecast</span>(<span class="dt">h=</span><span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="HW1_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<p>Does auto.arima() give the same model you have chosen? If not, which model do you think is better?</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">auto.arima</span>(wmurders)</code></pre>
+<pre><code>## Series: wmurders 
+## ARIMA(1,2,1) 
+## 
+## Coefficients:
+##           ar1      ma1
+##       -0.2434  -0.8261
+## s.e.   0.1553   0.1143
+## 
+## sigma^2 estimated as 0.04632:  log likelihood=6.44
+## AIC=-6.88   AICc=-6.39   BIC=-0.97</code></pre>
+<p>It give the same answer.</p>
 </div>
 <div id="g-2" class="section level4">
 <h4><span class="header-section-number">6.0.3.7</span> 8.7g</h4>
@@ -306,7 +598,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="week5/8.12.png" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(mcopper)
 <span class="kw">autoplot</span>(mcopper)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
 <div id="a-11" class="section level4">
 <h4><span class="header-section-number">6.0.4.1</span> 8.12a</h4>
 <p><img src="week5/8.12a.png" /></p>
@@ -314,7 +606,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre class="sourceCode r"><code class="sourceCode r">lambda &lt;-<span class="kw">BoxCox.lambda</span>(mcopper)
 mcopper_adj &lt;-<span class="st"> </span><span class="kw">BoxCox</span>(mcopper,lambda)
 <span class="kw">autoplot</span>(mcopper_adj)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
 </div>
 <div id="b-11" class="section level4">
 <h4><span class="header-section-number">6.0.4.2</span> 8.12b</h4>
@@ -472,7 +764,7 @@ mcopper_adj &lt;-<span class="st"> </span><span class="kw">BoxCox</span>(mcopper
 ## Training set -0.004184621</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="co">#residuals</span>
 <span class="kw">checkresiduals</span>(model)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -486,7 +778,7 @@ mcopper_adj &lt;-<span class="st"> </span><span class="kw">BoxCox</span>(mcopper
 <p><img src="week5/8.12e.png" /></p>
 <p>Answer: a forecast of the fitted model looks reasonable. The prediction interval seems to be wide enough to capture what, based on looking at the historical data, are the likely values to come.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(<span class="kw">forecast</span>(model))</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
 </div>
 <div id="f-5" class="section level4">
 <h4><span class="header-section-number">6.0.4.6</span> 8.12f</h4>
@@ -497,7 +789,7 @@ mcopper_adj &lt;-<span class="st"> </span><span class="kw">BoxCox</span>(mcopper
 <p>So the ETS model in this instance does not do very well at all in comparison to the ARIMA model, which is much more useful in its predictions and much more accurate with respect to model measures.</p>
 <pre class="sourceCode r"><code class="sourceCode r">model_ets&lt;-<span class="kw">ets</span>(mcopper_adj)
 <span class="kw">autoplot</span>(<span class="kw">forecast</span>(model_ets))</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(model_ets)</code></pre>
 <pre><code>## ETS(M,Ad,N) 
 ## 
@@ -524,7 +816,7 @@ mcopper_adj &lt;-<span class="st"> </span><span class="kw">BoxCox</span>(mcopper
 ##                   ACF1
 ## Training set 0.1508258</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">checkresiduals</span>(model_ets)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-113-2.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-116-2.png" width="672" /></p>
 <pre><code>## 
 ##  Ljung-Box test
 ## 
@@ -587,6 +879,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

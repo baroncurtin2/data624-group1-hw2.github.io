@@ -25,7 +25,7 @@
 <meta name="author" content="Group 1: Andrew Carson, Nathan Cooper, Baron Curtin, Heather Geiger">
 
 
-<meta name="date" content="2019-03-14">
+<meta name="date" content="2019-03-16">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -242,10 +242,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="a-2" class="section level3">
 <h3><span class="header-section-number">3.1.1</span> a</h3>
 <p><img src="week2/6.2a.png" /></p>
-<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(plastics) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Month&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;1000 $&quot;</span>) <span class="op">+</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(plastics) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Year&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;1000 $&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Monthly Plastic Sales&quot;</span>)</code></pre>
 <p><img src="HW1_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
-<p>The data has approximately 1 month (peak to peak) seasonality and an apprearent upward trend, that may be cyclic behavior since this only covers 6 months of data.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsubseriesplot</span>(plastics) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Month&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;1000 $&quot;</span>)</code></pre>
+<p><img src="HW1_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>The data shows a strong seasonal trend, with a peak in August or September and a trough in February every year. In addition there is an overall upward trend.</p>
 </div>
 <div id="b-2" class="section level3">
 <h3><span class="header-section-number">3.1.2</span> b</h3>
@@ -258,7 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4  951  861  938 1109 1274 1422 1486 1555 1604 1600 1403 1209
 ## 5 1030 1032 1126 1285 1468 1637 1611 1608 1528 1420 1119 1013</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(plastics)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">plas_trend &lt;-<span class="st"> </span><span class="kw">ma</span>(plastics, <span class="dt">order =</span> <span class="dv">12</span>, <span class="dt">centre =</span> <span class="ot">TRUE</span>)
 plas_trend</code></pre>
 <pre><code>##         Jan       Feb       Mar       Apr       May       Jun       Jul
@@ -274,7 +276,7 @@ plas_trend</code></pre>
 ## 4 1298.0417 1313.0000 1328.1667 1343.5833 1360.6250
 ## 5        NA        NA        NA        NA        NA</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(plas_trend)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-26-2.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-27-2.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">plas_detrend &lt;-<span class="st"> </span>plastics<span class="op">/</span>plas_trend
 plas_detrend</code></pre>
 <pre><code>##         Jan       Feb       Mar       Apr       May       Jun       Jul
@@ -294,7 +296,7 @@ plas_seas</code></pre>
 <pre><code>##  [1] 0.7696337 0.7127315 0.7791485 0.9133815 1.0482624 1.1609050 1.1675564
 ##  [8] 1.2294279 1.2355167 1.1927538 0.9952632 0.8358933</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(<span class="kw">as.ts</span>(plas_seas))</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-26-3.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-27-3.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">random_plas =<span class="st"> </span>plastics<span class="op">/</span><span class="st"> </span>(plas_trend<span class="op">*</span><span class="st"> </span>plas_seas)
 (random_plas)</code></pre>
 <pre><code>##         Jan       Feb       Mar       Apr       May       Jun       Jul
@@ -326,7 +328,7 @@ plas_seas</code></pre>
 <span class="st">  </span><span class="kw">autoplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Month&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Classical multiplicative decomposition</span>
 <span class="st">    of Plastic Sales&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">plastics <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">decompose</span>(<span class="dt">type=</span><span class="st">&quot;multiplicative&quot;</span>)</code></pre>
 <pre><code>## $x
 ##    Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec
@@ -412,7 +414,7 @@ plas_seas</code></pre>
 ## 5 1.2252952 1.2313635 1.1887444 0.9919176 0.8330834</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">plas_seas_adj =<span class="st"> </span>plastics<span class="op">/</span>plas_seas
 <span class="kw">autoplot</span>(plas_seas_adj)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 </div>
 <div id="e-1" class="section level3">
 <h3><span class="header-section-number">3.1.5</span> e</h3>
@@ -439,7 +441,7 @@ plas_seas_outlier</code></pre>
 ## 5 1.2149325 1.2208222 1.1784222 0.9836787 0.8257707</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">plas_seas_adj_outlier =<span class="st"> </span>plas_outlier<span class="op">/</span>plas_seas_outlier
 <span class="kw">autoplot</span>(plas_seas_adj_outlier)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <p>It adds a spike to the seasonally adjusted data where the outlier is.</p>
 </div>
 <div id="f-1" class="section level3">
@@ -467,7 +469,7 @@ plas_seas_outlier</code></pre>
 ## 5 1.2181249 1.2243057 1.1823311 0.9912933 0.8368710</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">plas_seas_adj_outlier =<span class="st"> </span>plas_outlier<span class="op">/</span>plas_seas_outlier
 <span class="kw">autoplot</span>(plas_seas_adj_outlier)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">plastics[<span class="dv">55</span>]</code></pre>
 <pre><code>## [1] 1611</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">new_val &lt;-<span class="st"> </span>plastics[<span class="dv">55</span>]<span class="op">+</span><span class="dv">500</span>
@@ -490,7 +492,7 @@ plas_seas_outlier</code></pre>
 ## 5 1.2292355 1.2353233 1.1925671 0.9951074 0.8357624</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">plas_seas_adj_outlier =<span class="st"> </span>plas_outlier<span class="op">/</span>plas_seas_outlier
 <span class="kw">autoplot</span>(plas_seas_adj_outlier)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <p>Yes, the spike occurs where the outlier is.</p>
 </div>
 </div>
@@ -501,42 +503,42 @@ plas_seas_outlier</code></pre>
 <h3><span class="header-section-number">3.2.1</span> a</h3>
 <p><img src="week2/6.6a.png" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">autoplot</span>()</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-33-2.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="dv">7</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-33-3.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="dv">25</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-33-4.png" width="672" /></p>
-<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="dv">81</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-33-5.png" width="672" /></p>
-<p>We see that a high s.window yeilds the same as periodic.</p>
-<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">autoplot</span>()</code></pre>
 <p><img src="HW1_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
 <p><img src="HW1_files/figure-html/unnamed-chunk-34-2.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">25</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="dv">7</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
 <p><img src="HW1_files/figure-html/unnamed-chunk-34-3.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">7</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="dv">25</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
 <p><img src="HW1_files/figure-html/unnamed-chunk-34-4.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">3</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="dv">81</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
 <p><img src="HW1_files/figure-html/unnamed-chunk-34-5.png" width="672" /></p>
+<p>We see that a high s.window yeilds the same as periodic.</p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="HW1_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">13</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="HW1_files/figure-html/unnamed-chunk-35-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">25</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="HW1_files/figure-html/unnamed-chunk-35-3.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">7</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="HW1_files/figure-html/unnamed-chunk-35-4.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">bricksq <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">stl</span>(<span class="dt">t.window=</span><span class="dv">3</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">autoplot</span>()</code></pre>
+<p><img src="HW1_files/figure-html/unnamed-chunk-35-5.png" width="672" /></p>
 <p>The t.window parameter adjusts the goodness of fit of the trend, low values tend to under fit the trend, and high values tend to over fit the trend.</p>
 </div>
 <div id="b-3" class="section level3">
@@ -586,7 +588,7 @@ brick_seas</code></pre>
 ## 1994 0.907788 1.027191 1.061155</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r">brick_seas_adj =<span class="st"> </span>bricksq<span class="op">/</span>brick_seas
 <span class="kw">autoplot</span>(brick_seas_adj)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 </div>
 <div id="c-3" class="section level3">
 <h3><span class="header-section-number">3.2.3</span> c</h3>
@@ -608,31 +610,31 @@ brick_naive</code></pre>
 ## 1997 Q3       465.5304 370.2277 560.8330 319.7775 611.2832</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">autoplot</span>(brick_seas_adj) <span class="op">+</span>
 <span class="st">  </span><span class="kw">autolayer</span>(brick_naive,
-    <span class="dt">series=</span><span class="st">&quot;Naïve&quot;</span>, <span class="dt">PI=</span><span class="ot">TRUE</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+    <span class="dt">series=</span><span class="st">&quot;Na�ve&quot;</span>, <span class="dt">PI=</span><span class="ot">TRUE</span>)</code></pre>
+<p><img src="HW1_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
 </div>
 <div id="d-2" class="section level3">
 <h3><span class="header-section-number">3.2.4</span> d</h3>
 <p><img src="week2/6.6d.png" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">fcast &lt;-<span class="st"> </span><span class="kw">stlf</span>(brick_seas_adj, <span class="dt">method=</span><span class="st">&#39;naive&#39;</span>)
 <span class="kw">autoplot</span>(fcast)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 </div>
 <div id="e-2" class="section level3">
 <h3><span class="header-section-number">3.2.5</span> e</h3>
 <p><img src="week2/6.6e.png" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">res_brk &lt;-<span class="st"> </span><span class="kw">residuals</span>(brick_naive)
 <span class="kw">autoplot</span>(res_brk)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gghistogram</span>(res_brk) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of residuals&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-38-2.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-39-2.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggAcf</span>(res_brk) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;ACF of residuals&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-38-3.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-39-3.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">res_fcast &lt;-<span class="st"> </span><span class="kw">residuals</span>(fcast)
 <span class="kw">autoplot</span>(res_fcast)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-38-4.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-39-4.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gghistogram</span>(res_brk) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of residuals&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-38-5.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-39-5.png" width="672" /></p>
 <p>They seem to increse as time increases, so no they do not look uncorrelated. Also a couple of the lags show significance, that may or may not be by chance.</p>
 </div>
 <div id="f-2" class="section level3">
@@ -640,15 +642,15 @@ brick_naive</code></pre>
 <p><img src="week2/6.6f.png" /></p>
 <pre class="sourceCode r"><code class="sourceCode r">brick_stl &lt;-<span class="st"> </span>brick_seas_adj <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">stlf</span>(<span class="dt">t.window=</span><span class="dv">7</span>, <span class="dt">s.window=</span><span class="st">&quot;periodic&quot;</span>, <span class="dt">method =</span> <span class="st">&#39;naive&#39;</span>, <span class="dt">robust=</span><span class="ot">TRUE</span>) 
 brick_stl <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">autoplot</span>()</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>In this instance, it the residuals appear to behave similarly to a STL decompostion that is not robust.</p>
 <pre class="sourceCode r"><code class="sourceCode r">res_brk2 &lt;-<span class="st"> </span>brick_stl <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">residuals</span>()
 res_brk2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">autoplot</span>()</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">gghistogram</span>(res_brk2) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of residuals&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-40-2.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-41-2.png" width="672" /></p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggAcf</span>(res_brk2) <span class="op">+</span><span class="st"> </span><span class="kw">ggtitle</span>(<span class="st">&quot;ACF of residuals&quot;</span>)</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-40-3.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-41-3.png" width="672" /></p>
 </div>
 <div id="g" class="section level3">
 <h3><span class="header-section-number">3.2.7</span> g</h3>
@@ -659,11 +661,11 @@ train_stlf &lt;-<span class="st"> </span>train <span class="op">%&gt;%</span><sp
 train_snaiv &lt;-<span class="st"> </span>train <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">snaive</span>(<span class="dt">h=</span><span class="dv">8</span>)
 <span class="kw">autoplot</span>(bricksq) <span class="op">+</span>
 <span class="st">  </span><span class="kw">autolayer</span>(train_stlf, <span class="dt">series=</span><span class="st">&quot;STL&quot;</span>, <span class="dt">PI=</span><span class="ot">FALSE</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">autolayer</span>(train_snaiv, <span class="dt">series=</span><span class="st">&quot;Seasonal naïve&quot;</span>, <span class="dt">PI=</span><span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">autolayer</span>(train_snaiv, <span class="dt">series=</span><span class="st">&quot;Seasonal na�ve&quot;</span>, <span class="dt">PI=</span><span class="ot">FALSE</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Quarter&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Bricks&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Forecasts for quarterly brick production&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">guides</span>(<span class="dt">colour=</span><span class="kw">guide_legend</span>(<span class="dt">title=</span><span class="st">&quot;Forecast&quot;</span>))</code></pre>
-<p><img src="HW1_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="HW1_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <p>From the graphs, it is hard to tell.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">accuracy</span>(train_snaiv, test)</code></pre>
 <pre><code>##                     ME     RMSE      MAE      MPE     MAPE      MASE
@@ -735,6 +737,19 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
