@@ -163,12 +163,76 @@ three_ahead <- fit %>% forecast(h=3)
 three_ahead
 ```
 
+$$
+(1 - \phi B)(1-B)^2y_t = (1 - \theta B)e_t\\
+\phi_1 = 0.395 \\
+\phi_2 = -0.65 \\
+\phi_2 = 0.05 \\
+\theta_1 = 1  \\
+y_t = \phi_1y_{t-1} - \phi_2 y_{t-2} + \phi_3 y_{t-3} +\epsilon_t + \theta_1\epsilon_{t-1} \\
+y_t = 0.395y_{t-1} + 0.65y_{t-2} + 0.05 y_{t-3} +\epsilon_t + \epsilon_{t-1}
+$$
+
 ```{r byhand, eval=TRUE}
-phi_1 = 0.8
-phi_2 = 0.2
-theta_1 = 
+phi_1 = 0.395
+phi_2 = 0.65
+phi_3 = 0.005
+theta_1 = 1
+y_t_1 = wmurders[1]
+y_t_2 = wmurders[2]
+y_t_3 = wmurders[3]
+e_t = fit$residuals[1]
+e_t_1 =fit$residuals[2]
+y_2005 = phi_1*y_t_1 + phi_2*y_t_2 + phi_3*y_t_3 + e_t +theta_1*e_t_1
+y_2005 %>% print()
+y_t_1 = y_2005
+y_t_2 = wmurders[1]
+y_t_3 = wmurders[2]
+e_t = y_2005 -  wmurders[1] #error from naive model estimate
+e_t_1 = fit$residuals[1]
+y_2006 = phi_1*y_t_1 + phi_2*y_t_2 + phi_3*y_t_3 + e_t +theta_1*e_t_1
+y_2006 %>% print()
+y_t_1 = y_2006
+y_t_2 = y_2005
+y_t_3 = wmurders[1]
+e_t = y_2006 -  y_2005 #error from naive model estimate
+e_t_1 = y_2005 -  wmurders[1]
+y_2007 = phi_1*y_t_1 + phi_2*y_t_2 + phi_3*y_t_3 + e_t +theta_1*e_t_1
+y_2007 %>% print()
 ```
 
+
+Our by-hand method of the (1,2,1) model gives a steeper upward trend than the included method. The challenge for matching the by-hand model to the R fucntion is balancing the parameters of $\phi_{1,2,3}$ and $\theta_1$. This was done emptically and it became appearant that small changes to the paramters made big changes in the predictions as given below:
+
+```{r byhand2, eval=TRUE}
+phi_1 = 0.5
+phi_2 = 0.495
+phi_3 = 0.005
+theta_1 = 1
+y_t_1 = wmurders[1]
+y_t_2 = wmurders[2]
+y_t_3 = wmurders[3]
+e_t = fit$residuals[1]
+e_t_1 =fit$residuals[2]
+y_2005 = phi_1*y_t_1 + phi_2*y_t_2 + phi_3*y_t_3 + e_t +theta_1*e_t_1
+y_2005 %>% print()
+y_t_1 = y_2005
+y_t_2 = wmurders[1]
+y_t_3 = wmurders[2]
+e_t = y_2005 -  wmurders[1] #error from naive model estimate
+e_t_1 = fit$residuals[1]
+y_2006 = phi_1*y_t_1 + phi_2*y_t_2 + phi_3*y_t_3 + e_t +theta_1*e_t_1
+y_2006 %>% print()
+y_t_1 = y_2006
+y_t_2 = y_2005
+y_t_3 = wmurders[1]
+e_t = y_2006 -  y_2005 #error from naive model estimate
+e_t_1 = y_2005 -  wmurders[1]
+y_2007 = phi_1*y_t_1 + phi_2*y_t_2 + phi_3*y_t_3 + e_t +theta_1*e_t_1
+y_2007 %>% print()
+```
+
+Here shift the weight from $\phi_2$ to $\phi_1$ by 0.105 and instead of getting an increasing trend we get a decreasing trend. The first example respresents our best attempt to constrain the $\phi$ parameters empirically.
 
 
 
