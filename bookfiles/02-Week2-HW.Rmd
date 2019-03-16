@@ -16,11 +16,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r, include=TRUE}
-autoplot(plastics) + xlab("Month") + ylab("1000 $") +
+autoplot(plastics) + xlab("Year") + ylab("1000 $") +
   ggtitle("Monthly Plastic Sales")
 ```
 
-The data has approximately 1 month (peak to peak) seasonality and an apprearent upward trend, that may be cyclic behavior since this only covers 6 months of data.
+```{r}
+ggsubseriesplot(plastics) + xlab("Month") + ylab("1000 $")
+```
+
+The data shows a strong seasonal trend, with a peak in August or September and a trough in February every year. In addition there is an overall upward trend.
 
 
 ### b
@@ -66,6 +70,7 @@ Yes the trend is sloped upward and the seasonal trend reaches maximum once a mon
 ```{r}
 plas_seas <- decompose(plastics, type = 'multiplicative')$seasonal
 plas_seas
+
 plas_seas_adj = plastics/plas_seas
 autoplot(plas_seas_adj)
 ```
@@ -79,6 +84,7 @@ plastics[30]
 new_val <- plastics[30]+500
 plas_outlier <- replace(plastics,30, new_val)
 plas_outlier[30]
+
 plas_seas_outlier <- decompose(plas_outlier, type = 'multiplicative')$seasonal
 plas_seas_outlier
 plas_seas_adj_outlier = plas_outlier/plas_seas_outlier
@@ -96,6 +102,7 @@ plastics[5]
 new_val <- plastics[5]+500
 plas_outlier <- replace(plastics,5, new_val)
 plas_outlier[5]
+
 plas_seas_outlier <- decompose(plas_outlier, type = 'multiplicative')$seasonal
 plas_seas_outlier
 plas_seas_adj_outlier = plas_outlier/plas_seas_outlier
@@ -107,6 +114,7 @@ plastics[55]
 new_val <- plastics[55]+500
 plas_outlier <- replace(plastics,55, new_val)
 plas_outlier[55]
+
 plas_seas_outlier <- decompose(plas_outlier, type = 'multiplicative')$seasonal
 plas_seas_outlier
 plas_seas_adj_outlier = plas_outlier/plas_seas_outlier
@@ -125,15 +133,19 @@ Yes, the spike occurs where the outlier is.
 
 ```{r, include=TRUE}
 bricksq %>% autoplot()
+
 bricksq %>%
   stl(t.window=13, s.window="periodic", robust=TRUE) %>%
   autoplot()
+
 bricksq %>%
   stl(t.window=13, s.window=7, robust=TRUE) %>%
   autoplot()
+
 bricksq %>%
   stl(t.window=13, s.window=25, robust=TRUE) %>%
   autoplot()
+
 bricksq %>%
   stl(t.window=13, s.window=81, robust=TRUE) %>%
   autoplot()
@@ -143,15 +155,19 @@ We see that a high s.window yeilds the same as periodic.
 
 ```{r, include=TRUE}
 bricksq %>% autoplot()
+
 bricksq %>%
   stl(t.window=13, s.window="periodic", robust=TRUE) %>%
   autoplot()
+
 bricksq %>%
   stl(t.window=25, s.window="periodic", robust=TRUE) %>%
   autoplot()
+
 bricksq %>%
   stl(t.window=7, s.window="periodic", robust=TRUE) %>%
   autoplot()
+
 bricksq %>%
   stl(t.window=3, s.window="periodic", robust=TRUE) %>%
   autoplot()
@@ -167,6 +183,7 @@ The t.window parameter adjusts the goodness of fit of the trend, low values tend
 ```{r, include=TRUE}
 brick_seas <- decompose(bricksq, type = 'multiplicative')$seasonal
 brick_seas
+
 brick_seas_adj = bricksq/brick_seas
 autoplot(brick_seas_adj)
 ```
@@ -178,9 +195,10 @@ autoplot(brick_seas_adj)
 ```{r, include=TRUE}
 brick_naive <- naive(brick_seas_adj, h=12)
 brick_naive
+
 autoplot(brick_seas_adj) +
   autolayer(brick_naive,
-    series="Naïve", PI=TRUE)
+    series="Na�ve", PI=TRUE)
 ```
 
 
@@ -203,6 +221,7 @@ res_brk <- residuals(brick_naive)
 autoplot(res_brk)
 gghistogram(res_brk) + ggtitle("Histogram of residuals")
 ggAcf(res_brk) + ggtitle("ACF of residuals")
+
 res_fcast <- residuals(fcast)
 autoplot(res_fcast)
 gghistogram(res_brk) + ggtitle("Histogram of residuals")
@@ -234,6 +253,7 @@ ggAcf(res_brk2) + ggtitle("ACF of residuals")
 ### g
 ![](./week2/6.6g.png)
 
+
 ```{r}
 train <- bricksq %>% window(1956, c(1992, 3))
 test <- bricksq %>% window(c(1992, 4), c(1994, 4))
@@ -241,7 +261,7 @@ train_stlf <- train %>% stlf(method='naive', h=8)
 train_snaiv <- train %>% snaive(h=8)
 autoplot(bricksq) +
   autolayer(train_stlf, series="STL", PI=FALSE) +
-  autolayer(train_snaiv, series="Seasonal naïve", PI=FALSE) +
+  autolayer(train_snaiv, series="Seasonal na�ve", PI=FALSE) +
   xlab("Quarter") + ylab("Bricks") +
   ggtitle("Forecasts for quarterly brick production") +
   guides(colour=guide_legend(title="Forecast"))
