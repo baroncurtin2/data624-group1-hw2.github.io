@@ -2,7 +2,7 @@
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_chunk$set(tidy = TRUE)
 knitr::opts_chunk$set(warning = FALSE)
-libs <- c("tidyverse", "knitr", "kableExtra", "fpp2", "glue")
+libs <- c("tidyverse", "knitr", "kableExtra", "glue", "magrittr", "AppliedPredictiveModeling", "caret", "viridis")
 loadPkg <- function(x) {
   if(!require(x, character.only = T)) install.packages(x, dependencies = T, repos = "http://cran.us.r-project.org")
   require(x, character.only = T)
@@ -10,239 +10,198 @@ loadPkg <- function(x) {
 lapply(libs, loadPkg)
 ```
 
-# HW1
+# KJ6
 
-## 2.3
-![](./week1/2.3.png)
+## 6.3
+![](./kj6/6.3.png)
 
 
 ### a
-![](./week1/2.3a.png)
+![](./kj6/6.3a.png)
 
 ```{r}
-retailData <-  readxl::read_excel('./week1/retail.xlsx', skip=1)
+data("ChemicalManufacturingProcess")
+data <- ChemicalManufacturingProcess %>%
+  as.data.frame()
+
+# split dataset into predictors and yield
+Xs <- data %>%
+  select(-Yield)
+y <- data %>%
+  select(Yield)
 ```
 
 
 
 ### b
-![](./week1/2.3b.png)
+![](./kj6/6.3b.png)
+
 
 ```{r}
-myts <- ts(retailData[, "A3349338X"],
-           frequency = 12,
-           start=c(1982,4))
+missing <- sum(is.na(Xs))
+missingPercent <- missing/(nrow(data) * ncol(data))
 ```
 
+The `r missing` missing values corresponds to `r missingPercent %>% multiply_by(100) %>% round(2)` of all the predictor data
 
+```{r}
+missingPredictors <- Xs %>%
+  gather(predictor, value) %>%
+  group_by(predictor) %>%
+  summarise(missing = sum(is.na(value))) %>%
+  mutate(percent = (missing/sum(missing)) * 100) %>%
+  filter(missing > 0) %>%
+  arrange(desc(missing))
+
+print(missingPredictors)
+missingPredictors$missing[c(1:3)]
+```
+
+* All of the variables missing data describe Manufacturing Processes
+* MP3, MP11, and MP10 make up `r (sum(missingPredictors$missing[c(1:3)])/sum(missingPredictors$missing)) * 100`% of the missing information
+
+The data can be preprocessed and imputed
+```{r}
+library(caret)
+Xs_processed <- preProcess(Xs, method = c("knnImpute", "center", "scale", "nzv", "corr"))
+
+# apply preprocessing and imputation
+Xs_trans <- predict(Xs_processed, Xs)
+```
+
+Lets just confirm the distribution of the transformed data to ensure appropriateness
+```{r}
+Xs_trans %>%
+  gather(predictor, value) %>%
+  mutate(type = ifelse(substr(predictor, 1, 1) == "B", "Biological", "Mechanical"),
+         number = substr(predictor, nchar(predictor) - 1, nchar(predictor))) %>%
+  ggplot(aes(x = predictor, y = value)) + 
+  geom_point(aes(col = type), alpha = 0.5) +
+  scale_x_discrete(NULL, labels = NULL) +
+  scale_y_continuous(limits = c(-10, 10)) +
+  coord_flip() +
+  ggtitle("Distribution of Predictors") +
+  theme(legend.position = c(1, 1), legend.justification = c(1.1, 1.1))
+```
+
+The plot confirms that the preprocessing did well
 
 ### c
-![](./week1/2.3c.png)
+![](./kj6/6.3c.png)
 
 ```{r}
-autoplot(myts[, "A3349338X"]) +
-  ggtitle("Time Series Plot A3349338X") +
-  xlab("Year") +
-  ylab("Value")
+set.seed(7)
+trainRows <- createDataPartition(y$Yield, p=.8, list = F)
+
+# training sets
+X_train <- Xs_trans[trainRows,]
+y_train <- y[trainRows,]
+
+# test sets
+X_test <- Xs_trans[-trainRows,]
+y_test <- y[-trainRows,]
 ```
 
-From the time series plot, we able to deduce:
-* Trend: there is a clear upward trend over the duration of the time series
-
+Lets check the correlation of the values
 ```{r}
-ggseasonplot(myts, year.labels = T) +
-  ggtitle("Seasonal plot: A3349338X")
-ggsubseriesplot(myts) +
-  ggtitle("Seasonal subseries pllot: A3349338X")
+cor(Xs_trans) %>%
+  # convert to data frame
+  as.data.frame() %>%
+  # change row names to variable
+  rownames_to_column("predictorX") %>%
+  # convert to tidy format for plotting
+  gather(predictorY, cor, -predictorX) %>%
+  # plot 
+  ggplot(aes(predictorX, predictorY)) +
+  geom_raster(aes(fill = cor)) +
+  scale_x_discrete(NULL, labels = NULL) + 
+  scale_y_discrete(NULL, labels = NULL) +
+  viridis::scale_fill_viridis(NULL) +
+  ggtitle("Correlation between predictors") +
+  theme(legend.position = "bottom")
 ```
 
-From the seasonal plot,  we are able to deduce:
-* Seasonality: there is some clear seasonality that exists among different month, however it is not without minor variation/deviation between the years
-* December shows a clear uptick while February shows a clear downtick
+The correlation plot reveals that some correlation between variables still exists. We can attempt to recitfy this through the use dimensionality reduction
 
 ```{r}
-ggAcf(myts)
-```
+set.seed(7)
+cv <- trainControl(method = "cv", number = 15)
 
-From the Acf plot, we are able to confirm:
-* Trend: the autocorrelations are slowly decreasing as the lags are increasing
-
-Conclusion:
-* Trend exists in this time series and is slowly going upwrd
-* Seasonality appears to exist however there are years that defy seasonality patterns
-* There does not appear to be any cyclic behavior
-
-## 2.7
-![](./week1/2.7.png)
-
-```{r}
-#arrivals <- data("arrivals")
-```
-
-```{r}
-autoplot(arrivals) +
-  ggtitle("Arrivals Time Series") +
-  facet_wrap(~series)
-```
-
-Observations:
-* Japan seems to experience a an upward trend, reach an apex, and then experience a downward trend
-* NZ, UK, and US all experience upward trends in arrivals albeit to different degrees
-* UK appears to have the greatest variance in their arrival figures
-* US has very little deviation in their arrival trend
-* NZ has more fluctuation than US, but less than UK in their arrivals
-* US on average has the lowest amount of arrivals
-
-```{r}
-genSeasonPlot <- function(country) {
-  ggseasonplot(arrivals[, country]) +
-    ggtitle(glue("Season Plot: {country}"))
-}
-countries <- c("Japan", "NZ", "US", "UK")
-countries %>%
-  map(~ genSeasonPlot(.x))
-```
-
-Observations from Seasonal Plots:
-* Typically the countries will see their highest arrivals in Q3, however the UK appears to go against this seasonal pattern
-* Q2 appears to be a down quarter for all countries except NZ
-* Q1 is a low point for NZ, and generally a high point for the other countries
-
-```{r}
-genSubSeasonPlot <- function(country) {
-  ggsubseriesplot(arrivals[, country]) +
-    ggtitle(glue("Subseries Plot: {country}"))
-}
-countries %>%
-  map(~ genSubSeasonPlot(.x))
-```
-
-Observations:
-* Japan's mean stays relatively flat across the quarters outside of Q2
-* US also remains relatively consistent and further backs up the lack of deviation point made earlier
-* UK experiences the most arrivals in Q1 and A4
-
-
-## 2.10
-![](./week1/2.10.png)
-
-```{r}
-data("dj")
-ddj <- diff(dj)
+trainCV <- train(x = X_train, y = y_train, method = "pls", tuneLength = 20, trControl = cv)
 ```
 
 ```{r}
-autoplot(ddj)
+trainCV$results %>% 
+  ggplot(aes(x = ncomp)) +
+  geom_line(aes(y = RMSE, col = "RMSE")) +
+  geom_line(aes(y = Rsquared, col = "R-squared")) +
+  geom_line(aes(y = MAE, col = "MAE")) +
+  geom_point(data = data_frame(Metric = c("RMSE", "R-squared", "MAE"),
+                               ncomp = c(which.min(trainCV$results$RMSE),
+                                         which.max(trainCV$results$Rsquared),
+                                         which.min(trainCV$results$MAE)),
+                               Optimal = c(min(trainCV$results$RMSE),
+                                           max(trainCV$results$Rsquared),
+                                           min(trainCV$results$MAE))),
+             aes(x = ncomp, y = Optimal, col = Metric), size = 1.5) +
+  scale_color_discrete("Metric", breaks = c("RMSE", "MAE", "R-squared")) +
+  labs(title = "Components (Number) Accuracy",
+       subtitle = "15 Fold CV Partial Least Squares",
+       x = "Number of PLS components", y = NULL) +
+  theme(legend.position = "bottom", legend.direction = "horizontal")
 ```
 
-The autoplot appears to show random variation with peaks and valleys 
+The optimal model, based on RMSE, uses `r which.min(trainCV$results$RMSE)` components with an RMSE value of `r min(trainCV$results$RMSE)` based on the plot above
 
-
-```{r}
-ggAcf(ddj)
-```
-
-The changes in the Dow Jones Index do appear to be white noise as the the autocorrelations are very close to zero
-
-## 3.1
-![](./week1/3.1.png)
-
-### usnetelec
-```{r}
-data("usnetelec")
-lambda <- BoxCox.lambda(usnetelec) %>%
-  print()
-autoplot(BoxCox(usnetelec, lambda))
-```
-
-
-### usgdp
-```{r}
-data("usgdp")
-lambda <- BoxCox.lambda(usgdp) %>%
-  print()
-autoplot(BoxCox(usgdp, lambda))
-```
-
-
-### mcopper
-```{r}
-data("mcopper")
-lambda <- BoxCox.lambda(mcopper) %>%
-  print()
-autoplot(BoxCox(mcopper, lambda))
-```
-
-
-### enplanements
-```{r}
-data("enplanements")
-lambda <- BoxCox.lambda(enplanements) %>%
-  print()
-autoplot(BoxCox(enplanements, lambda))
-```
-
-
-## 3.8
-![](./week1/3.8.png)
-
-### a
-![](./week1/3.8a.png)
-
-```{r}
-myts.train <- window(myts, end=c(2010,12))
-myts.test <- window(myts, start=2011)
-```
-
-### b
-![](./week1/3.8b.png)
-
-```{r}
-autoplot(myts) +
-  autolayer(myts.train, series="Training") +
-  autolayer(myts.test, series="Test")
-```
-
-The autoplot shows that the data has been correctly split with the latter part of the data reservered for testing
-
-### c
-![](./week1/3.8c.png)
-
-```{r}
-fc <- snaive(myts.train)
-print(fc)
-```
 
 ### d
-![](./week1/3.8d.png)
+![](./kj6/6.3d.png)
 
 ```{r}
-accuracy(fc, myts.test)
+predictions <- predict(trainCV, X_test)
+yhat_performance <- defaultSummary(data.frame(obs = y_test, pred = predictions)) %T>%
+  print
 ```
 
-Conclusions:
-* The MASE shows that the seasonal naive method does produce a better forecast than the average naive forecast although very slightly. The MASE is only .95
-* The MAPE shows that there is about a 9% error in the forecast on average which is not bad, but does show tht it could be improved
-* The RMSE and MAE both show that it is possible to improve the forecast but the seasonal naive forecast does do a decent job
+The RMSE is `r yhat_performance[1]`, which is slightly better than the RMSE on the training set
+
+
+
 
 ### e
-![](./week1/3.8e.png)
+![](./kj6/6.3e.png)
 
 ```{r}
-checkresiduals(fc)
+importantVars <- varImp(trainCV)
+
+importantVars %>%
+  ggplot(top = 10) + 
+  ggtitle("Top 10 Predictors")
 ```
 
-The residual diagnostics show:
-* An approximately normal distribution
-* The mean of the residuals is close to 0
-* The residual variance appears to be contant
-* The residuals appear to be correlated as the lags near to each other are similar in direction and size
-* Although the residuals pass the diagnostic tests, it does still show that the prediction intervals may be inaccurate
-* The Box-Ljung test does show a very small p-value which means the residuals are distinguishable from a white noise series. The Q* value is also very large
+* 7 of the Top 10 important variables are Manufacturing
+* M32 is the most important registering 100% importance
+
 
 ### f
-![](./week1/3.8f.png)
+![](./kj6/6.3f.png)
 
+```{r}
+top5 <- rownames(importantVars$importance)[order(importantVars$importance$Overall, decreasing = TRUE)][1:5]
 
-Accuracy measures are very sensitive to the training/test split.  Forecasts by definition need historical data. The more information present to forecast on, the better the forecast
+top5_df <- as.data.frame(cbind(Xs_trans, y)[, c(top5, "Yield")])
+
+top5_df %>% 
+  gather(predictor, value, -Yield) %>% 
+  ggplot(aes(x = value, y = Yield)) +
+  geom_point(alpha = 0.25) +
+  stat_smooth(se = FALSE, method = "glm") +
+  facet_wrap(~ predictor, nrow = 2, scales = "free") +
+  labs(title = "Top 5 Predictor Relationships")
+```
+
+* M09, M32 have positive relationships with Yield
+* M13, M17, and M36 have negative relationships with Yield
+* Using this information, increasing M09 and M32 will increase Yield, while decreasing the others will also increase Yield
+* The relationships between the variables need to be explored first prior to adjusting manufacturing strategy
 
