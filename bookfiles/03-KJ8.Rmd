@@ -13,7 +13,23 @@ knitr::opts_chunk$set(echo = TRUE)
 ### a
 ![](./kj8/8.1a.png)
 
+```{r, echo=TRUE, eval=FALSE}
+#Variable Importance
+#V1	8.68958074			
+#V2	6.42965064			
+#V3	0.74711329			
+#V4	7.68699457			
+#V5	2.36904769			
+#V6	0.10997268			
+#V7	0.03083254			
+#V8	-0.10779418			
+#V9	-0.12814111			
+#V10	0.04895944
+```
 
+Answer:
+
+No, it didn't. Variables 1-5 all had greater importance than variables 6-10, and consequently, would not have been used significantly in the model.  Variables 8 and 9 have negative importance, which is really bad, as these are not helpful at all, and would be hurtful in fact towards having predictive value.  A random variable would be better than these.
 
 
 
@@ -22,9 +38,58 @@ knitr::opts_chunk$set(echo = TRUE)
 ### b
 ![](./kj8/8.1b.png)
 
+Answer:
 
+Yes, the importance score drops from 8.69 to 6.02.  The loss of V1 from the model is no longer as important as it was previously since there is another variable (duplicate1) that contains roughly the same information in it.  Consequently, V1 is not as important.
 
+```{r, echo=TRUE, eval=FALSE}
+#fit new model
+model2 <- randomForest(y ~ ., data = simulated,
+                       importance = TRUE,
+                       ntree = 1000)
+#importance
+rfImp2 <- varImp(model2, scale = FALSE)
 
+#V1	6.02363848			
+#V2	6.19154188			
+#V3	0.55277883			
+#V4	6.92793183			
+#V5	2.17101110			
+#V6	0.15369922			
+#V7	0.10720626			
+#V8	0.00929209			
+#V9	-0.05010858			
+#V10	0.03861636
+
+```
+
+When you add another predictor that is also highly correlated with V1, the variable importance drops even further, from 6.02 down to 4.75.  V1 is essentially sharing its importance with the highly correlated duplicate variables, and so it is no longer as important.
+
+```{r, eval=FALSE, echo=TRUE}
+#new predictor
+simulated$duplicate2 <- simulated$V1 + rnorm(200)* .1
+cor(simulated$duplicate2, simulated$V1)
+#0.9430605
+
+#new model
+model3 <- randomForest(y ~ ., data = simulated,
+                       importance = TRUE,
+                       ntree = 1000)
+#importance
+rfImp3 <- varImp(model3, scale = FALSE)
+
+#V1	4.750274828			
+#V2	6.392645096			
+#V3	0.546932231			
+#V4	6.694197135			
+#V5	2.354901393			
+#V6	0.178559997			
+#V7	0.003137176			
+#V8	-0.067194296			
+#V9	-0.088150851			
+#V10	-0.040809537	
+
+```
 
 
 
@@ -32,7 +97,89 @@ knitr::opts_chunk$set(echo = TRUE)
 ![](./kj8/8.1c.png)
 
 
+Answer:
 
+Using just the original values in simulated (V1-v10, not duplicate1 or duplicate 2), the variable importances are:
+
+  * rfImp1: 1, 4, 2, 5, 3, 6, 10, 7, 8, 9
+  * cfImp1: 1, 4, 2, 5, 7, 3, 6, 9, 10, 8
+  * cfImp1_con: 4, 1, 2, 5, 3, 6, 7, 9, 10, 8
+  
+They are almost the same in the ordering.  1, 4, 2, 5 are always in the top 4, and 1 and 4 are always in the top 2.  V3 switches with 7 in the cforest cond = False model, but is really close in the magnitude of the importance.
+
+The magnitudes are very similar between rfImp1 (9, 8, 6, 2 rounded) and cfImp1 (9, 8, 7, 2 rounded) for the first four variables.  The conditional is a little bit different and the variable importance is less spread out (7, 6, 5, 2 rounded), but not too different.  
+
+In short, I'd say that they generally show the same pattern as the traditional random forest model for the original simulated data.
+
+```{r, eval=FALSE, echo=TRUE}
+library(party)
+
+#cforest
+model1_cf <- cforest(y ~ ., data = simulated[,1:11],
+                       control = cforest_unbiased(ntree = 1000)
+                       )
+
+#conditional and regular importance
+cfImp1 <-data.frame(varimp(model1_cf, conditional = FALSE))
+cfImp1_con <-data.frame(varimp(model1_cf, conditional = TRUE))
+
+
+```
+
+If we include duplicate1, the variable importance order is:
+
+  * rfImp2: 4, 2, 1, duplicate1, 5, 3, 6, 7, 10, 8, 9
+  * cfImp2: 4, 1, 2, duplicate1, 5, 3, 7, 6, 10, 9, 8
+  * cfImp2_con: 4, 2, 1, 5, duplicate1, 3, 6, 10, 7, 8, 9
+  
+These are all roughly the same as 4, 2, 1 always take the top 3, duplicate1, 5, 3 take the next 3, and 6-10 take the rest.  The magnitudes are also similar as before (rounded):
+
+  * rfImp2: 7, 6, 6, 3, 2, ...
+  * cfImp2: 8, 7, 6, 2, 2, ...
+  * cfImp2_con: 6, 5, 3, 1, 1, ...
+
+Again, this matches the pattern of the original simulated data.
+
+```{r,eval=FALSE, echo=TRUE}
+#cforest model 2
+model2_cf <- cforest(y ~ ., data = simulated[,1:12],
+                       control = cforest_unbiased(ntree = 1000)
+                      )
+
+#importance
+cfImp2 <-data.frame(varimp(model2_cf, conditional = FALSE))
+cfImp2_con <-data.frame(varimp(model2_cf, conditional = TRUE))
+
+```
+
+Finally, if we add duplicate2 as well, the order is:
+
+  * rfImp3: 4, 2, 1, duplicate2, duplicate1, 5, 3, 6, 7, 10, 8, 9
+  * cfImp3: 4, 2, 1, duplicate2, 5, duplicate1, 7, 3, 6, 9, 10, 8
+  * cfImp3_con: 4, 2, 1, 5, duplicate2, duplicate1, 3, 7, 6, 9, 8, 10
+  
+In magnitude:
+
+  * rfImp3: 7, 6, 5, 3, 3, ...
+  * cfImp3: 7, 6, 5, 3, 2, ...
+  * cfImp3_con: 6, 4, 2, 1, 1, ...
+  
+This again generally matches the pattern.
+
+
+```{r, eval=FALSE, echo=TRUE}
+#cforest model 3
+model3_cf <- cforest(y ~ ., data = simulated[,1:13],
+                       control = cforest_unbiased(ntree = 1000)
+                       )
+
+#importance 3
+cfImp3 <-data.frame(varimp(model3_cf, conditional = FALSE))
+cfImp3_con <-data.frame(varimp(model3_cf, conditional = TRUE))
+
+```
+
+Even with the duplicated data, the variable importance, both in magnitude and in ordering, seems to show the same pattern as the traditional random forest model.
 
 
 
@@ -41,7 +188,71 @@ knitr::opts_chunk$set(echo = TRUE)
 ![](./kj8/8.1d.png)
 
 
+Answer:
 
+With the gbm using 1000 trees, the variable importance generally matches the ordering, although the magnitude is on a different scale. Variables 1-5 are in the top 5 (where 4 and 1 are the top 2), and variables 6-10 are the bottom 5.  The same holds true with the duplicated data.
+
+  * gbmImp1: 4, 1, 2, 5, 3, 7, 6, 9, 10, 8
+  * gbmImp2: 4, 2, 1, 5, 3, duplicate1, 7, 6, 8, 9, 10
+  * gbmImp3: 4, 2, 1, 5, 3, duplicate1, duplicate2,  7, 6, 8, 9, 10
+
+```{r, eval=FALSE, echo=TRUE}
+#gbm
+library(gbm)
+
+#boosted 1
+model1_gbm <- gbm(y~ ., data = simulated[,1:11], 
+                  distribution = "gaussian" #squared error
+                  ,n.trees = 1000)
+
+gbmImp1 <-varImp(model1_gbm, scale = FALSE, numTrees = 1000)
+
+#boosted 2
+model2_gbm <- gbm(y~ ., data = simulated[,1:12], 
+                  distribution = "gaussian" #squared error
+                  ,n.trees = 1000)
+
+gbmImp2 <-varImp(model2_gbm, scale = FALSE, numTrees = 1000)
+
+#boosted 3
+model3_gbm <- gbm(y~ ., data = simulated[,1:13], 
+                  distribution = "gaussian" #squared error
+                  ,n.trees = 1000)
+
+gbmImp3 <-varImp(model3_gbm, scale = FALSE, numTrees = 1000)
+
+```
+
+With the cubist model using 100 committees:
+
+  * cubistImp1: 1, 2, 4, 3, 5, 6, 7, 8, 9, 10
+  * cubistImp2: 1, 2, 4, 3, 5, 6, 7, 8, 9, 10, duplicate1
+  * cubistImp3: 1, 2, 3, 4, 5, 6, duplicate2, duplicate1, 8, 7, 9, 10
+  
+The ordering is a little bit different from previous models.  1, 2, 4 are still the most important variables, but 4 is no longer trading off with 1 for most important variable, as 2 is considered more important.  Still, variables 1-5 are in the top 5 while 6-10 are in the bottom 5.  The duplicate values are mostly ignored.
+
+
+```{r, eval=FALSE, echo=TRUE}
+#cubist
+library(Cubist)
+
+#cubist 1
+model1_cubist <-cubist(x = simulated[,c(1:10)], y = simulated[,11], committees = 100)
+cubistImp1 <- varImp(model1_cubist)
+
+#cubist 2
+model2_cubist <-cubist(x = simulated[,c(1:10,12)], y = simulated[,11], committees = 100)
+cubistImp2 <- varImp(model2_cubist)
+
+#cubist 3
+model3_cubist <-cubist(x = simulated[,c(1:10, 12, 13)], y = simulated[,11], committees = 100)
+cubistImp3 <- varImp(model3_cubist)
+
+```
+
+Generally speaking, the variable importance is the same across these different kinds of tree models.  There are some differences, but these appear to be relatively minor.  The models all agree that variables 4, 2, and 1 are the most important, 5 and 3 are next, and then 6-10 follow.  
+
+The biggest difference is that randomForest, cforest, and gbm all tend to rank the duplicate values as being relatively important after the first 5 variables, whereas the cubist model appears to ignore these for the most part.  This may be due to how the cubist model handles covariance.
 
 
 
@@ -50,7 +261,106 @@ knitr::opts_chunk$set(echo = TRUE)
 ![](./kj8/8.2.png)
 
 
+Answer: 
 
+Tree bias refers to the fact that "predictors with a higher number of distinct values are favored over more granular predictors" (KJ 182).  Kuhn and Johnson quote other authors that describe a scenario when this can occur:
+
+  * the data set has a mix of informative and noise variables
+  * the noise variables have more splits than the informative variables
+  * the noise variables then split the top nodes of the tree
+  
+Or put differently here (https://www.r-project.org/conferences/useR-2006/Abstracts/Strobl+Zeileis+Boulesteix+Hothorn.pdf):
+
+  * "When potential predictor variables vary in their number of categories, and thus in their number of potential cutpoints, those variables that provide more potential cutpoints are more likely to be selected by chance" (1).
+
+The below code recreates this scenario.  A y vector of 100 uniformly random values is created.  Then 18 variables are created based on y, using an increasing number of cuts (from 3 to 20) in the data to generate successively more breakpoints.  Noise is also added to each variable to make sure that it correlates less with y than the previous variable.  For example, here is the correlation between y and each variable below:
+
+          y    x_cut3    x_cut4    x_cut5    x_cut6    x_cut7    x_cut8    x_cut9 
+    1.0000000 0.9460066 0.9456638 0.9247502 0.9173373 0.9034732 0.8950539 0.8838463 
+
+    x_cut10   x_cut11   x_cut12   x_cut13   x_cut14   x_cut15   x_cut16   x_cut17 
+    0.8361560 0.8292382 0.8242503 0.8238068 0.8164344 0.7971259 0.7966548 0.7737809 
+
+    x_cut18   x_cut19   x_cut20 
+    0.7586791 0.7344495 0.6945186 
+
+Once the variables are created, making sure that as the cuts increase the correlation with y decreases, then a tree is created.  The top variable according to variable importance is then recorded.  Doing the above 500 times produced a distribution of what variable was considered to be the most important according to the tree splitting.
+
+The most important variable was cut 4.  While slightly less correlated with y than cut 3, it was the most important variable 314 times, while cut 3 was only the top variable 73 times.  Cuts 5 and 6 combined to have more variable importance occurrences (31 + 45 = 76) than cut 3 alone.  Even cuts 7, 8, 9, 10, 11, 13, and 15 were most important at least once.  This despite many of these variables being much less correlated with y than cut 3.  See full table below, sorted by the number of times a variable was considered the most important:
+
+
+    x_cut4  x_cut3  x_cut6  x_cut5  x_cut7  x_cut8 x_cut10  x_cut9 x_cut11 x_cut15 
+        314      73      45      31      13       9       7       3       2       2 
+    x_cut13 
+          1 
+      
+Thus, it does seem that trees have a tendency to select variables that, though not as informative with respect to the y value being predicted, have more cutpoints and hence are deemed to be more important in the tree model.
+
+```{r, echo = TRUE, eval=FALSE}
+library(rpart)
+library(stringr)
+
+#create empty variable importance vector
+varImpVector <- c()
+
+for(j in 1:500){
+  
+  #start df and generate random y values
+  y <- runif(100, 0, 100)
+  df_8.2 <- data.frame(y)
+  
+  cutNoise <- function(y, cuts, noise){
+  
+    #get cuts and add noise
+    x <- as.character(cut(y + runif(100,0,noise), cuts))
+    x_adj <-as.numeric(substring(x, 2, str_locate(x,",")[,1]-1))
+    
+    #round
+    x_final <- round(x_adj)
+    
+    return(x_final)
+  }
+  
+  for(i in 3:20){
+    
+    
+    #initialize variables
+    noise <- 0
+    if (i == 3){
+      x_temp<-cutNoise(y,i, noise)
+      cor <- 1
+    }
+    
+    
+    #add noise until correlation is less than previous variable
+    while (cor <= cor(y,x_temp)){
+      noise <- noise + 1
+      x_temp<-cutNoise(y,i, noise)
+    }
+    
+    #get new baseline correlation
+    cor <- cor(y,x_temp)
+    
+    #add to df
+    name_temp <- paste0("x_cut",i)
+    df_8.2$temp <-x_temp
+    names(df_8.2)[names(df_8.2)=="temp"] <- name_temp
+    
+  }
+  
+  #sort(cor(df_8.2)[,1], decreasing = TRUE)
+  
+  #create tree
+  tree <-rpart(y ~ ., data = df_8.2 )
+  
+  #get top variable importance and add to vector
+  varImpVector<-c(varImpVector, names(tree$variable.importance)[1])
+  
+}
+
+#get counts of most important variable
+table(varImpVector)[order(table(varImpVector), decreasing=TRUE)]
+```
 
 
 
