@@ -52,9 +52,9 @@ data <- ChemicalManufacturingProcess %>%
 
 # split dataset into predictors and yield
 Xs <- data %>%
-  select(-Yield)
+  dplyr::select(-Yield)
 y <- data %>%
-  select(Yield)
+  dplyr::select(Yield)
 ```
 
 
@@ -72,12 +72,12 @@ The `r missing` missing values corresponds to `r missingPercent %>% multiply_by(
 
 ```{r}
 missingPredictors <- Xs %>%
-  gather(predictor, value) %>%
-  group_by(predictor) %>%
-  summarise(missing = sum(is.na(value))) %>%
-  mutate(percent = (missing/sum(missing)) * 100) %>%
-  filter(missing > 0) %>%
-  arrange(desc(missing))
+  tidyr::gather(predictor, value) %>%
+  dplyr::group_by(predictor) %>%
+  dplyr::summarise(missing = sum(is.na(value))) %>%
+  dplyr::mutate(percent = (missing/sum(missing)) * 100) %>%
+  dplyr::filter(missing > 0) %>%
+  dplyr::arrange(desc(missing))
 
 print(missingPredictors)
 missingPredictors$missing[c(1:3)]
@@ -841,7 +841,7 @@ At least some of these look like they might be correlated to yield better by a c
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-libs <- c('AppliedPredictiveModeling', 'tidyverse', 'rpart', 'rpart.plot', 'DMwR', 'PerformanceAnalytics')
+libs <- c('AppliedPredictiveModeling', 'tidyverse', 'rpart', 'rpart.plot', 'DMwR', 'PerformanceAnalytics', 'Metrics', 'impute')
 
 loadPkg <- function(x) {
   if(!require(x, character.only = T)) install.packages(x, dependencies = T, repos = "http://cran.us.r-project.org")

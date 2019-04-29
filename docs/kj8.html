@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 8 KJ8 | Data 624 - KJ Assignments (HW2)</title>
+  <meta name="description" content="Group 1’s HA Homework Assignments">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 8 KJ8 | Data 624 - KJ Assignments (HW2)" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Group 1’s HA Homework Assignments" />
+  <meta name="github-repo" content="baroncurtin2/data624" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 KJ8 | Data 624 - KJ Assignments (HW2)" />
+  
+  <meta name="twitter:description" content="Group 1’s HA Homework Assignments" />
+  
+
+<meta name="author" content="Group 1: Andrew Carson, Nathan Cooper, Baron Curtin, Heather Geiger">
+
+
+<meta name="date" content="2019-04-29">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="comparing-models.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Data 624-Group1-HW2</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="kj6.html"><a href="kj6.html"><i class="fa fa-check"></i><b>2</b> KJ6</a><ul>
+<li class="chapter" data-level="2.1" data-path="kj6.html"><a href="kj6.html#section"><i class="fa fa-check"></i><b>2.1</b> 6.3</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="kj6.html"><a href="kj6.html#a"><i class="fa fa-check"></i><b>2.1.1</b> a</a></li>
+<li class="chapter" data-level="2.1.2" data-path="kj6.html"><a href="kj6.html#b"><i class="fa fa-check"></i><b>2.1.2</b> b</a></li>
+<li class="chapter" data-level="2.1.3" data-path="kj6.html"><a href="kj6.html#c"><i class="fa fa-check"></i><b>2.1.3</b> c</a></li>
+<li class="chapter" data-level="2.1.4" data-path="kj6.html"><a href="kj6.html#d"><i class="fa fa-check"></i><b>2.1.4</b> d</a></li>
+<li class="chapter" data-level="2.1.5" data-path="kj6.html"><a href="kj6.html#e"><i class="fa fa-check"></i><b>2.1.5</b> e</a></li>
+<li class="chapter" data-level="2.1.6" data-path="kj6.html"><a href="kj6.html#f"><i class="fa fa-check"></i><b>2.1.6</b> f</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="kj7.html"><a href="kj7.html"><i class="fa fa-check"></i><b>3</b> KJ7</a><ul>
+<li class="chapter" data-level="3.1" data-path="kj7.html"><a href="kj7.html#section-1"><i class="fa fa-check"></i><b>3.1</b> 7.2</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="instructions.html"><a href="instructions.html"><i class="fa fa-check"></i><b>4</b> Instructions</a></li>
+<li class="chapter" data-level="5" data-path="answer.html"><a href="answer.html"><i class="fa fa-check"></i><b>5</b> Answer</a><ul>
+<li class="chapter" data-level="5.1" data-path="answer.html"><a href="answer.html#preliminary-steps"><i class="fa fa-check"></i><b>5.1</b> Preliminary steps</a></li>
+<li class="chapter" data-level="5.2" data-path="answer.html"><a href="answer.html#neural-networks"><i class="fa fa-check"></i><b>5.2</b> Neural networks</a></li>
+<li class="chapter" data-level="5.3" data-path="answer.html"><a href="answer.html#multivariate-adaptive-regression-splines-mars"><i class="fa fa-check"></i><b>5.3</b> Multivariate Adaptive Regression Splines (MARS)</a></li>
+<li class="chapter" data-level="5.4" data-path="answer.html"><a href="answer.html#support-vector-machine-svm"><i class="fa fa-check"></i><b>5.4</b> Support Vector Machine (SVM)</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="k-nearest-neighbors-knn.html"><a href="k-nearest-neighbors-knn.html"><i class="fa fa-check"></i><b>6</b> K-Nearest Neighbors (KNN)</a></li>
+<li class="chapter" data-level="7" data-path="comparing-models.html"><a href="comparing-models.html"><i class="fa fa-check"></i><b>7</b> Comparing models</a><ul>
+<li class="chapter" data-level="7.1" data-path="comparing-models.html"><a href="comparing-models.html#section-2"><i class="fa fa-check"></i><b>7.1</b> 7.5</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="comparing-models.html"><a href="comparing-models.html#initial-data-loading"><i class="fa fa-check"></i><b>7.1.1</b> Initial data loading</a></li>
+<li class="chapter" data-level="7.1.2" data-path="comparing-models.html"><a href="comparing-models.html#impute-missing-values."><i class="fa fa-check"></i><b>7.1.2</b> Impute missing values.</a></li>
+<li class="chapter" data-level="7.1.3" data-path="comparing-models.html"><a href="comparing-models.html#data-exploration-and-additional-manual-transformation"><i class="fa fa-check"></i><b>7.1.3</b> Data exploration and additional manual transformation</a></li>
+<li class="chapter" data-level="7.1.4" data-path="comparing-models.html"><a href="comparing-models.html#automated-data-transformation-and-redo-exploration"><i class="fa fa-check"></i><b>7.1.4</b> Automated data transformation and redo exploration</a></li>
+<li class="chapter" data-level="7.1.5" data-path="comparing-models.html"><a href="comparing-models.html#training-test-split"><i class="fa fa-check"></i><b>7.1.5</b> Training-test split</a></li>
+<li class="chapter" data-level="7.1.6" data-path="comparing-models.html"><a href="comparing-models.html#building-models"><i class="fa fa-check"></i><b>7.1.6</b> Building models</a></li>
+<li class="chapter" data-level="7.1.7" data-path="comparing-models.html"><a href="comparing-models.html#a-1"><i class="fa fa-check"></i><b>7.1.7</b> a</a></li>
+<li class="chapter" data-level="7.1.8" data-path="comparing-models.html"><a href="comparing-models.html#b-1"><i class="fa fa-check"></i><b>7.1.8</b> b</a></li>
+<li class="chapter" data-level="7.1.9" data-path="comparing-models.html"><a href="comparing-models.html#c-1"><i class="fa fa-check"></i><b>7.1.9</b> c</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="kj8.html"><a href="kj8.html"><i class="fa fa-check"></i><b>8</b> KJ8</a><ul>
+<li class="chapter" data-level="8.1" data-path="kj8.html"><a href="kj8.html#section-3"><i class="fa fa-check"></i><b>8.1</b> 8.1</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="kj8.html"><a href="kj8.html#a-2"><i class="fa fa-check"></i><b>8.1.1</b> a</a></li>
+<li class="chapter" data-level="8.1.2" data-path="kj8.html"><a href="kj8.html#b-2"><i class="fa fa-check"></i><b>8.1.2</b> b</a></li>
+<li class="chapter" data-level="8.1.3" data-path="kj8.html"><a href="kj8.html#c-2"><i class="fa fa-check"></i><b>8.1.3</b> c</a></li>
+<li class="chapter" data-level="8.1.4" data-path="kj8.html"><a href="kj8.html#d-1"><i class="fa fa-check"></i><b>8.1.4</b> d</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="kj8.html"><a href="kj8.html#section-4"><i class="fa fa-check"></i><b>8.2</b> 8.2</a></li>
+<li class="chapter" data-level="8.3" data-path="kj8.html"><a href="kj8.html#section-5"><i class="fa fa-check"></i><b>8.3</b> 8.3</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="kj8.html"><a href="kj8.html#a-3"><i class="fa fa-check"></i><b>8.3.1</b> a</a></li>
+<li class="chapter" data-level="8.3.2" data-path="kj8.html"><a href="kj8.html#b-3"><i class="fa fa-check"></i><b>8.3.2</b> b</a></li>
+<li class="chapter" data-level="8.3.3" data-path="kj8.html"><a href="kj8.html#c-3"><i class="fa fa-check"></i><b>8.3.3</b> c</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="kj8.html"><a href="kj8.html#section-6"><i class="fa fa-check"></i><b>8.4</b> 8.7</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="kj8.html"><a href="kj8.html#a-4"><i class="fa fa-check"></i><b>8.4.1</b> a</a></li>
+<li class="chapter" data-level="8.4.2" data-path="kj8.html"><a href="kj8.html#b-4"><i class="fa fa-check"></i><b>8.4.2</b> b</a></li>
+<li class="chapter" data-level="8.4.3" data-path="kj8.html"><a href="kj8.html#c-4"><i class="fa fa-check"></i><b>8.4.3</b> c</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data 624 - KJ Assignments (HW2)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="kj8" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> KJ8</h1>
+<div id="section-3" class="section level2">
+<h2><span class="header-section-number">8.1</span> 8.1</h2>
+<p><img src="kj8/8.1.png" /></p>
+<div id="a-2" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> a</h3>
+<p><img src="kj8/8.1a.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Variable Importance</span>
+<span class="co">#V1 8.68958074          </span>
+<span class="co">#V2 6.42965064          </span>
+<span class="co">#V3 0.74711329          </span>
+<span class="co">#V4 7.68699457          </span>
+<span class="co">#V5 2.36904769          </span>
+<span class="co">#V6 0.10997268          </span>
+<span class="co">#V7 0.03083254          </span>
+<span class="co">#V8 -0.10779418         </span>
+<span class="co">#V9 -0.12814111         </span>
+<span class="co">#V10    0.04895944</span></code></pre>
+<p>Answer:</p>
+<p>No, it didn’t. Variables 1-5 all had greater importance than variables 6-10, and consequently, would not have been used significantly in the model. Variables 8 and 9 have negative importance, which is really bad, as these are not helpful at all, and would be hurtful in fact towards having predictive value. A random variable would be better than these.</p>
+</div>
+<div id="b-2" class="section level3">
+<h3><span class="header-section-number">8.1.2</span> b</h3>
+<p><img src="kj8/8.1b.png" /></p>
+<p>Answer:</p>
+<p>Yes, the importance score drops from 8.69 to 6.02. The loss of V1 from the model is no longer as important as it was previously since there is another variable (duplicate1) that contains roughly the same information in it. Consequently, V1 is not as important.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#fit new model</span>
+model2 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> simulated,
+                       <span class="dt">importance =</span> <span class="ot">TRUE</span>,
+                       <span class="dt">ntree =</span> <span class="dv">1000</span>)
+<span class="co">#importance</span>
+rfImp2 &lt;-<span class="st"> </span><span class="kw">varImp</span>(model2, <span class="dt">scale =</span> <span class="ot">FALSE</span>)
+
+<span class="co">#V1 6.02363848          </span>
+<span class="co">#V2 6.19154188          </span>
+<span class="co">#V3 0.55277883          </span>
+<span class="co">#V4 6.92793183          </span>
+<span class="co">#V5 2.17101110          </span>
+<span class="co">#V6 0.15369922          </span>
+<span class="co">#V7 0.10720626          </span>
+<span class="co">#V8 0.00929209          </span>
+<span class="co">#V9 -0.05010858         </span>
+<span class="co">#V10    0.03861636</span></code></pre>
+<p>When you add another predictor that is also highly correlated with V1, the variable importance drops even further, from 6.02 down to 4.75. V1 is essentially sharing its importance with the highly correlated duplicate variables, and so it is no longer as important.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#new predictor</span>
+simulated<span class="op">$</span>duplicate2 &lt;-<span class="st"> </span>simulated<span class="op">$</span>V1 <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">200</span>)<span class="op">*</span><span class="st"> </span><span class="fl">.1</span>
+<span class="kw">cor</span>(simulated<span class="op">$</span>duplicate2, simulated<span class="op">$</span>V1)
+<span class="co">#0.9430605</span>
+
+<span class="co">#new model</span>
+model3 &lt;-<span class="st"> </span><span class="kw">randomForest</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> simulated,
+                       <span class="dt">importance =</span> <span class="ot">TRUE</span>,
+                       <span class="dt">ntree =</span> <span class="dv">1000</span>)
+<span class="co">#importance</span>
+rfImp3 &lt;-<span class="st"> </span><span class="kw">varImp</span>(model3, <span class="dt">scale =</span> <span class="ot">FALSE</span>)
+
+<span class="co">#V1 4.750274828         </span>
+<span class="co">#V2 6.392645096         </span>
+<span class="co">#V3 0.546932231         </span>
+<span class="co">#V4 6.694197135         </span>
+<span class="co">#V5 2.354901393         </span>
+<span class="co">#V6 0.178559997         </span>
+<span class="co">#V7 0.003137176         </span>
+<span class="co">#V8 -0.067194296            </span>
+<span class="co">#V9 -0.088150851            </span>
+<span class="co">#V10    -0.040809537    </span></code></pre>
+</div>
+<div id="c-2" class="section level3">
+<h3><span class="header-section-number">8.1.3</span> c</h3>
+<p><img src="kj8/8.1c.png" /></p>
+<p>Answer:</p>
+<p>Using just the original values in simulated (V1-v10, not duplicate1 or duplicate 2), the variable importances are:</p>
+<ul>
+<li>rfImp1: 1, 4, 2, 5, 3, 6, 10, 7, 8, 9</li>
+<li>cfImp1: 1, 4, 2, 5, 7, 3, 6, 9, 10, 8</li>
+<li>cfImp1_con: 4, 1, 2, 5, 3, 6, 7, 9, 10, 8</li>
+</ul>
+<p>They are almost the same in the ordering. 1, 4, 2, 5 are always in the top 4, and 1 and 4 are always in the top 2. V3 switches with 7 in the cforest cond = False model, but is really close in the magnitude of the importance.</p>
+<p>The magnitudes are very similar between rfImp1 (9, 8, 6, 2 rounded) and cfImp1 (9, 8, 7, 2 rounded) for the first four variables. The conditional is a little bit different and the variable importance is less spread out (7, 6, 5, 2 rounded), but not too different.</p>
+<p>In short, I’d say that they generally show the same pattern as the traditional random forest model for the original simulated data.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(party)
+
+<span class="co">#cforest</span>
+model1_cf &lt;-<span class="st"> </span><span class="kw">cforest</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> simulated[,<span class="dv">1</span><span class="op">:</span><span class="dv">11</span>],
+                       <span class="dt">control =</span> <span class="kw">cforest_unbiased</span>(<span class="dt">ntree =</span> <span class="dv">1000</span>)
+                       )
+
+<span class="co">#conditional and regular importance</span>
+cfImp1 &lt;-<span class="kw">data.frame</span>(<span class="kw">varimp</span>(model1_cf, <span class="dt">conditional =</span> <span class="ot">FALSE</span>))
+cfImp1_con &lt;-<span class="kw">data.frame</span>(<span class="kw">varimp</span>(model1_cf, <span class="dt">conditional =</span> <span class="ot">TRUE</span>))</code></pre>
+<p>If we include duplicate1, the variable importance order is:</p>
+<ul>
+<li>rfImp2: 4, 2, 1, duplicate1, 5, 3, 6, 7, 10, 8, 9</li>
+<li>cfImp2: 4, 1, 2, duplicate1, 5, 3, 7, 6, 10, 9, 8</li>
+<li>cfImp2_con: 4, 2, 1, 5, duplicate1, 3, 6, 10, 7, 8, 9</li>
+</ul>
+<p>These are all roughly the same as 4, 2, 1 always take the top 3, duplicate1, 5, 3 take the next 3, and 6-10 take the rest. The magnitudes are also similar as before (rounded):</p>
+<ul>
+<li>rfImp2: 7, 6, 6, 3, 2, …</li>
+<li>cfImp2: 8, 7, 6, 2, 2, …</li>
+<li>cfImp2_con: 6, 5, 3, 1, 1, …</li>
+</ul>
+<p>Again, this matches the pattern of the original simulated data.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#cforest model 2</span>
+model2_cf &lt;-<span class="st"> </span><span class="kw">cforest</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> simulated[,<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>],
+                       <span class="dt">control =</span> <span class="kw">cforest_unbiased</span>(<span class="dt">ntree =</span> <span class="dv">1000</span>)
+                      )
+
+<span class="co">#importance</span>
+cfImp2 &lt;-<span class="kw">data.frame</span>(<span class="kw">varimp</span>(model2_cf, <span class="dt">conditional =</span> <span class="ot">FALSE</span>))
+cfImp2_con &lt;-<span class="kw">data.frame</span>(<span class="kw">varimp</span>(model2_cf, <span class="dt">conditional =</span> <span class="ot">TRUE</span>))</code></pre>
+<p>Finally, if we add duplicate2 as well, the order is:</p>
+<ul>
+<li>rfImp3: 4, 2, 1, duplicate2, duplicate1, 5, 3, 6, 7, 10, 8, 9</li>
+<li>cfImp3: 4, 2, 1, duplicate2, 5, duplicate1, 7, 3, 6, 9, 10, 8</li>
+<li>cfImp3_con: 4, 2, 1, 5, duplicate2, duplicate1, 3, 7, 6, 9, 8, 10</li>
+</ul>
+<p>In magnitude:</p>
+<ul>
+<li>rfImp3: 7, 6, 5, 3, 3, …</li>
+<li>cfImp3: 7, 6, 5, 3, 2, …</li>
+<li>cfImp3_con: 6, 4, 2, 1, 1, …</li>
+</ul>
+<p>This again generally matches the pattern.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#cforest model 3</span>
+model3_cf &lt;-<span class="st"> </span><span class="kw">cforest</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> simulated[,<span class="dv">1</span><span class="op">:</span><span class="dv">13</span>],
+                       <span class="dt">control =</span> <span class="kw">cforest_unbiased</span>(<span class="dt">ntree =</span> <span class="dv">1000</span>)
+                       )
+
+<span class="co">#importance 3</span>
+cfImp3 &lt;-<span class="kw">data.frame</span>(<span class="kw">varimp</span>(model3_cf, <span class="dt">conditional =</span> <span class="ot">FALSE</span>))
+cfImp3_con &lt;-<span class="kw">data.frame</span>(<span class="kw">varimp</span>(model3_cf, <span class="dt">conditional =</span> <span class="ot">TRUE</span>))</code></pre>
+<p>Even with the duplicated data, the variable importance, both in magnitude and in ordering, seems to show the same pattern as the traditional random forest model.</p>
+</div>
+<div id="d-1" class="section level3">
+<h3><span class="header-section-number">8.1.4</span> d</h3>
+<p><img src="kj8/8.1d.png" /></p>
+<p>Answer:</p>
+<p>With the gbm using 1000 trees, the variable importance generally matches the ordering, although the magnitude is on a different scale. Variables 1-5 are in the top 5 (where 4 and 1 are the top 2), and variables 6-10 are the bottom 5. The same holds true with the duplicated data.</p>
+<ul>
+<li>gbmImp1: 4, 1, 2, 5, 3, 7, 6, 9, 10, 8</li>
+<li>gbmImp2: 4, 2, 1, 5, 3, duplicate1, 7, 6, 8, 9, 10</li>
+<li>gbmImp3: 4, 2, 1, 5, 3, duplicate1, duplicate2, 7, 6, 8, 9, 10</li>
+</ul>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#gbm</span>
+<span class="kw">library</span>(gbm)
+
+<span class="co">#boosted 1</span>
+model1_gbm &lt;-<span class="st"> </span><span class="kw">gbm</span>(y<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> simulated[,<span class="dv">1</span><span class="op">:</span><span class="dv">11</span>], 
+                  <span class="dt">distribution =</span> <span class="st">&quot;gaussian&quot;</span> <span class="co">#squared error</span>
+                  ,<span class="dt">n.trees =</span> <span class="dv">1000</span>)
+
+gbmImp1 &lt;-<span class="kw">varImp</span>(model1_gbm, <span class="dt">scale =</span> <span class="ot">FALSE</span>, <span class="dt">numTrees =</span> <span class="dv">1000</span>)
+
+<span class="co">#boosted 2</span>
+model2_gbm &lt;-<span class="st"> </span><span class="kw">gbm</span>(y<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> simulated[,<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>], 
+                  <span class="dt">distribution =</span> <span class="st">&quot;gaussian&quot;</span> <span class="co">#squared error</span>
+                  ,<span class="dt">n.trees =</span> <span class="dv">1000</span>)
+
+gbmImp2 &lt;-<span class="kw">varImp</span>(model2_gbm, <span class="dt">scale =</span> <span class="ot">FALSE</span>, <span class="dt">numTrees =</span> <span class="dv">1000</span>)
+
+<span class="co">#boosted 3</span>
+model3_gbm &lt;-<span class="st"> </span><span class="kw">gbm</span>(y<span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> simulated[,<span class="dv">1</span><span class="op">:</span><span class="dv">13</span>], 
+                  <span class="dt">distribution =</span> <span class="st">&quot;gaussian&quot;</span> <span class="co">#squared error</span>
+                  ,<span class="dt">n.trees =</span> <span class="dv">1000</span>)
+
+gbmImp3 &lt;-<span class="kw">varImp</span>(model3_gbm, <span class="dt">scale =</span> <span class="ot">FALSE</span>, <span class="dt">numTrees =</span> <span class="dv">1000</span>)</code></pre>
+<p>With the cubist model using 100 committees:</p>
+<ul>
+<li>cubistImp1: 1, 2, 4, 3, 5, 6, 7, 8, 9, 10</li>
+<li>cubistImp2: 1, 2, 4, 3, 5, 6, 7, 8, 9, 10, duplicate1</li>
+<li>cubistImp3: 1, 2, 3, 4, 5, 6, duplicate2, duplicate1, 8, 7, 9, 10</li>
+</ul>
+<p>The ordering is a little bit different from previous models. 1, 2, 4 are still the most important variables, but 4 is no longer trading off with 1 for most important variable, as 2 is considered more important. Still, variables 1-5 are in the top 5 while 6-10 are in the bottom 5. The duplicate values are mostly ignored.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co">#cubist</span>
+<span class="kw">library</span>(Cubist)
+
+<span class="co">#cubist 1</span>
+model1_cubist &lt;-<span class="kw">cubist</span>(<span class="dt">x =</span> simulated[,<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)], <span class="dt">y =</span> simulated[,<span class="dv">11</span>], <span class="dt">committees =</span> <span class="dv">100</span>)
+cubistImp1 &lt;-<span class="st"> </span><span class="kw">varImp</span>(model1_cubist)
+
+<span class="co">#cubist 2</span>
+model2_cubist &lt;-<span class="kw">cubist</span>(<span class="dt">x =</span> simulated[,<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,<span class="dv">12</span>)], <span class="dt">y =</span> simulated[,<span class="dv">11</span>], <span class="dt">committees =</span> <span class="dv">100</span>)
+cubistImp2 &lt;-<span class="st"> </span><span class="kw">varImp</span>(model2_cubist)
+
+<span class="co">#cubist 3</span>
+model3_cubist &lt;-<span class="kw">cubist</span>(<span class="dt">x =</span> simulated[,<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">13</span>)], <span class="dt">y =</span> simulated[,<span class="dv">11</span>], <span class="dt">committees =</span> <span class="dv">100</span>)
+cubistImp3 &lt;-<span class="st"> </span><span class="kw">varImp</span>(model3_cubist)</code></pre>
+<p>Generally speaking, the variable importance is the same across these different kinds of tree models. There are some differences, but these appear to be relatively minor. The models all agree that variables 4, 2, and 1 are the most important, 5 and 3 are next, and then 6-10 follow.</p>
+<p>The biggest difference is that randomForest, cforest, and gbm all tend to rank the duplicate values as being relatively important after the first 5 variables, whereas the cubist model appears to ignore these for the most part. This may be due to how the cubist model handles covariance.</p>
+</div>
+</div>
+<div id="section-4" class="section level2">
+<h2><span class="header-section-number">8.2</span> 8.2</h2>
+<p><img src="kj8/8.2.png" /></p>
+<p>Answer:</p>
+<p>Tree bias refers to the fact that “predictors with a higher number of distinct values are favored over more granular predictors” (KJ 182). Kuhn and Johnson quote other authors that describe a scenario when this can occur:</p>
+<ul>
+<li>the data set has a mix of informative and noise variables</li>
+<li>the noise variables have more splits than the informative variables</li>
+<li>the noise variables then split the top nodes of the tree</li>
+</ul>
+<p>Or put differently here (<a href="https://www.r-project.org/conferences/useR-2006/Abstracts/Strobl+Zeileis+Boulesteix+Hothorn.pdf" class="uri">https://www.r-project.org/conferences/useR-2006/Abstracts/Strobl+Zeileis+Boulesteix+Hothorn.pdf</a>):</p>
+<ul>
+<li>“When potential predictor variables vary in their number of categories, and thus in their number of potential cutpoints, those variables that provide more potential cutpoints are more likely to be selected by chance” (1).</li>
+</ul>
+<p>The below code recreates this scenario. A y vector of 100 uniformly random values is created. Then 18 variables are created based on y, using an increasing number of cuts (from 3 to 20) in the data to generate successively more breakpoints. Noise is also added to each variable to make sure that it correlates less with y than the previous variable. For example, here is the correlation between y and each variable below:</p>
+<pre><code>      y    x_cut3    x_cut4    x_cut5    x_cut6    x_cut7    x_cut8    x_cut9 
+1.0000000 0.9460066 0.9456638 0.9247502 0.9173373 0.9034732 0.8950539 0.8838463 
+
+x_cut10   x_cut11   x_cut12   x_cut13   x_cut14   x_cut15   x_cut16   x_cut17 
+0.8361560 0.8292382 0.8242503 0.8238068 0.8164344 0.7971259 0.7966548 0.7737809 
+
+x_cut18   x_cut19   x_cut20 
+0.7586791 0.7344495 0.6945186 </code></pre>
+<p>Once the variables are created, making sure that as the cuts increase the correlation with y decreases, then a tree is created. The top variable according to variable importance is then recorded. Doing the above 500 times produced a distribution of what variable was considered to be the most important according to the tree splitting.</p>
+<p>The most important variable was cut 4. While slightly less correlated with y than cut 3, it was the most important variable 314 times, while cut 3 was only the top variable 73 times. Cuts 5 and 6 combined to have more variable importance occurrences (31 + 45 = 76) than cut 3 alone. Even cuts 7, 8, 9, 10, 11, 13, and 15 were most important at least once. This despite many of these variables being much less correlated with y than cut 3. See full table below, sorted by the number of times a variable was considered the most important:</p>
+<pre><code>x_cut4  x_cut3  x_cut6  x_cut5  x_cut7  x_cut8 x_cut10  x_cut9 x_cut11 x_cut15 
+    314      73      45      31      13       9       7       3       2       2 
+x_cut13 
+      1 
+  </code></pre>
+<p>Thus, it does seem that trees have a tendency to select variables that, though not as informative with respect to the y value being predicted, have more cutpoints and hence are deemed to be more important in the tree model.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rpart)
+<span class="kw">library</span>(stringr)
+
+<span class="co">#create empty variable importance vector</span>
+varImpVector &lt;-<span class="st"> </span><span class="kw">c</span>()
+
+<span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">500</span>){
+  
+  <span class="co">#start df and generate random y values</span>
+  y &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">100</span>, <span class="dv">0</span>, <span class="dv">100</span>)
+  df_<span class="fl">8.2</span> &lt;-<span class="st"> </span><span class="kw">data.frame</span>(y)
+  
+  cutNoise &lt;-<span class="st"> </span><span class="cf">function</span>(y, cuts, noise){
+  
+    <span class="co">#get cuts and add noise</span>
+    x &lt;-<span class="st"> </span><span class="kw">as.character</span>(<span class="kw">cut</span>(y <span class="op">+</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">100</span>,<span class="dv">0</span>,noise), cuts))
+    x_adj &lt;-<span class="kw">as.numeric</span>(<span class="kw">substring</span>(x, <span class="dv">2</span>, <span class="kw">str_locate</span>(x,<span class="st">&quot;,&quot;</span>)[,<span class="dv">1</span>]<span class="op">-</span><span class="dv">1</span>))
+    
+    <span class="co">#round</span>
+    x_final &lt;-<span class="st"> </span><span class="kw">round</span>(x_adj)
+    
+    <span class="kw">return</span>(x_final)
+  }
+  
+  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">3</span><span class="op">:</span><span class="dv">20</span>){
+    
+    
+    <span class="co">#initialize variables</span>
+    noise &lt;-<span class="st"> </span><span class="dv">0</span>
+    <span class="cf">if</span> (i <span class="op">==</span><span class="st"> </span><span class="dv">3</span>){
+      x_temp&lt;-<span class="kw">cutNoise</span>(y,i, noise)
+      cor &lt;-<span class="st"> </span><span class="dv">1</span>
+    }
+    
+    
+    <span class="co">#add noise until correlation is less than previous variable</span>
+    <span class="cf">while</span> (cor <span class="op">&lt;=</span><span class="st"> </span><span class="kw">cor</span>(y,x_temp)){
+      noise &lt;-<span class="st"> </span>noise <span class="op">+</span><span class="st"> </span><span class="dv">1</span>
+      x_temp&lt;-<span class="kw">cutNoise</span>(y,i, noise)
+    }
+    
+    <span class="co">#get new baseline correlation</span>
+    cor &lt;-<span class="st"> </span><span class="kw">cor</span>(y,x_temp)
+    
+    <span class="co">#add to df</span>
+    name_temp &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;x_cut&quot;</span>,i)
+    df_<span class="fl">8.2</span><span class="op">$</span>temp &lt;-x_temp
+    <span class="kw">names</span>(df_<span class="fl">8.2</span>)[<span class="kw">names</span>(df_<span class="fl">8.2</span>)<span class="op">==</span><span class="st">&quot;temp&quot;</span>] &lt;-<span class="st"> </span>name_temp
+    
+  }
+  
+  <span class="co">#sort(cor(df_8.2)[,1], decreasing = TRUE)</span>
+  
+  <span class="co">#create tree</span>
+  tree &lt;-<span class="kw">rpart</span>(y <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> df_<span class="fl">8.2</span> )
+  
+  <span class="co">#get top variable importance and add to vector</span>
+  varImpVector&lt;-<span class="kw">c</span>(varImpVector, <span class="kw">names</span>(tree<span class="op">$</span>variable.importance)[<span class="dv">1</span>])
+  
+}
+
+<span class="co">#get counts of most important variable</span>
+<span class="kw">table</span>(varImpVector)[<span class="kw">order</span>(<span class="kw">table</span>(varImpVector), <span class="dt">decreasing=</span><span class="ot">TRUE</span>)]</code></pre>
+</div>
+<div id="section-5" class="section level2">
+<h2><span class="header-section-number">8.3</span> 8.3</h2>
+<p><img src="kj8/8.3.png" /></p>
+<div id="a-3" class="section level3">
+<h3><span class="header-section-number">8.3.1</span> a</h3>
+<p><img src="kj8/8.3a.png" /></p>
+<p>Trees tend to form retangular regions in the vector space formed by the predictor values (figure 8.1, page 174). By setting the bagging fraction and the learning rate to 0.9 you have affectively increased the areas formed by the model for the most important predictors. This is becuase you are adding a larger fraction of the previous iteration’s prediction to the current interation’s prediction. This will tend to bias toward the most influential predictors.</p>
+</div>
+<div id="b-3" class="section level3">
+<h3><span class="header-section-number">8.3.2</span> b</h3>
+<p><img src="kj8/8.3b.png" /></p>
+<p>Setting the learning fraction too high would tend to under-fit the model, leading to high bias in the bias-varaince balance. A learing rate of less than 0.01 is considered optimal (page 206), so the learning rate of 0.1 would make a more predictive model.</p>
+</div>
+<div id="c-3" class="section level3">
+<h3><span class="header-section-number">8.3.3</span> c</h3>
+<p><img src="kj8/8.3c.png" /></p>
+<p>Increasing depth would decrease the slope of predcitor importance. A increased depth would have more possible outcomes, and with more possible predictions the iterative loop would progress more slowly. That is to say that each outcome’s effect would be lesser and the model would tend to a stable outcome over more iterations. The overall effect being an increase in the number of predictor importance which would mean that the slope of the predcitor importance would go down.</p>
+</div>
+</div>
+<div id="section-6" class="section level2">
+<h2><span class="header-section-number">8.4</span> 8.7</h2>
+<p><img src="kj8/8.7.png" /></p>
+<p>The matrix processPredictors contains the 57 predictors (12 describingthe input biological material and 45 describing the process predictors) for the 176 manufacturing runs. yield contains the percent yield for each run.</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># removes outliers  https://stackoverflow.com/questions/4787332/how-to-remove-outliers-from-a-dataset</span>
+ChemicalManufacturingProcess &lt;-<span class="st"> </span>ChemicalManufacturingProcess[<span class="op">!</span>ChemicalManufacturingProcess <span class="op">%in%</span><span class="st"> </span><span class="kw">boxplot.stats</span>(ChemicalManufacturingProcess)<span class="op">$</span>out]
+<span class="co"># replace missing values and outliers with a KNN imputation</span>
+ChemicalManufacturingProcess &lt;-<span class="st"> </span>ChemicalManufacturingProcess <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">knnImputation</span>(<span class="dt">k=</span><span class="dv">5</span>)
+ChemicalManufacturingProcess <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summary</span>()</code></pre>
+<pre><code>##      Yield       BiologicalMaterial01 BiologicalMaterial02
+##  Min.   :35.25   Min.   :4.580        Min.   :46.87       
+##  1st Qu.:38.75   1st Qu.:5.978        1st Qu.:52.68       
+##  Median :39.97   Median :6.305        Median :55.09       
+##  Mean   :40.18   Mean   :6.411        Mean   :55.69       
+##  3rd Qu.:41.48   3rd Qu.:6.870        3rd Qu.:58.74       
+##  Max.   :46.34   Max.   :8.810        Max.   :64.75       
+##  BiologicalMaterial03 BiologicalMaterial04 BiologicalMaterial05
+##  Min.   :56.97        Min.   : 9.38        Min.   :13.24       
+##  1st Qu.:64.98        1st Qu.:11.24        1st Qu.:17.23       
+##  Median :67.22        Median :12.10        Median :18.49       
+##  Mean   :67.70        Mean   :12.35        Mean   :18.60       
+##  3rd Qu.:70.43        3rd Qu.:13.22        3rd Qu.:19.90       
+##  Max.   :78.25        Max.   :23.09        Max.   :24.85       
+##  BiologicalMaterial06 BiologicalMaterial07 BiologicalMaterial08
+##  Min.   :40.60        Min.   :100.0        Min.   :15.88       
+##  1st Qu.:46.05        1st Qu.:100.0        1st Qu.:17.06       
+##  Median :48.46        Median :100.0        Median :17.51       
+##  Mean   :48.91        Mean   :100.0        Mean   :17.49       
+##  3rd Qu.:51.34        3rd Qu.:100.0        3rd Qu.:17.88       
+##  Max.   :59.38        Max.   :100.8        Max.   :19.14       
+##  BiologicalMaterial09 BiologicalMaterial10 BiologicalMaterial11
+##  Min.   :11.44        Min.   :1.770        Min.   :135.8       
+##  1st Qu.:12.60        1st Qu.:2.460        1st Qu.:143.8       
+##  Median :12.84        Median :2.710        Median :146.1       
+##  Mean   :12.85        Mean   :2.801        Mean   :147.0       
+##  3rd Qu.:13.13        3rd Qu.:2.990        3rd Qu.:149.6       
+##  Max.   :14.08        Max.   :6.870        Max.   :158.7       
+##  BiologicalMaterial12 ManufacturingProcess01 ManufacturingProcess02
+##  Min.   :18.35        Min.   : 0.00          Min.   : 0.00         
+##  1st Qu.:19.73        1st Qu.:10.80          1st Qu.:19.30         
+##  Median :20.12        Median :11.40          Median :21.00         
+##  Mean   :20.20        Mean   :11.21          Mean   :16.76         
+##  3rd Qu.:20.75        3rd Qu.:12.12          3rd Qu.:21.50         
+##  Max.   :22.21        Max.   :14.10          Max.   :22.50         
+##  ManufacturingProcess03 ManufacturingProcess04 ManufacturingProcess05
+##  Min.   :1.470          Min.   :911.0          Min.   : 923.0        
+##  1st Qu.:1.530          1st Qu.:928.0          1st Qu.: 986.8        
+##  Median :1.548          Median :934.0          Median : 999.0        
+##  Mean   :1.541          Mean   :931.9          Mean   :1001.6        
+##  3rd Qu.:1.550          3rd Qu.:936.0          3rd Qu.:1008.7        
+##  Max.   :1.600          Max.   :946.0          Max.   :1175.3        
+##  ManufacturingProcess06 ManufacturingProcess07 ManufacturingProcess08
+##  Min.   :203.0          Min.   :177.0          Min.   :177.0         
+##  1st Qu.:205.7          1st Qu.:177.0          1st Qu.:177.0         
+##  Median :206.8          Median :177.0          Median :178.0         
+##  Mean   :207.4          Mean   :177.5          Mean   :177.6         
+##  3rd Qu.:208.7          3rd Qu.:178.0          3rd Qu.:178.0         
+##  Max.   :227.4          Max.   :178.0          Max.   :178.0         
+##  ManufacturingProcess09 ManufacturingProcess10 ManufacturingProcess11
+##  Min.   :38.89          Min.   : 7.500         Min.   : 7.500        
+##  1st Qu.:44.89          1st Qu.: 8.700         1st Qu.: 9.000        
+##  Median :45.73          Median : 9.100         Median : 9.400        
+##  Mean   :45.66          Mean   : 9.193         Mean   : 9.406        
+##  3rd Qu.:46.52          3rd Qu.: 9.600         3rd Qu.: 9.900        
+##  Max.   :49.36          Max.   :11.600         Max.   :11.500        
+##  ManufacturingProcess12 ManufacturingProcess13 ManufacturingProcess14
+##  Min.   :   0.0         Min.   :32.10          Min.   :4701          
+##  1st Qu.:   0.0         1st Qu.:33.90          1st Qu.:4827          
+##  Median :   0.0         Median :34.60          Median :4856          
+##  Mean   : 852.9         Mean   :34.51          Mean   :4854          
+##  3rd Qu.:   0.0         3rd Qu.:35.20          3rd Qu.:4882          
+##  Max.   :4549.0         Max.   :38.60          Max.   :5055          
+##  ManufacturingProcess15 ManufacturingProcess16 ManufacturingProcess17
+##  Min.   :5904           Min.   :   0           Min.   :31.30         
+##  1st Qu.:6010           1st Qu.:4561           1st Qu.:33.50         
+##  Median :6032           Median :4588           Median :34.40         
+##  Mean   :6039           Mean   :4566           Mean   :34.34         
+##  3rd Qu.:6061           3rd Qu.:4619           3rd Qu.:35.10         
+##  Max.   :6233           Max.   :4852           Max.   :40.00         
+##  ManufacturingProcess18 ManufacturingProcess19 ManufacturingProcess20
+##  Min.   :   0           Min.   :5890           Min.   :   0          
+##  1st Qu.:4813           1st Qu.:6001           1st Qu.:4553          
+##  Median :4835           Median :6022           Median :4582          
+##  Mean   :4810           Mean   :6028           Mean   :4556          
+##  3rd Qu.:4862           3rd Qu.:6050           3rd Qu.:4610          
+##  Max.   :4971           Max.   :6146           Max.   :4759          
+##  ManufacturingProcess21 ManufacturingProcess22 ManufacturingProcess23
+##  Min.   :-1.8000        Min.   : 0.000         Min.   :0.000         
+##  1st Qu.:-0.6000        1st Qu.: 3.000         1st Qu.:2.000         
+##  Median :-0.3000        Median : 5.000         Median :3.000         
+##  Mean   :-0.1642        Mean   : 5.409         Mean   :3.025         
+##  3rd Qu.: 0.0000        3rd Qu.: 8.000         3rd Qu.:4.000         
+##  Max.   : 3.6000        Max.   :12.000         Max.   :6.000         
+##  ManufacturingProcess24 ManufacturingProcess25 ManufacturingProcess26
+##  Min.   : 0.000         Min.   :   0           Min.   :   0          
+##  1st Qu.: 4.000         1st Qu.:4829           1st Qu.:6019          
+##  Median : 8.000         Median :4854           Median :6045          
+##  Mean   : 8.859         Mean   :4828           Mean   :6016          
+##  3rd Qu.:14.000         3rd Qu.:4876           3rd Qu.:6069          
+##  Max.   :23.000         Max.   :4990           Max.   :6161          
+##  ManufacturingProcess27 ManufacturingProcess28 ManufacturingProcess29
+##  Min.   :   0           Min.   : 0.000         Min.   : 0.00         
+##  1st Qu.:4563           1st Qu.: 0.000         1st Qu.:19.70         
+##  Median :4586           Median :10.400         Median :19.90         
+##  Mean   :4563           Mean   : 6.441         Mean   :20.01         
+##  3rd Qu.:4609           3rd Qu.:10.700         3rd Qu.:20.40         
+##  Max.   :4710           Max.   :11.500         Max.   :22.00         
+##  ManufacturingProcess30 ManufacturingProcess31 ManufacturingProcess32
+##  Min.   : 0.000         Min.   : 0.00          Min.   :143.0         
+##  1st Qu.: 8.800         1st Qu.:70.10          1st Qu.:155.0         
+##  Median : 9.200         Median :70.80          Median :158.0         
+##  Mean   : 9.173         Mean   :70.18          Mean   :158.5         
+##  3rd Qu.: 9.700         3rd Qu.:71.40          3rd Qu.:162.0         
+##  Max.   :11.200         Max.   :72.50          Max.   :173.0         
+##  ManufacturingProcess33 ManufacturingProcess34 ManufacturingProcess35
+##  Min.   :56.00          Min.   :2.300          Min.   :463.0         
+##  1st Qu.:62.00          1st Qu.:2.500          1st Qu.:490.0         
+##  Median :64.00          Median :2.500          Median :495.0         
+##  Mean   :63.52          Mean   :2.493          Mean   :495.3         
+##  3rd Qu.:65.00          3rd Qu.:2.500          3rd Qu.:501.0         
+##  Max.   :70.00          Max.   :2.600          Max.   :522.0         
+##  ManufacturingProcess36 ManufacturingProcess37 ManufacturingProcess38
+##  Min.   :0.01700        Min.   :0.000          Min.   :0.000         
+##  1st Qu.:0.01900        1st Qu.:0.700          1st Qu.:2.000         
+##  Median :0.01941        Median :1.000          Median :3.000         
+##  Mean   :0.01956        Mean   :1.014          Mean   :2.534         
+##  3rd Qu.:0.02000        3rd Qu.:1.300          3rd Qu.:3.000         
+##  Max.   :0.02200        Max.   :2.300          Max.   :3.000         
+##  ManufacturingProcess39 ManufacturingProcess40 ManufacturingProcess41
+##  Min.   :0.000          Min.   :0.0000         Min.   :0.00000       
+##  1st Qu.:7.100          1st Qu.:0.0000         1st Qu.:0.00000       
+##  Median :7.200          Median :0.0000         Median :0.00000       
+##  Mean   :6.851          Mean   :0.0177         Mean   :0.02367       
+##  3rd Qu.:7.300          3rd Qu.:0.0000         3rd Qu.:0.00000       
+##  Max.   :7.500          Max.   :0.1000         Max.   :0.20000       
+##  ManufacturingProcess42 ManufacturingProcess43 ManufacturingProcess44
+##  Min.   : 0.00          Min.   : 0.0000        Min.   :0.000         
+##  1st Qu.:11.40          1st Qu.: 0.6000        1st Qu.:1.800         
+##  Median :11.60          Median : 0.8000        Median :1.900         
+##  Mean   :11.21          Mean   : 0.9119        Mean   :1.805         
+##  3rd Qu.:11.70          3rd Qu.: 1.0250        3rd Qu.:1.900         
+##  Max.   :12.10          Max.   :11.0000        Max.   :2.100         
+##  ManufacturingProcess45
+##  Min.   :0.000         
+##  1st Qu.:2.100         
+##  Median :2.200         
+##  Mean   :2.138         
+##  3rd Qu.:2.300         
+##  Max.   :2.600</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">ChemicalManufacturingProcess[,<span class="dv">2</span><span class="op">:</span><span class="dv">12</span>]<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">chart.Correlation</span>()</code></pre>
+<p><img src="HW2_files/figure-html/dat_viz-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">ChemicalManufacturingProcess[,<span class="dv">13</span><span class="op">:</span><span class="dv">23</span>]<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">chart.Correlation</span>()</code></pre>
+<p><img src="HW2_files/figure-html/dat_viz-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">ChemicalManufacturingProcess[,<span class="dv">24</span><span class="op">:</span><span class="dv">34</span>]<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">chart.Correlation</span>()</code></pre>
+<p><img src="HW2_files/figure-html/dat_viz-3.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">ChemicalManufacturingProcess[,<span class="dv">35</span><span class="op">:</span><span class="dv">45</span>]<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">chart.Correlation</span>()</code></pre>
+<p><img src="HW2_files/figure-html/dat_viz-4.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">ChemicalManufacturingProcess[,<span class="dv">46</span><span class="op">:</span><span class="dv">58</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">chart.Correlation</span>()</code></pre>
+<p><img src="HW2_files/figure-html/dat_viz-5.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># rescale the data for the PLS</span>
+ChemicalManufacturingProcess &lt;-<span class="st"> </span>ChemicalManufacturingProcess <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate_all</span>(<span class="kw">funs</span>(scale))
+ChemicalManufacturingProcess[,<span class="dv">2</span><span class="op">:</span><span class="dv">12</span>]<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">chart.Correlation</span>()</code></pre>
+<p><img src="HW2_files/figure-html/center-scale-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">ChemicalManufacturingProcess[,<span class="dv">13</span><span class="op">:</span><span class="dv">23</span>]<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">chart.Correlation</span>()</code></pre>
+<p><img src="HW2_files/figure-html/center-scale-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">ChemicalManufacturingProcess[,<span class="dv">24</span><span class="op">:</span><span class="dv">34</span>]<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">chart.Correlation</span>()</code></pre>
+<p><img src="HW2_files/figure-html/center-scale-3.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">ChemicalManufacturingProcess[,<span class="dv">35</span><span class="op">:</span><span class="dv">45</span>]<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">chart.Correlation</span>()</code></pre>
+<p><img src="HW2_files/figure-html/center-scale-4.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">ChemicalManufacturingProcess[,<span class="dv">46</span><span class="op">:</span><span class="dv">58</span>] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">chart.Correlation</span>()</code></pre>
+<p><img src="HW2_files/figure-html/center-scale-5.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Now I will use a 5x Cross Validation </span>
+smp_size &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="fl">0.75</span> <span class="op">*</span><span class="st"> </span><span class="kw">nrow</span>(ChemicalManufacturingProcess))
+<span class="kw">library</span>(Metrics)
+<span class="co">## set the seed to make your partition reproducible</span>
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">40</span><span class="op">:</span><span class="dv">44</span>)){
+  <span class="kw">set.seed</span>(i)
+  train_ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">seq_len</span>(<span class="kw">nrow</span>(ChemicalManufacturingProcess)), <span class="dt">size =</span> smp_size)
+
+  train &lt;-<span class="st"> </span>ChemicalManufacturingProcess[train_ind,]
+  test &lt;-<span class="st"> </span>ChemicalManufacturingProcess[<span class="op">-</span>train_ind,]
+  x =<span class="st"> </span>train[,<span class="dv">2</span><span class="op">:</span><span class="dv">58</span>]
+  anv &lt;-<span class="st"> </span><span class="kw">rpart</span>(
+  <span class="dt">formula =</span> Yield <span class="op">~</span><span class="st"> </span>.,
+  <span class="dt">data    =</span> train,
+  <span class="dt">method  =</span> <span class="st">&quot;anova&quot;</span>
+  )
+  anv <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()
+  <span class="kw">plotcp</span>(anv)
+  <span class="kw">rpart.plot</span>(anv)
+  pred&lt;-<span class="st"> </span><span class="kw">predict</span>(<span class="dt">object =</span> anv, <span class="dt">newdata =</span> test)
+  <span class="kw">rmse</span>(test<span class="op">$</span>Yield,pred) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()
+}</code></pre>
+<pre><code>## n= 132 
+## 
+## node), split, n, deviance, yval
+##       * denotes terminal node
+## 
+##  1) root 132 131.6106000  0.0002360156  
+##    2) ManufacturingProcess32&lt; 0.006316353 71  33.2375300 -0.5930445000  
+##      4) BiologicalMaterial11&lt; -0.2879764 35   8.9004920 -0.9893243000  
+##        8) ManufacturingProcess09&lt; -0.384828 18   2.4559370 -1.2810070000 *
+##        9) ManufacturingProcess09&gt;=-0.384828 17   3.2916320 -0.6804837000 *
+##      5) BiologicalMaterial11&gt;=-0.2879764 36  13.4970700 -0.2077724000  
+##       10) ManufacturingProcess17&gt;=-0.5157403 24   3.9998420 -0.4857509000  
+##         20) BiologicalMaterial01&lt; -0.02300033 9   0.6806887 -0.8096327000 *
+##         21) BiologicalMaterial01&gt;=-0.02300033 15   1.8086020 -0.2914218000 *
+##       11) ManufacturingProcess17&lt; -0.5157403 12   3.9336420  0.3481846000 *
+##    3) ManufacturingProcess32&gt;=0.006316353 61  44.2948100  0.6907756000  
+##      6) ManufacturingProcess06&lt; 0.2293515 35  25.5688800  0.3107094000  
+##       12) BiologicalMaterial03&lt; -0.2724275 11   4.9243730 -0.2852813000 *
+##       13) BiologicalMaterial03&gt;=-0.2724275 24  14.9464300  0.5838718000  
+##         26) BiologicalMaterial11&gt;=0.1414423 13   5.3189640  0.1544181000 *
+##         27) BiologicalMaterial11&lt; 0.1414423 11   4.3963480  1.0914080000 *
+##      7) ManufacturingProcess06&gt;=0.2293515 26   6.8643300  1.2024030000  
+##       14) ManufacturingProcess17&gt;=-1.31689 19   3.5181480  1.0301760000 *
+##       15) ManufacturingProcess17&lt; -1.31689 7   1.2528710  1.6698780000 *</code></pre>
+<p><img src="HW2_files/figure-html/rand_tree-1.png" width="672" /><img src="HW2_files/figure-html/rand_tree-2.png" width="672" /></p>
+<pre><code>## [1] 0.7599641
+## n= 132 
+## 
+## node), split, n, deviance, yval
+##       * denotes terminal node
+## 
+##  1) root 132 143.3556000  0.008568392  
+##    2) ManufacturingProcess32&lt; 0.191596 77  44.6517500 -0.532191700  
+##      4) BiologicalMaterial12&lt; -0.6009825 29  12.2941200 -1.019340000  
+##        8) BiologicalMaterial05&gt;=0.5782442 7   1.4482800 -1.795382000 *
+##        9) BiologicalMaterial05&lt; 0.5782442 22   5.2887900 -0.772417500  
+##         18) BiologicalMaterial05&lt; -0.2134524 11   0.8140624 -1.082234000 *
+##         19) BiologicalMaterial05&gt;=-0.2134524 11   2.3630280 -0.462600800 *
+##      5) BiologicalMaterial12&gt;=-0.6009825 48  21.3176100 -0.237872900  
+##       10) ManufacturingProcess25&gt;=-0.01512975 36   8.4931420 -0.490567000  
+##         20) BiologicalMaterial04&lt; -0.3545812 11   0.8835555 -0.890630500 *
+##         21) BiologicalMaterial04&gt;=-0.3545812 25   5.0743810 -0.314539000  
+##           42) BiologicalMaterial12&gt;=0.60774 7   0.2864453 -0.726469200 *
+##           43) BiologicalMaterial12&lt; 0.60774 18   3.1382060 -0.154343900 *
+##       11) ManufacturingProcess25&lt; -0.01512975 12   3.6294500  0.520209200 *
+##    3) ManufacturingProcess32&gt;=0.191596 55  44.6644000  0.765632500  
+##      6) ManufacturingProcess06&lt; 0.2665302 33  21.7973000  0.377696800  
+##       12) ManufacturingProcess44&lt; 0.139396 11   5.2073310 -0.150321400 *
+##       13) ManufacturingProcess44&gt;=0.139396 22  11.9897200  0.641705900  
+##         26) ManufacturingProcess43&gt;=-0.07135117 13   4.3246710  0.286119600 *
+##         27) ManufacturingProcess43&lt; -0.07135117 9   3.6470120  1.155331000 *
+##      7) ManufacturingProcess06&gt;=0.2665302 22  10.4513300  1.347536000  
+##       14) ManufacturingProcess17&gt;=-0.7160277 11   1.9247460  0.905222400 *
+##       15) ManufacturingProcess17&lt; -0.7160277 11   4.2224760  1.789850000 *</code></pre>
+<p><img src="HW2_files/figure-html/rand_tree-3.png" width="672" /><img src="HW2_files/figure-html/rand_tree-4.png" width="672" /></p>
+<pre><code>## [1] 0.7078128
+## n= 132 
+## 
+## node), split, n, deviance, yval
+##       * denotes terminal node
+## 
+##  1) root 132 138.1490000  0.0008927547  
+##    2) ManufacturingProcess32&lt; 0.191596 78  45.5781200 -0.5070065000  
+##      4) BiologicalMaterial12&lt; -0.6009825 34  13.8864600 -0.9787977000  
+##        8) BiologicalMaterial05&gt;=0.5429974 9   1.9404170 -1.6705080000 *
+##        9) BiologicalMaterial05&lt; 0.5429974 25   6.0896490 -0.7297820000  
+##         18) ManufacturingProcess39&gt;=0.1985153 18   2.4887760 -0.9252188000 *
+##         19) ManufacturingProcess39&lt; 0.1985153 7   1.1454460 -0.2272302000 *
+##      5) BiologicalMaterial12&gt;=-0.6009825 44  18.2757400 -0.1424405000  
+##       10) ManufacturingProcess25&gt;=-0.01105487 32   9.1289970 -0.3797594000  
+##         20) ManufacturingProcess17&gt;=-0.5557977 23   3.3912740 -0.5759740000  
+##           40) ManufacturingProcess21&lt; -0.1744786 8   0.1915758 -0.9381620000 *
+##           41) ManufacturingProcess21&gt;=-0.1744786 15   1.5905550 -0.3828070000 *
+##         21) ManufacturingProcess17&lt; -0.5557977 9   2.5892640  0.1216780000 *
+##       11) ManufacturingProcess25&lt; -0.01105487 12   2.5385020  0.4904096000 *
+##    3) ManufacturingProcess32&gt;=0.191596 54  43.3861800  0.7345250000  
+##      6) ManufacturingProcess06&lt; -0.4026855 20  11.3134500  0.1557518000  
+##       12) ManufacturingProcess19&gt;=0.07242738 13   5.8319140 -0.1364920000 *
+##       13) ManufacturingProcess19&lt; 0.07242738 7   2.3092930  0.6984904000 *
+##      7) ManufacturingProcess06&gt;=-0.4026855 34  21.4322400  1.0749800000  
+##       14) ManufacturingProcess24&gt;=0.1106758 12   2.5297120  0.4610616000 *
+##       15) ManufacturingProcess24&lt; 0.1106758 22  11.9128300  1.4098440000  
+##         30) ManufacturingProcess14&lt; -0.4255021 7   3.3135290  0.8532931000 *
+##         31) ManufacturingProcess14&gt;=-0.4255021 15   5.4192060  1.6695680000 *</code></pre>
+<p><img src="HW2_files/figure-html/rand_tree-5.png" width="672" /><img src="HW2_files/figure-html/rand_tree-6.png" width="672" /></p>
+<pre><code>## [1] 0.776217
+## n= 132 
+## 
+## node), split, n, deviance, yval
+##       * denotes terminal node
+## 
+##  1) root 132 130.691300  0.07128697  
+##    2) ManufacturingProcess32&lt; 0.191596 72  40.921820 -0.46453000  
+##      4) BiologicalMaterial11&lt; -0.3896263 30  10.520390 -0.92588100  
+##        8) ManufacturingProcess13&gt;=0.7308776 7   2.060876 -1.61968100 *
+##        9) ManufacturingProcess13&lt; 0.7308776 23   4.064496 -0.71472440 *
+##      5) BiologicalMaterial11&gt;=-0.3896263 42  19.455130 -0.13499360  
+##       10) ManufacturingProcess18&gt;=0.02943901 24   5.928281 -0.47197990  
+##         20) ManufacturingProcess27&gt;=0.0605029 12   1.348044 -0.71918060 *
+##         21) ManufacturingProcess27&lt; 0.0605029 12   3.113640 -0.22477920 *
+##       11) ManufacturingProcess18&lt; 0.02943901 18   7.167507  0.31432150 *
+##    3) ManufacturingProcess32&gt;=0.191596 60  44.292850  0.71426730  
+##      6) ManufacturingProcess06&lt; 0.3966554 35  18.666880  0.32618970  
+##       12) BiologicalMaterial03&lt; -0.2749269 8   3.372183 -0.38890240 *
+##       13) BiologicalMaterial03&gt;=-0.2749269 27   9.991737  0.53806880  
+##         26) ManufacturingProcess01&lt; -0.3629077 9   1.548341  0.09940361 *
+##         27) ManufacturingProcess01&gt;=-0.3629077 18   5.845629  0.75740140 *
+##      7) ManufacturingProcess06&gt;=0.3966554 25  12.975210  1.25757600  
+##       14) ManufacturingProcess17&gt;=-0.7160277 16   3.936228  0.91076370 *
+##       15) ManufacturingProcess17&lt; -0.7160277 9   3.693257  1.87413100 *</code></pre>
+<p><img src="HW2_files/figure-html/rand_tree-7.png" width="672" /><img src="HW2_files/figure-html/rand_tree-8.png" width="672" /></p>
+<pre><code>## [1] 0.7808083
+## n= 132 
+## 
+## node), split, n, deviance, yval
+##       * denotes terminal node
+## 
+##  1) root 132 141.304700 -0.03067177  
+##    2) ManufacturingProcess32&lt; 0.191596 74  38.216990 -0.62596250  
+##      4) BiologicalMaterial12&lt; -0.6009825 27  10.050260 -1.12829700  
+##        8) BiologicalMaterial05&gt;=0.4182781 7   1.604084 -1.77448400 *
+##        9) BiologicalMaterial05&lt; 0.4182781 20   4.500257 -0.90213170  
+##         18) ManufacturingProcess27&lt; 0.1077943 12   1.096054 -1.14179200 *
+##         19) ManufacturingProcess27&gt;=0.1077943 8   1.681088 -0.54264090 *
+##      5) BiologicalMaterial12&gt;=-0.6009825 47  17.439600 -0.33738720  
+##       10) ManufacturingProcess25&gt;=-0.005941743 35   6.022888 -0.57197600 *
+##       11) ManufacturingProcess25&lt; -0.005941743 12   3.872751  0.34683010 *
+##    3) ManufacturingProcess32&gt;=0.191596 58  43.406690  0.72883700  
+##      6) ManufacturingProcess06&lt; 0.2665302 31  16.398770  0.29323170  
+##       12) ManufacturingProcess19&gt;=0.2918287 12   6.345780 -0.12815650 *
+##       13) ManufacturingProcess19&lt; 0.2918287 19   6.576392  0.55937150 *
+##      7) ManufacturingProcess06&gt;=0.2665302 27  14.371850  1.22897700  
+##       14) ManufacturingProcess17&gt;=-0.5157403 15   3.758706  0.79544850 *
+##       15) ManufacturingProcess17&lt; -0.5157403 12   4.269945  1.77088700 *</code></pre>
+<p><img src="HW2_files/figure-html/rand_tree-9.png" width="672" /><img src="HW2_files/figure-html/rand_tree-10.png" width="672" /></p>
+<pre><code>## [1] 0.7931443</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Now I will use a 5x Cross Validation </span>
+smp_size &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="fl">0.75</span> <span class="op">*</span><span class="st"> </span><span class="kw">nrow</span>(ChemicalManufacturingProcess))
+<span class="kw">library</span>(Metrics)
+<span class="co">## set the seed to make your partition reproducible</span>
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">40</span><span class="op">:</span><span class="dv">44</span>)){
+  <span class="kw">set.seed</span>(i)
+  train_ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">seq_len</span>(<span class="kw">nrow</span>(ChemicalManufacturingProcess)), <span class="dt">size =</span> smp_size)
+
+  train &lt;-<span class="st"> </span>ChemicalManufacturingProcess[train_ind,]
+  test &lt;-<span class="st"> </span>ChemicalManufacturingProcess[<span class="op">-</span>train_ind,]
+  anv &lt;-<span class="st"> </span><span class="kw">rpart</span>(
+  <span class="dt">formula =</span> Yield <span class="op">~</span><span class="st"> </span>.,
+  <span class="dt">data    =</span> train,
+  <span class="dt">method  =</span> <span class="st">&quot;anova&quot;</span>
+  )
+  <span class="co">#from datacamp https://campus.datacamp.com/courses/machine-learning-with-tree-based-models-in-r/regression-trees</span>
+  opt_index &lt;-<span class="st"> </span><span class="kw">which.min</span>(anv<span class="op">$</span>cptable[, <span class="st">&quot;xerror&quot;</span>])
+  cp_opt &lt;-<span class="st"> </span>anv<span class="op">$</span>cptable[opt_index, <span class="st">&quot;CP&quot;</span>]
+  anv_opt &lt;-<span class="st"> </span><span class="kw">prune</span>(<span class="dt">tree =</span> anv, <span class="dt">cp =</span> cp_opt)
+  <span class="kw">rpart.plot</span>(anv_opt)
+  pred&lt;-<span class="st"> </span><span class="kw">predict</span>(<span class="dt">object =</span> anv_opt, <span class="dt">newdata =</span> test)
+  i <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()
+  cp_opt <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()
+  <span class="kw">rmse</span>(test<span class="op">$</span>Yield,pred) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()
+}</code></pre>
+<p><img src="HW2_files/figure-html/rand_tree_cp_opt-1.png" width="672" /></p>
+<pre><code>## [1] 40
+## [1] 0.09012644
+## [1] 0.8944569</code></pre>
+<p><img src="HW2_files/figure-html/rand_tree_cp_opt-2.png" width="672" /></p>
+<pre><code>## [1] 41
+## [1] 0.03876407
+## [1] 0.6388037</code></pre>
+<p><img src="HW2_files/figure-html/rand_tree_cp_opt-3.png" width="672" /></p>
+<pre><code>## [1] 42
+## [1] 0.02279032
+## [1] 0.7622084</code></pre>
+<p><img src="HW2_files/figure-html/rand_tree_cp_opt-4.png" width="672" /></p>
+<pre><code>## [1] 43
+## [1] 0.04057622
+## [1] 0.6998755</code></pre>
+<p><img src="HW2_files/figure-html/rand_tree_cp_opt-5.png" width="672" /></p>
+<pre><code>## [1] 44
+## [1] 0.0279249
+## [1] 0.7560973</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Now I will use a 5x Cross Validation </span>
+smp_size &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="fl">0.75</span> <span class="op">*</span><span class="st"> </span><span class="kw">nrow</span>(ChemicalManufacturingProcess))
+<span class="kw">library</span>(Metrics)
+<span class="co">## set the seed to make your partition reproducible</span>
+minsplit &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">15</span>,<span class="dv">1</span>)
+maxdepth &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">15</span>,<span class="dv">1</span>)
+
+hyper_grid &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">minsplit =</span> minsplit, <span class="dt">maxdepth =</span> maxdepth)
+cp_opt &lt;-<span class="st"> </span><span class="fl">0.02279032</span> <span class="co">#for seed 42</span>
+num_models &lt;-<span class="st"> </span><span class="kw">nrow</span>(hyper_grid)
+<span class="kw">set.seed</span>(<span class="dv">42</span>)
+train_ind &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">seq_len</span>(<span class="kw">nrow</span>(ChemicalManufacturingProcess)), <span class="dt">size =</span> smp_size)
+
+train &lt;-<span class="st"> </span>ChemicalManufacturingProcess[train_ind,]
+test &lt;-<span class="st"> </span>ChemicalManufacturingProcess[<span class="op">-</span>train_ind,]
+
+rmse_values &lt;-<span class="st"> </span><span class="kw">c</span>()
+anvs &lt;-<span class="st"> </span><span class="kw">list</span>()
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span>num_models)){
+  <span class="co"># Get minsplit, maxdepth values at row i</span>
+  minsplit &lt;-<span class="st"> </span>hyper_grid<span class="op">$</span>minsplit[i]
+  maxdepth &lt;-<span class="st"> </span>hyper_grid<span class="op">$</span>maxdepth[i]
+
+  <span class="co"># Train a model and store in the list</span>
+  anvs[[i]] &lt;-<span class="st"> </span><span class="kw">rpart</span>(<span class="dt">formula =</span> Yield <span class="op">~</span><span class="st"> </span>., 
+                              <span class="dt">data =</span> train, 
+                              <span class="dt">method =</span> <span class="st">&quot;anova&quot;</span>,
+                              <span class="dt">cp=</span> cp_opt,
+                              <span class="dt">minsplit =</span> minsplit,
+                              <span class="dt">maxdepth =</span> maxdepth)
+  anv &lt;-<span class="st"> </span>anvs[[i]]
+  pred &lt;-<span class="st"> </span><span class="kw">predict</span>(<span class="dt">object =</span> anv,
+                  <span class="dt">newdata =</span> test)
+  <span class="co">#from datacamp https://campus.datacamp.com/courses/machine-learning-with-tree-based-models-in-r/regression-trees</span>
+  rmse_values[i] =<span class="st"> </span><span class="kw">rmse</span>(test<span class="op">$</span>Yield, pred)
+}
+
+<span class="co"># Identify the model with smallest validation set RMSE</span>
+best_model &lt;-<span class="st"> </span>anvs[[<span class="kw">which.min</span>(rmse_values)]]
+
+<span class="co"># Print the model paramters of the best model</span>
+best_model<span class="op">$</span>control</code></pre>
+<pre><code>## $minsplit
+## [1] 2
+## 
+## $minbucket
+## [1] 1
+## 
+## $cp
+## [1] 0.02279032
+## 
+## $maxcompete
+## [1] 4
+## 
+## $maxsurrogate
+## [1] 5
+## 
+## $usesurrogate
+## [1] 2
+## 
+## $surrogatestyle
+## [1] 0
+## 
+## $maxdepth
+## [1] 1
+## 
+## $xval
+## [1] 10</code></pre>
+<div id="a-4" class="section level3">
+<h3><span class="header-section-number">8.4.1</span> a</h3>
+<p><img src="kj8/8.7a.png" /></p>
+<p>Performing a grid search on the best hyper-parameters yeilds a tree regression with a max depth of 1 and a minimum split of 2 with a cp of 0.02279032. This is a very simplistic model. We wonder if the pre-processing that we were told to maintain from 6.3 was not optimal for this model leading to under-fitting the model.</p>
+</div>
+<div id="b-4" class="section level3">
+<h3><span class="header-section-number">8.4.2</span> b</h3>
+<p><img src="kj8/8.7b.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r">best_model <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()</code></pre>
+<pre><code>## n= 132 
+## 
+## node), split, n, deviance, yval
+##       * denotes terminal node
+## 
+## 1) root 132 138.14900  0.0008927547  
+##   2) ManufacturingProcess32&lt; 0.191596 78  45.57812 -0.5070065000 *
+##   3) ManufacturingProcess32&gt;=0.191596 54  43.38618  0.7345250000 *</code></pre>
+<pre class="sourceCode r"><code class="sourceCode r">rmse_values[<span class="kw">which.min</span>(rmse_values)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">print</span>()</code></pre>
+<pre><code>## [1] 0.6278685</code></pre>
+<p>We see that ManufacturingProcess32 is the most important. That the max depth is limited to 1 this is the only predictor. That said, when we used the default values to constrain cp, the</p>
+</div>
+<div id="c-4" class="section level3">
+<h3><span class="header-section-number">8.4.3</span> c</h3>
+<p><img src="kj8/8.7c.png" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rpart.plot</span>(best_model)</code></pre>
+<p><img src="HW2_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p>Again constrained to max depth 1 this is a very simple plot. The model assigns a yeild of -0.51 if Manufacturing Process 32 is less than 0.19 and 0.73 if greater than 0.19. This results in an RMSE of 0.6278685. Note that many other models had a similar RMSE. This is the simplest model to give that error.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="comparing-models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-KJ8.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["HW2.pdf", "HW2.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

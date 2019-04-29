@@ -1,7 +1,7 @@
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-libs <- c('AppliedPredictiveModeling', 'tidyverse', 'rpart', 'rpart.plot', 'DMwR', 'PerformanceAnalytics')
+libs <- c('AppliedPredictiveModeling', 'tidyverse', 'rpart', 'rpart.plot', 'DMwR', 'PerformanceAnalytics', 'Metrics', 'impute')
 
 loadPkg <- function(x) {
   if(!require(x, character.only = T)) install.packages(x, dependencies = T, repos = "http://cran.us.r-project.org")

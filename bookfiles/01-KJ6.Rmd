@@ -26,9 +26,9 @@ data <- ChemicalManufacturingProcess %>%
 
 # split dataset into predictors and yield
 Xs <- data %>%
-  select(-Yield)
+  dplyr::select(-Yield)
 y <- data %>%
-  select(Yield)
+  dplyr::select(Yield)
 ```
 
 
@@ -46,12 +46,12 @@ The `r missing` missing values corresponds to `r missingPercent %>% multiply_by(
 
 ```{r}
 missingPredictors <- Xs %>%
-  gather(predictor, value) %>%
-  group_by(predictor) %>%
-  summarise(missing = sum(is.na(value))) %>%
-  mutate(percent = (missing/sum(missing)) * 100) %>%
-  filter(missing > 0) %>%
-  arrange(desc(missing))
+  tidyr::gather(predictor, value) %>%
+  dplyr::group_by(predictor) %>%
+  dplyr::summarise(missing = sum(is.na(value))) %>%
+  dplyr::mutate(percent = (missing/sum(missing)) * 100) %>%
+  dplyr::filter(missing > 0) %>%
+  dplyr::arrange(desc(missing))
 
 print(missingPredictors)
 missingPredictors$missing[c(1:3)]
