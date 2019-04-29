@@ -1,5 +1,16 @@
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+libs <- c('AppliedPredictiveModeling', 'tidyverse', 'rpart', 'rpart.plot', 'DMwR', 'PerformanceAnalytics')
+
+loadPkg <- function(x) {
+  if(!require(x, character.only = T)) install.packages(x, dependencies = T, repos = "http://cran.us.r-project.org")
+  require(x, character.only = T)
+}
+lapply(libs, loadPkg)
+
+dev.new(width = 1280, height = 768 ,units = 'px')
+data(ChemicalManufacturingProcess)
 ```
 
 # KJ8
@@ -374,7 +385,7 @@ table(varImpVector)[order(table(varImpVector), decreasing=TRUE)]
 ### a
 ![](./kj8/8.3a.png)
 
-
+Trees tend to form retangular regions in the vector space formed by the predictor values (figure 8.1, page 174). By setting the bagging fraction and the learning rate to 0.9 you have affectively increased the areas formed by the model for the most important predictors. This is becuase you are adding a larger fraction of the previous iteration's prediction to the current interation's prediction. This will tend to bias toward the most influential predictors. 
 
 
 
@@ -382,7 +393,7 @@ table(varImpVector)[order(table(varImpVector), decreasing=TRUE)]
 ### b
 ![](./kj8/8.3b.png)
 
-
+Setting the learning fraction too high would tend to under-fit the model, leading to high bias in the bias-varaince balance. A learing rate of less than 0.01 is considered optimal (page 206), so the learning rate of 0.1 would make a more predictive model.
 
 
 
@@ -390,7 +401,7 @@ table(varImpVector)[order(table(varImpVector), decreasing=TRUE)]
 ### c
 ![](./kj8/8.3c.png)
 
-
+Increasing depth would decrease the slope of predcitor importance. A increased depth would have more possible outcomes, and with more possible predictions the iterative loop would progress more slowly. That is to say that each outcome's effect would be lesser and the model would tend to a stable outcome over more iterations. The overall effect being an increase in the number of predictor importance which would mean that the slope of the predcitor importance would go down.
 
 
 
@@ -398,13 +409,138 @@ table(varImpVector)[order(table(varImpVector), decreasing=TRUE)]
 ## 8.7
 ![](./kj8/8.7.png)
 
+The matrix processPredictors contains the 57 predictors (12 describingthe input biological material and 45 describing the process predictors) for the 176 manufacturing runs. yield contains the percent yield for each run.
 
+```{r}
+# removes outliers  https://stackoverflow.com/questions/4787332/how-to-remove-outliers-from-a-dataset
+ChemicalManufacturingProcess <- ChemicalManufacturingProcess[!ChemicalManufacturingProcess %in% boxplot.stats(ChemicalManufacturingProcess)$out]
+# replace missing values and outliers with a KNN imputation
+ChemicalManufacturingProcess <- ChemicalManufacturingProcess %>% knnImputation(k=5)
+ChemicalManufacturingProcess %>% summary()
+```
+
+```{r, dat_viz, eval=TRUE}
+ChemicalManufacturingProcess[,2:12]%>% chart.Correlation()
+ChemicalManufacturingProcess[,13:23]%>% chart.Correlation()
+ChemicalManufacturingProcess[,24:34]%>% chart.Correlation()
+ChemicalManufacturingProcess[,35:45]%>% chart.Correlation()
+ChemicalManufacturingProcess[,46:58] %>% chart.Correlation()
+```
+
+
+```{r center-scale, eval=TRUE}
+# rescale the data for the PLS
+ChemicalManufacturingProcess <- ChemicalManufacturingProcess %>% mutate_all(funs(scale))
+ChemicalManufacturingProcess[,2:12]%>% chart.Correlation()
+ChemicalManufacturingProcess[,13:23]%>% chart.Correlation()
+ChemicalManufacturingProcess[,24:34]%>% chart.Correlation()
+ChemicalManufacturingProcess[,35:45]%>% chart.Correlation()
+ChemicalManufacturingProcess[,46:58] %>% chart.Correlation()
+```
+
+```{r, rand_tree, eval=TRUE}
+# Now I will use a 5x Cross Validation 
+smp_size <- floor(0.75 * nrow(ChemicalManufacturingProcess))
+library(Metrics)
+## set the seed to make your partition reproducible
+for(i in c(40:44)){
+  set.seed(i)
+  train_ind <- sample(seq_len(nrow(ChemicalManufacturingProcess)), size = smp_size)
+
+  train <- ChemicalManufacturingProcess[train_ind,]
+  test <- ChemicalManufacturingProcess[-train_ind,]
+  x = train[,2:58]
+  anv <- rpart(
+  formula = Yield ~ .,
+  data    = train,
+  method  = "anova"
+  )
+  anv %>% print()
+  plotcp(anv)
+  rpart.plot(anv)
+  pred<- predict(object = anv, newdata = test)
+  rmse(test$Yield,pred) %>% print()
+}
+```
+
+```{r, rand_tree_cp_opt, eval=TRUE}
+# Now I will use a 5x Cross Validation 
+smp_size <- floor(0.75 * nrow(ChemicalManufacturingProcess))
+library(Metrics)
+## set the seed to make your partition reproducible
+for(i in c(40:44)){
+  set.seed(i)
+  train_ind <- sample(seq_len(nrow(ChemicalManufacturingProcess)), size = smp_size)
+
+  train <- ChemicalManufacturingProcess[train_ind,]
+  test <- ChemicalManufacturingProcess[-train_ind,]
+  anv <- rpart(
+  formula = Yield ~ .,
+  data    = train,
+  method  = "anova"
+  )
+  #from datacamp https://campus.datacamp.com/courses/machine-learning-with-tree-based-models-in-r/regression-trees
+  opt_index <- which.min(anv$cptable[, "xerror"])
+  cp_opt <- anv$cptable[opt_index, "CP"]
+  anv_opt <- prune(tree = anv, cp = cp_opt)
+  rpart.plot(anv_opt)
+  pred<- predict(object = anv_opt, newdata = test)
+  i %>% print()
+  cp_opt %>% print()
+  rmse(test$Yield,pred) %>% print()
+}
+```
+
+```{r, rand_tree_grid_search, eval=TRUE}
+# Now I will use a 5x Cross Validation 
+smp_size <- floor(0.75 * nrow(ChemicalManufacturingProcess))
+library(Metrics)
+## set the seed to make your partition reproducible
+minsplit <- seq(1,15,1)
+maxdepth <- seq(1,15,1)
+
+hyper_grid <- expand.grid(minsplit = minsplit, maxdepth = maxdepth)
+cp_opt <- 0.02279032 #for seed 42
+num_models <- nrow(hyper_grid)
+set.seed(42)
+train_ind <- sample(seq_len(nrow(ChemicalManufacturingProcess)), size = smp_size)
+
+train <- ChemicalManufacturingProcess[train_ind,]
+test <- ChemicalManufacturingProcess[-train_ind,]
+
+rmse_values <- c()
+anvs <- list()
+for(i in c(1:num_models)){
+  # Get minsplit, maxdepth values at row i
+  minsplit <- hyper_grid$minsplit[i]
+  maxdepth <- hyper_grid$maxdepth[i]
+
+  # Train a model and store in the list
+  anvs[[i]] <- rpart(formula = Yield ~ ., 
+                              data = train, 
+                              method = "anova",
+                              cp= cp_opt,
+                              minsplit = minsplit,
+                              maxdepth = maxdepth)
+  anv <- anvs[[i]]
+  pred <- predict(object = anv,
+                  newdata = test)
+  #from datacamp https://campus.datacamp.com/courses/machine-learning-with-tree-based-models-in-r/regression-trees
+  rmse_values[i] = rmse(test$Yield, pred)
+}
+
+# Identify the model with smallest validation set RMSE
+best_model <- anvs[[which.min(rmse_values)]]
+
+# Print the model paramters of the best model
+best_model$control
+```
 
 
 ### a
 ![](./kj8/8.7a.png)
 
-
+Performing a grid search on the best hyper-parameters yeilds a tree regression with a max depth of 1 and a minimum split of 2 with a cp of 0.02279032. This is a very simplistic model. We wonder if the pre-processing that we were told to maintain from 6.3 was not optimal for this model leading to under-fitting the model.
 
 
 
@@ -412,7 +548,12 @@ table(varImpVector)[order(table(varImpVector), decreasing=TRUE)]
 ### b
 ![](./kj8/8.7b.png)
 
+```{r}
+best_model %>% print()
+rmse_values[which.min(rmse_values)] %>% print()
+```
 
+We see that ManufacturingProcess32 is the most important. That the max depth is limited to 1 this is the only predictor. That said, when we used the default values to constrain cp, the 
 
 
 
@@ -421,7 +562,11 @@ table(varImpVector)[order(table(varImpVector), decreasing=TRUE)]
 ![](./kj8/8.7c.png)
 
 
+```{r}
+rpart.plot(best_model)
+```
 
+Again constrained to max depth 1 this is a very simple plot. The model assigns a yeild of -0.51 if Manufacturing Process 32 is less than 0.19 and 0.73 if greater than 0.19. This results in an RMSE of 0.6278685. Note that many other models had a similar RMSE. This is the simplest model to give that error.
 
 
 
