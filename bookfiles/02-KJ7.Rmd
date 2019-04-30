@@ -68,7 +68,7 @@ error_and_Rsquared <- function(model){
 }
 ```
 
-#### Neural networks
+### Neural networks
 
 Let's try the neural networks method with model averaging.
 
@@ -86,7 +86,7 @@ averaging_nnet_model <- train(trainingData$x,trainingData$y,
                             maxit = 500)
 ```
 
-#### Multivariate Adaptive Regression Splines (MARS)
+### Multivariate Adaptive Regression Splines (MARS)
 
 Use the earth command from the earth package.
 
@@ -105,7 +105,7 @@ summary(MARS_model)
 
 For the most part, yes, but not entirely. The MARS model does include all five of the informative predictors (X1-X5) and excludes most of the last predictors that did not appear as correlated with outcome. However, it does also include one of the last predictors (X6).
 
-####  Support Vector Machine (SVM)
+###  Support Vector Machine (SVM)
 
 I tried running SVM with a polynomial kernel here, but runtime was impractically long.
 
@@ -127,7 +127,7 @@ SVM_RBF_model <- train(trainingData$x,trainingData$y,
 					tuneLength = 14)
 ```
 
-#### K-Nearest Neighbors (KNN)
+### K-Nearest Neighbors (KNN)
 
 Let's run KNN just as it was run in the question example.
 
@@ -139,7 +139,7 @@ knn_model <- train(x = trainingData$x,
                 tuneLength = 10)
 ```
 
-#### Comparing models
+### Comparing models
 
 Run function to get error and R-squared for each model.
 
