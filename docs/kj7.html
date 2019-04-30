@@ -144,6 +144,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="kj7.html"><a href="kj7.html"><i class="fa fa-check"></i><b>3</b> KJ7</a><ul>
 <li class="chapter" data-level="3.1" data-path="kj7.html"><a href="kj7.html#section-1"><i class="fa fa-check"></i><b>3.1</b> 7.2</a><ul>
 <li class="chapter" data-level="3.1.1" data-path="kj7.html"><a href="kj7.html#preliminary-steps"><i class="fa fa-check"></i><b>3.1.1</b> Preliminary steps</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kj7.html"><a href="kj7.html#neural-networks"><i class="fa fa-check"></i><b>3.1.2</b> Neural networks</a></li>
+<li class="chapter" data-level="3.1.3" data-path="kj7.html"><a href="kj7.html#multivariate-adaptive-regression-splines-mars"><i class="fa fa-check"></i><b>3.1.3</b> Multivariate Adaptive Regression Splines (MARS)</a></li>
+<li class="chapter" data-level="3.1.4" data-path="kj7.html"><a href="kj7.html#support-vector-machine-svm"><i class="fa fa-check"></i><b>3.1.4</b> Support Vector Machine (SVM)</a></li>
+<li class="chapter" data-level="3.1.5" data-path="kj7.html"><a href="kj7.html#k-nearest-neighbors-knn"><i class="fa fa-check"></i><b>3.1.5</b> K-Nearest Neighbors (KNN)</a></li>
+<li class="chapter" data-level="3.1.6" data-path="kj7.html"><a href="kj7.html#comparing-models"><i class="fa fa-check"></i><b>3.1.6</b> Comparing models</a></li>
 </ul></li>
 <li class="chapter" data-level="3.2" data-path="kj7.html"><a href="kj7.html#section-2"><i class="fa fa-check"></i><b>3.2</b> 7.5</a><ul>
 <li class="chapter" data-level="3.2.1" data-path="kj7.html"><a href="kj7.html#initial-data-loading"><i class="fa fa-check"></i><b>3.2.1</b> Initial data loading</a></li>
@@ -223,8 +228,9 @@ testData<span class="op">$</span>x &lt;-<span class="st"> </span><span class="kw
     predictions &lt;-<span class="st"> </span><span class="kw">predict</span>(model,<span class="dt">newdata =</span> testData<span class="op">$</span>x)
     <span class="kw">return</span>(<span class="kw">postResample</span>(<span class="dt">pred =</span> predictions, <span class="dt">obs =</span> testData<span class="op">$</span>y))
 }</code></pre>
-<div id="neural-networks" class="section level4">
-<h4><span class="header-section-number">3.1.1.1</span> Neural networks</h4>
+</div>
+<div id="neural-networks" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Neural networks</h3>
 <p>Let’s try the neural networks method with model averaging.</p>
 <pre class="sourceCode r"><code class="sourceCode r">nnetGrid &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">.decay =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.01</span>, <span class="fl">.1</span>),
                 <span class="dt">.size =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>),
@@ -238,8 +244,8 @@ averaging_nnet_model &lt;-<span class="st"> </span><span class="kw">train</span>
                             <span class="dt">trace=</span><span class="ot">FALSE</span>,
                             <span class="dt">maxit =</span> <span class="dv">500</span>)</code></pre>
 </div>
-<div id="multivariate-adaptive-regression-splines-mars" class="section level4">
-<h4><span class="header-section-number">3.1.1.2</span> Multivariate Adaptive Regression Splines (MARS)</h4>
+<div id="multivariate-adaptive-regression-splines-mars" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Multivariate Adaptive Regression Splines (MARS)</h3>
 <p>Use the earth command from the earth package.</p>
 <pre class="sourceCode r"><code class="sourceCode r">MARS_model &lt;-<span class="st"> </span><span class="kw">earth</span>(trainingData<span class="op">$</span>x,trainingData<span class="op">$</span>y)</code></pre>
 <p>Print model details.</p>
@@ -274,8 +280,8 @@ averaging_nnet_model &lt;-<span class="st"> </span><span class="kw">train</span>
 <p>“Does MARS select the informative predictors (those named X1–X5)?”</p>
 <p>For the most part, yes, but not entirely. The MARS model does include all five of the informative predictors (X1-X5) and excludes most of the last predictors that did not appear as correlated with outcome. However, it does also include one of the last predictors (X6).</p>
 </div>
-<div id="support-vector-machine-svm" class="section level4">
-<h4><span class="header-section-number">3.1.1.3</span> Support Vector Machine (SVM)</h4>
+<div id="support-vector-machine-svm" class="section level3">
+<h3><span class="header-section-number">3.1.4</span> Support Vector Machine (SVM)</h3>
 <p>I tried running SVM with a polynomial kernel here, but runtime was impractically long.</p>
 <p>However, I will try running with both a linear and radial basis function kernel.</p>
 <pre class="sourceCode r"><code class="sourceCode r">SVM_linear_model &lt;-<span class="st"> </span><span class="kw">train</span>(trainingData<span class="op">$</span>x,trainingData<span class="op">$</span>y,
@@ -289,8 +295,8 @@ averaging_nnet_model &lt;-<span class="st"> </span><span class="kw">train</span>
                     <span class="dt">preProc =</span> <span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>),
                     <span class="dt">tuneLength =</span> <span class="dv">14</span>)</code></pre>
 </div>
-<div id="k-nearest-neighbors-knn" class="section level4">
-<h4><span class="header-section-number">3.1.1.4</span> K-Nearest Neighbors (KNN)</h4>
+<div id="k-nearest-neighbors-knn" class="section level3">
+<h3><span class="header-section-number">3.1.5</span> K-Nearest Neighbors (KNN)</h3>
 <p>Let’s run KNN just as it was run in the question example.</p>
 <pre class="sourceCode r"><code class="sourceCode r">knn_model &lt;-<span class="st"> </span><span class="kw">train</span>(<span class="dt">x =</span> trainingData<span class="op">$</span>x,
                 <span class="dt">y =</span> trainingData<span class="op">$</span>y,
@@ -298,8 +304,8 @@ averaging_nnet_model &lt;-<span class="st"> </span><span class="kw">train</span>
                 <span class="dt">preProc =</span> <span class="kw">c</span>(<span class="st">&quot;center&quot;</span>, <span class="st">&quot;scale&quot;</span>),
                 <span class="dt">tuneLength =</span> <span class="dv">10</span>)</code></pre>
 </div>
-<div id="comparing-models" class="section level4">
-<h4><span class="header-section-number">3.1.1.5</span> Comparing models</h4>
+<div id="comparing-models" class="section level3">
+<h3><span class="header-section-number">3.1.6</span> Comparing models</h3>
 <p>Run function to get error and R-squared for each model.</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class="cf">for</span>(model <span class="cf">in</span> <span class="kw">c</span>(<span class="st">&quot;averaging_nnet_model&quot;</span>,<span class="st">&quot;MARS_model&quot;</span>,<span class="st">&quot;SVM_linear_model&quot;</span>,<span class="st">&quot;SVM_RBF_model&quot;</span>,<span class="st">&quot;knn_model&quot;</span>))
 {
@@ -324,7 +330,6 @@ averaging_nnet_model &lt;-<span class="st"> </span><span class="kw">train</span>
 <p>Looks like the best model here in terms of both R-squared (aka variance explained) and RMSE/MAE (minimizing error) within the test data is MARS.</p>
 <p>After that, the neural network with model averaging and SVM with radial basis function both perform pretty similarly, falling slightly behind MARS but still doing pretty well.</p>
 <p>The KNN and SVM with linear kernel models perform the worst out of the five models tested.</p>
-</div>
 </div>
 </div>
 <div id="section-2" class="section level2">
