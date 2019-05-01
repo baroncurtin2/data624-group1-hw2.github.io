@@ -1382,8 +1382,18 @@ best_model %>% print()
 rmse_values[which.min(rmse_values)] %>% print()
 ```
 
-We see that ManufacturingProcess32 is the most important. That the max depth is limited to 1 this is the only predictor. That said, when we used the default values to constrain cp, the 
+We see that ManufacturingProcess32 is the most important. That the max depth is limited to 1 this is the only predictor. That said, when we used the default values to constrain cp, the next most important 9 are ManufacturingProcess06, BiologicalMaterial12,  ManufacturingProcess25, ManufacturingProcess17,ManufacturingProcess27, BiologicalMaterial05,ManufacturingProcess01, ManufacturingProcess18, BiologicalMaterial03.
 
+Note that not all of these show up in the  same model, and the models are highly dependant on the random number seed.
+
+From 7.5, The optimal nonlinear model includes 4 biological variables: 2,3,6,and 12.
+Manufacturing process variables in the top 10 in nonlinear: 9,13,17,31,32, and 36.
+
+So there is some overlap, but not entirely.
+
+From 6.3 The top variables are Mostly manufacutering: 32, 09, 36, 17, 13, 33, 06, and 11. Biologicals are 06 and 08.
+
+Both include Manufacturing 32 as the most important.
 
 
 
@@ -1396,6 +1406,8 @@ rpart.plot(best_model)
 ```
 
 Again constrained to max depth 1 this is a very simple plot. The model assigns a yeild of -0.51 if Manufacturing Process 32 is less than 0.19 and 0.73 if greater than 0.19. This results in an RMSE of 0.6278685. Note that many other models had a similar RMSE. This is the simplest model to give that error.
+
+In a more complex model like those shown above when we were constraining cp, we see that Manufacturing processes tend to dominate the tree. What's more, although more possible outcomes are given, the outcomes of the simple tree we derived as the best model result in a weighted average of the more varied results. This may be why the simple tree with Manufacturing Process as the root with no intermediate steps gives the best model.
 
 
 

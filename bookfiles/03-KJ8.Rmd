@@ -568,7 +568,6 @@ Both include Manufacturing 32 as the most important.
 
 
 
-
 ### c
 ![](./kj8/8.7c.png)
 
